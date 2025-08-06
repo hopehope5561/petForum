@@ -45,4 +45,21 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function rank()
+    {
+        return $this->belongsTo(Rank::class);
+    }
+
+    public function updateUserRank(User $user): void
+    {
+        $newRank = Rank::where('min_points', '<=', $user->points)
+                    ->orderByDesc('min_points')
+                    ->first();
+
+        if ($newRank && $user->rank_id !== $newRank->id) {
+            $user->rank_id = $newRank->id;
+            $user->save();
+        }
+    }
 }
