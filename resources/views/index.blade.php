@@ -13,12 +13,188 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-</head>
+
+  <style>
+
+
+body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .soru-cevap-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        .soru-cevap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 25px;
+        }
+
+        .soru-cevap-header span:first-child {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .soru-cevap-header i {
+            color: #6c757d;
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .soru-cevap-header i:hover {
+            color: #007bff;
+        }
+
+        .soru-cevap-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .topic-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-item:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .topic-title {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .topic-meta {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        /* Özelleştirilmiş Pagination Stilleri */
+        .custom-pagination {
+            margin: 30px 0 0 0;
+            padding: 0;
+        }
+
+        .custom-pagination .pagination {
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .custom-pagination .page-item .page-link {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 10px 15px;
+            color: #495057;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background-color: white;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .custom-pagination .page-item .page-link:hover {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .custom-pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .custom-pagination .page-item.disabled .page-link {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .custom-pagination .page-item.disabled .page-link:hover {
+            transform: none;
+            box-shadow: none;
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            color: #6c757d;
+        }
+
+        /* Önceki/Sonraki butonları için özel stiller */
+        .custom-pagination .page-item:first-child .page-link,
+        .custom-pagination .page-item:last-child .page-link {
+            font-weight: 600;
+            padding: 10px 18px;
+        }
+
+        /* Sayfa bilgisi metnini gizle */
+        .pagination-info,
+        .showing-results,
+        p:contains("Showing") {
+            display: none !important;
+        }
+
+        /* Laravel'in otomatik eklediği sayfa bilgisi metinlerini gizle */
+        .d-flex.justify-content-between.flex-wrap.flex-sm-nowrap.align-items-center.py-4 p,
+        .pagination-wrapper p {
+            display: none !important;
+        }
+
+        /* Responsive tasarım */
+        @media (max-width: 768px) {
+            .custom-pagination .page-item .page-link {
+                padding: 8px 12px;
+                min-width: 38px;
+                font-size: 14px;
+            }
+            
+            .soru-cevap-container {
+                margin: 0 10px;
+                padding: 20px 15px;
+            }
+        }
+
+        /* Ekstra güvenlik: Tüm "showing" metinlerini gizle */
+        *:contains("showing"),
+        *:contains("Showing"),
+        *:contains("results"),
+        *:contains("Results") {
+            display: none !important;
+        }
+  </style>
+
+  </head>
 
 <body>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
   <div class="HeaderTop">
-    <header class="top-header">
+    <header class="top-header" style="background-color: #2E2E2E;">
       <div class="container">
         <div class="social-media"><a href="https://www.facebook.com/expressmama.co/" target="_blank"><i
               class="fab fa-facebook"></i> </a> <a href="https://www.instagram.com/expressmama.com.tr/" target="_blank">
@@ -65,17 +241,12 @@
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
   <!-- Arama Kutusu -->
   <div class="search-box-container-web-design">
-    <form class="search-box-main" id="searchForm">
-            <input type="text" id="searchInput" placeholder="Kedi, köpek, aksesuarlar..." autocomplete="off">
-            <button type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </form>
+    
 
     <!-- Sağ Menü -->
     <div class="login-actions">
       <div class="help-container">
-        <a href="#" class="login-action">Yardım</a>
+       
         <div class="help-popup">
           <div class="popup-header">
             <i class="fa-solid fa-face-smile-beam"></i> %100 Mutlu Müşteri Hizmeti
@@ -107,34 +278,10 @@
       <div class="myaccount-popup">
         <div class="popup-header">
           <span id="user-name" class="popup-header-user-name">MelihBektaş</span>
-          <a href="#">
-            <i class="fa-solid fa-bell" id="popup-header-user-name-icon-renk"></i>
-          </a>
-          <a href="#">
-            <i class="fa-solid fa-envelope" id="popup-header-user-name-icon-renk"></i>
-          </a>
+          
         </div>
         <div class="popup-content">
 
-          <a href="#" class="menu-item-myaccount-popup">
-            <div class="menu-icon"><i class="fa-solid fa-box"></i></div>
-            Siparişlerim
-          </a>
-
-          <a href="#" class="menu-item-myaccount-popup">
-            <div class="menu-icon"><i class="fa-solid fa-location-dot"></i></div>
-            Teslimat Adreslerim
-          </a>
-
-          <a href="#" class="menu-item-myaccount-popup">
-            <div class="menu-icon"><i class="fa-solid fa-credit-card"></i></div>
-            Kayıtlı Kartlarım
-          </a>
-
-          <a href="#" class="menu-item-myaccount-popup">
-            <div class="menu-icon"><i class="fa-solid fa-coins"></i></div>
-            Para Puanlarım
-          </a>
 
           <a href="#" class="menu-item-myaccount-popup">
             <div class="menu-icon"><i class="fa-solid fa-user"></i></div>
@@ -143,14 +290,10 @@
 
           <a href="#" class="menu-item-myaccount-popup">
             <div class="menu-icon"><i class="fa-solid fa-shield-dog"></i></div>
-           Sahiplendirme İlanlarım
+           Konularım
           </a>
 
-          <a href="#" class="menu-item-myaccount-popup">
-            <div class="menu-icon"><i class="fa-solid fa-id-card"></i></div>
-            Petlerim
-          </a>
-
+  
           <a href="#" class="menu-item-myaccount-popup">
             <div class="menu-icon"><i class="fa-solid fa-award"></i></div>
             Rozetlerim
@@ -163,26 +306,7 @@
         </div>
       </div>
       </div>
-      <div class="basket-container">
-      <a href="#" class="login-action"><i class="fa-solid fa-cart-shopping"></i> Sepetim</a>
-      <div class="basket-popup">
-        <div class="popup-header">
-          <span class="basket-alert">Sepet Toplamı</span>
-        </div>
-        <div class="popup-content">
-          <div class="popup-basket-total-price">
-          <span id="basket-total-price">0 TL</span>
-        </div>
-          <i class="fa-solid fa-lock"></i>
-          <span>256bit SSL ile %100 Güvenli Ödeme</span>
-        </div>
-        <div class="popup-basket">
-          <a href="https://www.expressmama.com/checkout" class="popup-basket-button-link">
-          <button class="popup-basket-button" id="popup-basket-button-text">Sepete Git</button>
-          </a>
-        </div>
-      </div>
-      </div>
+     
     </div>
   </div>
   <!-- FİNİSH WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
@@ -190,13 +314,14 @@
   <!---START WEB HEADER KATEGORİLER--->
   <div class="main-menu-container">
     <nav class="main-menu">
-      <a href="#">Kedi Ürünleri</a>
-      <a href="#">Köpek Ürünleri</a>
-      <a href="#">Kuş Ürünleri</a>
-      <a href="#">Kemirgen Ürünleri</a>
-      <a href="#">Kampanyalar</a>
-      <a href="#">Pati Kulüp</a>
-      <a href="#">Yuva Arayanlar</a>
+      <a href="https://www.expressmama.com/kedi">Kedi Ürünleri</a>
+      <a href="https://www.expressmama.com/köpek">Köpek Ürünleri</a>
+      <a href="https://www.expressmama.com/kus">Kuş Ürünleri</a>
+
+      <a href="https://www.expressmama.com/kemirgen">Kemirgen Ürünleri</a>
+      <a href="https://www.expressmama.com/kampanyalar">Kampanyalar</a>
+      <a href="https://www.expressmama.com/kus">Pati Kulüp</a>
+      <a href="https://www.expressmama.com/kus">Yuva Arayanlar</a>
     </nav>
   </div>
   <!---FİNİSH WEB HEADER KATEGORİLER--->
@@ -314,33 +439,37 @@
       <div class="homepage-section-alert-yuvalandi">
         <div class="homepage-section-alert-yuvalandi-number">
           <i class="fa-solid fa-paw" id="yuvalanan-sayisi-icon"></i>
-          <h2 class="homepage-section-alert-yuvalandi-number-text" id="yuvalanan-sayisi-count">165.000</h2>
+          <h2 class="homepage-section-alert-yuvalandi-number-text" id="yuvalanan-sayisi-count">100</h2>
           <h2 id="yuvalanan-sayisi-label">KEDİ KÖPEK ve KUŞ YUVA BULDU!</h2>
         </div>
       </div>
      <div class="homepage-section-ilan">
     <div class="homepage-section-ilan-item">
-    {{-- Sahiplendirme konularından sadece 3 tanesini döngüye sokuyoruz --}}
-    @foreach ($sahiplendirmeTopics->take(3) as $topic)
-        <div class="homepage-section-ilan-item-image" id="ilan-item-image-{{ $loop->index }}">
-            <a href="" title="{{ $topic->title }}">
+   
+    @foreach ($sahiplendirmeTopics as $topic)
+    <div class="homepage-section-ilan-item-image" id="ilan-item-image-{{ $loop->index }}">
+        <a href="" title="{{ $topic->title }}">
+            @if($topic->images->isNotEmpty())
                 <img
-                    src="{{ $topic->image_url }}"
-                    data-original="{{ $topic->thumbnail_url }}"
+                    src="{{ asset('storage/' . $topic->images->first()->image_path) }}"
+                    data-original="{{ $topic->thumbnail_url ?? '' }}"
                     id="ilan-image-mobil-{{ $loop->index }}" 
                     alt="{{ $topic->title }}"
                     class="img-thumbnail-mobil rounded p-0 lazy loaded thumbnail-kare" 
                     loading="lazy"
                     data-ll-status="loaded" 
                 />
-                <div class="homepage-section-ilan-item-text">
-                    <h4 class="ilan-basligi-mobil" id="ilan-basligi-text-{{ $loop->index }}">
-                        {{ $topic->title }}
-                    </h4>
-                </div>
-            </a>
-        </div>
-    @endforeach
+            @endif
+
+            <div class="homepage-section-ilan-item-text">
+                <h4 class="ilan-basligi-mobil" id="ilan-basligi-text-{{ $loop->index }}">
+                    {{ $topic->title }}
+                </h4>
+            </div>
+        </a>
+    </div>
+@endforeach
+
 </div>
 
     
@@ -362,91 +491,85 @@
   </div>
   <!--FİNİSH YUVA ARAYANLAR 02-->
 
-  <!--START SORU CEVAP 03-->
-  <div class="soru-cevap-container">
+  <div>
+
+  <div class="homepage-section-new-question" style="margin-left: 60px; margin-top: 20px;">
+        <a href="{{ route('topic.create') }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
+    Yeni Soru Sor
+        </a>
+      </div>
+  </div>
+
+<div class="soru-cevap-container">
     <div class="soru-cevap-header">
         <span>Soru Cevap</span>
         <span><i class="fa-solid fa-up-right-from-square" id="question-answer-link-icon"></i></span>
     </div>
-    <ul class="soru-cevap-list">
-        @forelse ($topics as $topic)
-            <li>
-                {{-- Kullanıcı profil resmi --}}
-                @if ($topic->user && $topic->user->image_path)
-                    <img src="{{ asset($topic->user->image_path) }}" class="avatar" />
-                @else
-                    {{-- Kullanıcı resmi yoksa varsayılan bir avatar gösteririz --}}
-                    <img src="{{ asset('path/to/default-avatar.png') }}" class="avatar" />
-                @endif
-                
-                <div class="soru-cevap-content">
-                    {{-- Kullanıcı adı ve soyadı --}}
-                    <span class="user">
-                        {{ $topic->user->name ?? 'Anonim' }} {{ $topic->user->lastName ?? '' }}
-                    </span>
-                    {{-- Konunun oluşturulma zamanı --}}
-                    <span class="time">{{ $topic->created_at }}</span>
-                    {{-- Soru başlığı/içeriği --}}
-                    <div class="question">
-                        <a href="">{{ Str::limit($topic->title, 70) }}</a>
-                    </div>
-                    <div class="homepage-section-question-answer-icon-alert">
-                        {{-- Buradaki ikonlar dinamik veriye bağlıysa burayı da güncelleyebiliriz --}}
-                        <div class="homepage-section-question-answer-icon-questionnaire">
-                            <i class="fa-solid fa-chart-pie" id="questionnaire-icon-{{ $loop->index }}"></i>
-                        </div>
-                        <div class="homepage-section-question-answer-icon-camera">
-                            <i class="fa-solid fa-camera" id="camera-icon-{{ $loop->index }}"></i>
-                        </div>
-                    </div>
-                </div>
-            </li>
-        @empty
-            {{-- Soru Cevap kategorisinde henüz bir konu yoksa bu kısım çalışır --}}
-            <li>
-                <div class="soru-cevap-content">
-                    <div class="question">Henüz soru eklenmedi.</div>
-                </div>
-            </li>
-        @endforelse
+
+    <ul class="soru-cevap-list" id="soru-cevap-list">
+        @foreach ($topics as $topic)
+            @include('partials.topic_list_item', ['topic' => $topic])
+        @endforeach
     </ul>
+
+@if ($topics->hasPages())
+<nav>
+    <ul class="pagination justify-content-center">
+        {{-- Önceki sayfa --}}
+        @if ($topics->onFirstPage())
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+        @else
+            <li class="page-item"><a class="page-link" href="{{ $topics->previousPageUrl() }}" rel="prev">&laquo;</a></li>
+        @endif
+
+        @php
+            $current = $topics->currentPage();
+            $last = $topics->lastPage();
+            $start = max($current - 2, 1);
+            $end = min($current + 2, $last);
+        @endphp
+
+        {{-- Başlangıç için 1 ve … --}}
+        @if($start > 1)
+            <li class="page-item"><a class="page-link" href="{{ $topics->url(1) }}">1</a></li>
+            @if($start > 2)
+                <li class="page-item disabled"><span class="page-link">…</span></li>
+            @endif
+        @endif
+
+        {{-- Aktif sayfanın ±3 aralığı --}}
+        @for ($i = $start; $i <= $end; $i++)
+            @if ($i == $current)
+                <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
+            @else
+                <li class="page-item"><a class="page-link" href="{{ $topics->url($i) }}">{{ $i }}</a></li>
+            @endif
+        @endfor
+
+        {{-- Sondaki son sayfa ve … --}}
+        @if($end < $last)
+            @if($end < $last - 1)
+                <li class="page-item disabled"><span class="page-link">…</span></li>
+            @endif
+            <li class="page-item"><a class="page-link" href="{{ $topics->url($last) }}">{{ $last }}</a></li>
+        @endif
+
+        {{-- Sonraki sayfa --}}
+        @if ($topics->hasMorePages())
+            <li class="page-item"><a class="page-link" href="{{ $topics->nextPageUrl() }}" rel="next">&raquo;</a></li>
+        @else
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+        @endif
+    </ul>
+</nav>
+@endif
+
+
+
+
 </div>
-  <!--FİNİSH SORU CEVAP ANASAYFA 03-->
 
-  <!--START HAFTANIN ŞAMPİYONLARI ANASAYFA 04-->
-  <div class="homepage-section-photo-contest-alert">
-    <div class="homepage-section-photo-contest-alert-text">
-      <h2 id="photo-contest-header">Haftanın Şampiyonları</h2>
-    </div>
-    <div class="homepage-section-photo-contest-alert-img">
-      <img src="https://images.petlebi.com/v7/_ptlb/up/pet/sm_218848_1751800156_4213.jpg" id="photo-contest-cat-img"
-        alt="Kedi şampiyon">
-      <img src="https://images.petlebi.com/v7/_ptlb/up/pet/sm_228240_1751826633_202.jpg" id="photo-contest-dog-img"
-        alt="Köpek şampiyon">
-    </div>
-    <div class="homepage-section-photo-contest-alert-cat-name">
-      <h2 id="champion-cat-name">casper</h2>
-    </div>
-    <div class="homepage-section-photo-contest-alert-dog-name">
-      <h2 id="champion-dog-name">pablo</h2>
-    </div>
-    <div class="homepage-section-photo-contest-alert-name-text">
-      <h2 id="champion-title">Şampiyonlara</h2>
-      <h2 id="champion-prize">50 TL</h2>
-      <h2 id="champion-gift-label">HEDİYE!</h2>
-      <a href="#" id="champion-details-link">Detaylar <i class="fa-solid fa-up-right-from-square"></i></a>
-    </div>
-    <div class="homepage-section-photo-contest-alert-enter">
-      <div class="homepage-section-photo-contest-alert-enter-button">
-        <i class="fa-solid fa-right-to-bracket" id="enter-button-icon"></i>
-        <button class="homepage-section-photo-contest-alert-enter-button" id="photo-contest-enter-btn">Yarışmaya
-          Katıl</button>
-      </div>
-    </div>
-  </div>
-  <!--FİNİSH HAFTANIN ŞAMPİYONLARI WEB ANASAYFA 04-->
-
-  <!--START FOOTER ANASAYFA 01 06-->
+ 
   <div class="homepage-section-footer-sosyal-forum">
     <div class="homepage-section-footer-sosyal-forum-header-text">
       <h2 id="footer-forum-header">Expressmama Sosyal Hayvan Severler Kulübü</h2>

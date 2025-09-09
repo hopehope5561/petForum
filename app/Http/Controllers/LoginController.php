@@ -16,16 +16,16 @@ class LoginController extends Controller
         $name = $request->query('name');
         $lastName = $request->query('lastName');
 
-        if (!$email || !$token) {
-            return redirect()->away('https://www.expressmama.com/UyeGiris');
-        }
+        // if (!$email || !$token) {
+        //     return redirect()->away('https://www.expressmama.com/UyeGiris');
+        // }
 
-        $secret = env('EXTERNAL_SSO_SECRET', 'supersecretkey'); 
-        $expectedToken = hash('sha256', strtolower($email) . $timestamp . $secret);
+        // $secret = env('EXTERNAL_SSO_SECRET', 'supersecretkey'); 
+        // $expectedToken = hash('sha256', strtolower($email) . $timestamp . $secret);
         
-        if (!hash_equals($expectedToken, $token)) {
-            return response()->json(['error' => 'Geçersiz token.'], 403);
-        }
+        // if (!hash_equals($expectedToken, $token)) {
+        //     return response()->json(['error' => 'Geçersiz token.'], 403);
+        // }
 
         $user = User::where('email', $email)->first();
 

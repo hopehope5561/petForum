@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <title>Admin Panel</title>
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+
     <style>
         * {
             box-sizing: border-box;
@@ -108,8 +111,7 @@
             <ul>
                 <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                 <li><a href="{{ route('admin.users') }}">Kullanıcılar</a></li>
-                <li><a href="#">Rütbeler</a></li>
-                <li><a href="#">Ayarlar</a></li>
+                <li><a href="{{ route('admin.topics') }}">Sorular</a></li>
                 <li><a href="{{ route('admin.logout') }}"
                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Çıkış Yap</a></li>
                 <form id="logout-form" action="{{ route('admin.logout') }}" method="POST" style="display: none;">
