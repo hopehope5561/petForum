@@ -442,181 +442,101 @@ body {
       <span class="icon-mobil">&#10148;</span> Köpek İsimleri
     </div>
   </div>
-  <!--FİNİSH KATEGORİLER MOBİL 01-->
-
-  <!--START YUVA ARAYANLAR 02-->
-  <div class="homepage-section">
-    <div class="homepage-section-header">
-      <div class="homepage-section-title">
-        <h2 class="homepage-section-title-text" id="homepage-section-title-text-information">Yuva Arayanlar</h2>
-      </div>
-      <div class="homepage-section-number">
-        <h2 class="homepage-section-number-text" id="ilan-sayisi-count">{{$count}}</h2>
-        <h2 class="homepage-section-number-text" id="ilan-sayisi-label">İLAN</h2>
-        <i class="fa-solid fa-up-right-from-square" id="ilan-sayisi-icon-link"></i>
-      </div>
-      <div class="homepage-section-alert-yuvalandi">
-        <div class="homepage-section-alert-yuvalandi-number">
-          <i class="fa-solid fa-paw" id="yuvalanan-sayisi-icon"></i>
-          <h2 class="homepage-section-alert-yuvalandi-number-text" id="yuvalanan-sayisi-count">100</h2>
-          <h2 id="yuvalanan-sayisi-label">KEDİ KÖPEK ve KUŞ YUVA BULDU!</h2>
-        </div>
-      </div>
-     <div class="homepage-section-ilan">
-    <div class="homepage-section-ilan-item">
-   
-    @foreach ($sahiplendirmeTopics as $topic)
-    <div class="homepage-section-ilan-item-image" id="ilan-item-image-{{ $loop->index }}">
-        <a href="{{ route('topic.detail', $topic->id) }}" title="{{ $topic->title }}">
-            @if($topic->images->isNotEmpty())
-                <img
-                    src="{{ asset('storage/' . $topic->images->first()->image_path) }}"
-                    data-original="{{ $topic->thumbnail_url ?? '' }}"
-                    id="ilan-image-mobil-{{ $loop->index }}" 
-                    alt="{{ $topic->title }}"
-                    class="img-thumbnail-mobil rounded p-0 lazy loaded thumbnail-kare" 
-                    loading="lazy"
-                    data-ll-status="loaded" 
-                />
-            @endif
-
-            <div class="homepage-section-ilan-item-text">
-                <h4 class="ilan-basligi-mobil" id="ilan-basligi-text-{{ $loop->index }}">
-                    {{ $topic->title }}
-                </h4>
-            </div>
-        </a>
-    </div>
-@endforeach
-
-</div>
-
-    
-    <div class="homepage-section-ilan-item-button">
-        <div class="homepage-section-ilan-item-button-icon">
-            <a href="{{ route('adoption.index') }}"><i class="fa-solid fa-circle-right" id="ilan-item-button-icon-1"></i></a>
-        </div>
-        <div class="homepage-section-ilan-item-button-text">
-            <a href="{{ route('adoption.index') }}">
-                <h2 class="homepage-section-ilan-item-button-text" id="ilan-item-button-text-1">
-                    YUVA ARAYANLAR
-                </h2>
-            </a>
-        </div>
-    </div>
-</div>
-    </div>
-  </div>
-  </div>
-  <!--FİNİSH YUVA ARAYANLAR 02-->
 
   <div>
 
-  <div class="homepage-section-new-question" style="margin-left: 60px; margin-top: 20px;">
-        <a href="{{ route('topic.create') }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
-    Yeni Soru Sor
-        </a>
+<div class="container my-4">
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+
+      
+
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead class="table-light">
+            <tr>
+              <th style="width:45%;">Başlık</th>
+              <th class="text-nowrap">Cevap</th>
+              <th class="text-nowrap">Pati</th>
+              <th class="text-nowrap">Tarih</th>
+              <th class="text-end">Aksiyon</th>
+            </tr>
+          </thead>
+          <tbody>
+            @forelse($topics as $topic)
+              <tr class="border-bottom">
+                <td>
+                  <a href="{{ Route::has('topic.detail') ? route('topic.detail', $topic) : '#' }}" class="text-decoration-none">
+                    <strong>{{ $topic->title }}</strong>
+                  </a>
+                  @if(!empty($topic->category?->name))
+                    <div class="small text-muted mt-1">
+                      <i class="fa-solid fa-folder-open me-1"></i> {{ $topic->category->name }}
+                    </div>
+                  @endif
+                </td>
+
+                {{-- Cevap --}}
+                <td class="text-muted">{{ $topic->replies_count }}</td>
+
+                {{-- Pati (beğeni/puan) --}}
+                <td class="text-muted">{{ $topic->pati_count }}</td>
+
+                {{-- Tarih --}}
+                <td class="text-muted text-nowrap">
+                  {{ optional($topic->created_at)->format('d.m.Y H:i') }}
+                </td>
+
+                {{-- Aksiyon --}}
+                <td class="text-end">
+              <div class="btn-group">
+                <form action="{{ route('account.topics.softDelete', $topic) }}" method="POST"
+                      onsubmit="return confirm('Bu konuyu silmek istediğine emin misin?');">
+                  @csrf
+                  @method('PATCH')
+                  <button type="submit" class="btn btn-sm btn-outline-danger">
+                    <i class="fa-regular fa-trash-can me-1"></i>Sil
+                  </button>
+                </form>
+              </div>
+            </td>
+
+              </tr>
+            @empty
+              <tr>
+                <td colspan="5" class="text-center text-muted py-5">
+                  Henüz bir konu yok.
+                </td>
+              </tr>
+            @endforelse
+            </tbody>
+
+        </table>
       </div>
+
+      <nav class="custom-pagination" aria-label="Sayfalama">
+  {{-- Arama parametresi vs. korunur (Controller'da withQueryString yaptın) --}}
+  {{ $topics->onEachSide(1)->links('pagination::bootstrap-5') }}
+      </nav>
+
+
+      
+
+    </div>
   </div>
-
-<div class="soru-cevap-container">
-  <div class="soru-cevap-header">
-    <span>Soru Cevap</span>
-    <span><i class="fa-solid fa-up-right-from-square" id="question-answer-link-icon"></i></span>
-  </div>
-
-  {{-- Filtre / Arama --}}
-  <form method="GET" action="{{ url()->current() }}" class="row g-2 align-items-end mb-3">
-    <div class="col-12 col-md-4">
-      <label class="form-label mb-1">Kategori</label>
-      <select name="category" class="form-select">
-        <option value="all" {{ request('category','all')==='all' ? 'selected' : '' }}>Tümü</option>
-        @foreach($categories as $cat)
-          <option value="{{ $cat->id }}" {{ (string)request('category')===(string)$cat->id ? 'selected' : '' }}>
-            {{ $cat->name }}
-          </option>
-        @endforeach
-      </select>
-    </div>
-
-    <div class="col-12 col-md-5">
-      <label class="form-label mb-1">Başlık</label>
-      <input type="text" name="q" value="{{ request('q') }}" class="form-control" placeholder="Başlıkta ara...">
-    </div>
-
-    <div class="col-12 col-md-3 d-flex gap-2">
-      <button type="submit" class="btn btn-primary w-100">
-        <i class="fa-solid fa-magnifying-glass me-1"></i> Ara
-      </button>
-      <a href="{{ url()->current() }}" class="btn btn-outline-secondary w-100">
-        Sıfırla
-      </a>
-    </div>
-  </form>
-
-  <ul class="soru-cevap-list" id="soru-cevap-list">
-    @forelse ($topics as $topic)
-      @include('partials.topic_list_item', ['topic' => $topic])
-    @empty
-      <li class="topic-item">
-        <div class="topic-title">Kriterlere uygun sonuç bulunamadı.</div>
-        <div class="topic-meta small text-muted">Filtreleri değiştirip tekrar deneyin.</div>
-      </li>
-    @endforelse
-  </ul>
-
-  {{-- Sayfalama (mevcut custom nav'ınız kalabilir) --}}
-  @if ($topics->hasPages())
-    <nav>
-      <ul class="pagination justify-content-center">
-        {{-- Önceki --}}
-        @if ($topics->onFirstPage())
-          <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-        @else
-          <li class="page-item"><a class="page-link" href="{{ $topics->previousPageUrl() }}" rel="prev">&laquo;</a></li>
-        @endif
-
-        @php
-          $current = $topics->currentPage();
-          $last = $topics->lastPage();
-          $start = max($current - 2, 1);
-          $end = min($current + 2, $last);
-        @endphp
-
-        @if($start > 1)
-          <li class="page-item"><a class="page-link" href="{{ $topics->url(1) }}">1</a></li>
-          @if($start > 2)
-            <li class="page-item disabled"><span class="page-link">…</span></li>
-          @endif
-        @endif
-
-        @for ($i = $start; $i <= $end; $i++)
-          @if ($i == $current)
-            <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
-          @else
-            <li class="page-item"><a class="page-link" href="{{ $topics->url($i) }}">{{ $i }}</a></li>
-          @endif
-        @endfor
-
-        @if($end < $last)
-          @if($end < $last - 1)
-            <li class="page-item disabled"><span class="page-link">…</span></li>
-          @endif
-          <li class="page-item"><a class="page-link" href="{{ $topics->url($last) }}">{{ $last }}</a></li>
-        @endif
-
-        {{-- Sonraki --}}
-        @if ($topics->hasMorePages())
-          <li class="page-item"><a class="page-link" href="{{ $topics->nextPageUrl() }}" rel="next">&raquo;</a></li>
-        @else
-          <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-        @endif
-      </ul>
-    </nav>
-  @endif
 </div>
 
 
+  </div>
+
+
+
+  </div>
+
+
+  <div>
+
+    
  
   <div class="homepage-section-footer-sosyal-forum">
     <div class="homepage-section-footer-sosyal-forum-header-text">

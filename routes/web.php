@@ -7,36 +7,69 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 
 
-Route::get('/login', [LoginController::class, 'index']);
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/soru-sor', [IndexController::class, 'showTopic'])->name('topic.create');
 Route::post('/soru-sor', [IndexController::class, 'storeTopic']);
 
 Route::get('/soru/{id}', action: [IndexController::class, 'showTopicDetail'])->name('topic.detail');
 
-
-Route::get('/sso-make-url', function (Illuminate\Http\Request $r) {
-    $email = strtolower($r->query('email', 'fatih@example.com'));
-    $name = $r->query('name', 'Fatih');
-    $lastName = $r->query('lastName', 'Yilmaz');
-    $timestamp = $r->query('timestamp', time());
-    $secret = env('EXTERNAL_SSO_SECRET', 'supersecretkey');
-
-    $token = hash('sha256', $email . $timestamp . $secret);
-
-    $q = http_build_query([
-        'email' => $email,
-        'name' => $name,
-        'lastName' => $lastName,
-        'timestamp' => $timestamp,
-        'token' => $token,
-    ]);
-
-    return url('/login') . '?' . $q;
-});
+Route::post('/soru/{id}/cevap', [IndexController::class, 'storeComment'])
+    ->name('answer.store');
 
 
-Route::get('/ticimax/uyeler', [App\Http\Controllers\TicimaxController::class, 'getUyeler']);
+Route::get('/yuva-arayanlar', [IndexController::class, 'adaption'])
+    ->name('adoption.index');
+
+
+Route::post('/topics/{id}/like-toggle', [IndexController::class,'toggle'])
+    ->name('topics.like.toggle');
+
+Route::post('/topics/{id}/report', [IndexController::class,'storeReport'])
+    ->name('topics.report.store');
+
+
+    Route::post('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/'); 
+        })->name('logout');
+
+
+        Route::get('/sso-make-url', function (Illuminate\Http\Request $r) {
+            $email = strtolower($r->query('email', 'fatih@example.com'));
+            $name = $r->query('name', 'Fatih');
+            $lastName = $r->query('lastName', 'Yilmaz');
+            $timestamp = $r->query('timestamp', time());
+            $secret = env('EXTERNAL_SSO_SECRET', 'supersecretkey');
+
+            $token = hash('sha256', $email . $timestamp . $secret);
+
+            $q = http_build_query([
+                'email' => $email,
+                'name' => $name,
+                'lastName' => $lastName,
+                'timestamp' => $timestamp,
+                'token' => $token,
+            ]);
+
+            return url('/login') . '?' . $q;
+        });
+
+    
+    Route::get('/profile/myprofile', [IndexController::class, 'me'])
+            ->name('account.profile');
+
+    Route::patch('/profile/topics/{topic}/sil', [IndexController::class, 'softDelete'])
+    ->name('account.topics.softDelete');
+    
+    Route::get('/account/topics', [IndexController::class, 'myTopic'])
+        ->name('account.topics');
+
+
+        Route::get('/ticimax/uyeler', [App\Http\Controllers\TicimaxController::class, 'getUyeler']);
 
 Route::prefix('admin')->group(function () {
    
@@ -63,6 +96,10 @@ Route::prefix('admin')->group(function () {
     Route::get('/users/{id}', [AdminController::class, 'showUser'])->name('admin.users.show');
     Route::delete('/users/{id}', [AdminController::class, 'destroyUser'])->name('admin.users.destroy');
     Route::put('/users/{id}', [AdminController::class, 'updateUser'])->name('admin.users.update');  
+
+
+    Route::get('/reports', [AdminController::class, 'report'])->name('admin.reports.index');
+    Route::get('/reports/{id}', [AdminController::class, 'reportShow'])->name('admin.reports.show');
 
 });
 

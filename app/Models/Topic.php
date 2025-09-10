@@ -32,4 +32,11 @@ class Topic extends Model
         return $this->hasMany(TopicImage::class, 'topic_id');
     }
 
+    public function likes(){ return $this->hasMany(TopicLike::class); }
+    public function reports(){ return $this->hasMany(TopicReport::class); }
+
+    public function isLikedBy($userId): bool {
+        return $this->likes->contains('user_id', $userId);
+    }       
+
 }

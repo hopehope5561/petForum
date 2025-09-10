@@ -4,21 +4,201 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Soru İçeriği I Expressmama Sosyal</title>
-  @vite('resources/css/soru.css');
+  <title>Expressmama.com - Sosyal I Expressmama Sosyal</title>
+  @vite('resources/css/index.css')
+  
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="https://fonts.cdnfonts.com/css/outfit" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
-</head>
-</head>
+
+  <style>
+
+
+body {
+            background-color: #f8f9fa;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+        }
+
+        .soru-cevap-container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 25px;
+            margin: 0 auto;
+            max-width: 1000px;
+        }
+
+        .soru-cevap-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 25px;
+        }
+
+        .soru-cevap-header span:first-child {
+            font-size: 24px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+
+        .myaccount-popup{ display:none; }
+.myaccount-popup.show{ display:block; }
+
+
+        .soru-cevap-header i {
+            color: #6c757d;
+            font-size: 18px;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .soru-cevap-header i:hover {
+            color: #007bff;
+        }
+
+        .soru-cevap-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .topic-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .topic-item:hover {
+            background: #e3f2fd;
+            border-color: #2196f3;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .topic-title {
+            font-weight: 500;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .topic-meta {
+            font-size: 14px;
+            color: #6c757d;
+        }
+
+        /* Özelleştirilmiş Pagination Stilleri */
+        .custom-pagination {
+            margin: 30px 0 0 0;
+            padding: 0;
+        }
+
+        .custom-pagination .pagination {
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .custom-pagination .page-item .page-link {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 10px 15px;
+            color: #495057;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            background-color: white;
+            min-width: 45px;
+            text-align: center;
+        }
+
+        .custom-pagination .page-item .page-link:hover {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .custom-pagination .page-item.active .page-link {
+            background-color: #007bff;
+            border-color: #007bff;
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
+        }
+
+        .custom-pagination .page-item.disabled .page-link {
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            color: #6c757d;
+            cursor: not-allowed;
+        }
+
+        .custom-pagination .page-item.disabled .page-link:hover {
+            transform: none;
+            box-shadow: none;
+            background-color: #f8f9fa;
+            border-color: #dee2e6;
+            color: #6c757d;
+        }
+
+        /* Önceki/Sonraki butonları için özel stiller */
+        .custom-pagination .page-item:first-child .page-link,
+        .custom-pagination .page-item:last-child .page-link {
+            font-weight: 600;
+            padding: 10px 18px;
+        }
+
+        /* Sayfa bilgisi metnini gizle */
+        .pagination-info,
+        .showing-results,
+        p:contains("Showing") {
+            display: none !important;
+        }
+
+        /* Laravel'in otomatik eklediği sayfa bilgisi metinlerini gizle */
+        .d-flex.justify-content-between.flex-wrap.flex-sm-nowrap.align-items-center.py-4 p,
+        .pagination-wrapper p {
+            display: none !important;
+        }
+
+        /* Responsive tasarım */
+        @media (max-width: 768px) {
+            .custom-pagination .page-item .page-link {
+                padding: 8px 12px;
+                min-width: 38px;
+                font-size: 14px;
+            }
+            
+            .soru-cevap-container {
+                margin: 0 10px;
+                padding: 20px 15px;
+            }
+        }
+
+        /* Ekstra güvenlik: Tüm "showing" metinlerini gizle */
+        *:contains("showing"),
+        *:contains("Showing"),
+        *:contains("results"),
+        *:contains("Results") {
+            display: none !important;
+        }
+  </style>
+
+  </head>
 
 <body>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
   <div class="HeaderTop">
-    <header class="top-header">
+    <header class="top-header" style="background-color: #2E2E2E;">
       <div class="container">
         <div class="social-media"><a href="https://www.facebook.com/expressmama.co/" target="_blank"><i
               class="fab fa-facebook"></i> </a> <a href="https://www.instagram.com/expressmama.com.tr/" target="_blank">
@@ -28,10 +208,9 @@
             href="https://www.linkedin.com/company/expressmamacom" target="_blank"> <i class="fab fa-linkedin"></i> </a>
         </div>
 
-        <div class="free-shipping"><i class="fas fa-truck" id="cargo-detail"></i>&nbsp;&nbsp;&nbsp;&nbsp;200 TL Üzeri
-          Ücretsiz Kargo</div>
+        <div class="free-shipping"><i class="fas fa-truck"></i>&nbsp;200 TL Üzeri Ücretsiz Kargo</div>
         <a class="contact" href="https://wa.me/905332905540" target="_blank"><i class="fab fa-whatsapp"></i>
-          <span>Sipariş &amp;Destek: 0533 290 55 40</span> </a>
+          <span>Sipariş &amp; Destek: 0533 290 55 40</span> </a>
       </div>
     </header>
   </div>
@@ -55,10 +234,10 @@
         <i class="fa-solid fa-user"></i>
       </a>
       <div class="basked">
-        <a href="./sepetim.html" style="text-decoration: none; color:#424040;">
-          <i class="fa-solid fa-cart-shopping"></i>
-        </a>
-      </div>
+      <a href="./sepetim.html" style="text-decoration: none; color:#424040;">
+        <i class="fa-solid fa-cart-shopping"></i>
+      </a>
+    </div> 
     </div>
   </div>
   <!--FİNİSH ÜYE GİRİŞ KAYIT ALANI-->
@@ -66,17 +245,12 @@
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
   <!-- Arama Kutusu -->
   <div class="search-box-container-web-design">
-    <form class="search-box-main" id="searchForm">
-      <input type="text" id="searchInput" placeholder="Kedi, köpek, aksesuarlar..." autocomplete="off">
-      <button type="submit">
-        <i class="fa-solid fa-magnifying-glass"></i>
-      </button>
-    </form>
+    
 
     <!-- Sağ Menü -->
     <div class="login-actions">
       <div class="help-container">
-        <a href="#" class="login-action">Yardım</a>
+       
         <div class="help-popup">
           <div class="popup-header">
             <i class="fa-solid fa-face-smile-beam"></i> %100 Mutlu Müşteri Hizmeti
@@ -103,87 +277,55 @@
           </div>
         </div>
       </div>
+        @auth
       <div class="myaccount-container">
-        <a href="./login.html" class="login-action"><i class="fa-regular fa-user"></i> Hesabım</a>
-        <div class="myaccount-popup">
-          <div class="popup-header">
-            <span id="user-name" class="popup-header-user-name">MelihBektaş</span>
-            <a href="#">
-              <i class="fa-solid fa-bell" id="popup-header-user-name-icon-renk"></i>
-            </a>
-            <a href="#">
-              <i class="fa-solid fa-envelope" id="popup-header-user-name-icon-renk"></i>
-            </a>
-          </div>
-          <div class="popup-content">
+      
+      <div class="myaccount-container">
+          @endauth
+  @auth
 
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-box"></i></div>
-              Siparişlerim
-            </a>
+    <a href="#" class="login-action" id="myaccountToggle">
+      <i class="fa-regular fa-user"></i> Hesabım
+    </a>
 
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-location-dot"></i></div>
-              Teslimat Adreslerim
-            </a>
-
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-credit-card"></i></div>
-              Kayıtlı Kartlarım
-            </a>
-
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-coins"></i></div>
-              Para Puanlarım
-            </a>
-
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-user"></i></div>
-              Üyelik Bilgilerim
-            </a>
-
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-shield-dog"></i></div>
-              Sahiplendirme İlanlarım
-            </a>
-
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-id-card"></i></div>
-              Petlerim
-            </a>
-
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-award"></i></div>
-              Rozetlerim
-            </a>
-
-            <a href="#" class="menu-item-myaccount-popup">
-              <div class="menu-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
-              Çıkış Yap
-            </a>
-          </div>
-        </div>
+    <div class="myaccount-popup" id="myaccountPopup">
+      <div class="popup-header">
+        <span id="user-name" class="popup-header-user-name">
+          {{ Auth::user()->name }}
+        </span>
       </div>
-      <div class="basket-container">
-        <a href="#" class="login-action"><i class="fa-solid fa-cart-shopping"></i> Sepetim</a>
-        <div class="basket-popup">
-          <div class="popup-header">
-            <span class="basket-alert">Sepet Toplamı</span>
-          </div>
-          <div class="popup-content">
-            <div class="popup-basket-total-price">
-              <span id="basket-total-price">0 TL</span>
-            </div>
-            <i class="fa-solid fa-lock"></i>
-            <span>256bit SSL ile %100 Güvenli Ödeme</span>
-          </div>
-          <div class="popup-basket">
-            <a href="https://www.expressmama.com/checkout" class="popup-basket-button-link">
-              <button class="popup-basket-button" id="popup-basket-button-text">Sepete Git</button>
-            </a>
-          </div>
-        </div>
+
+      <div class="popup-content">
+        <a href="{{ route('account.profile') }}" class="menu-item-myaccount-popup">
+          <div class="menu-icon"><i class="fa-solid fa-user"></i></div>
+          Üyelik Bilgilerim
+        </a>
+
+        <a href="{{ route('account.topics') }}" class="menu-item-myaccount-popup">
+  <div class="menu-icon"><i class="fa-solid fa-shield-dog"></i></div>
+  Konularım
+</a>
+
+        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+          @csrf
+          <button type="submit" class="menu-item-myaccount-popup" style="background:none;border:none;padding:0;cursor:pointer;">
+            <div class="menu-icon"><i class="fa-solid fa-right-from-bracket"></i></div>
+            Çıkış Yap
+          </button>
+        </form>
       </div>
+    </div>
+  @endauth
+
+  @guest
+    <a href="https://www.expressmama.com/UyeGiris" class="login-action">
+      <i class="fa-regular fa-user"></i> Giriş Yap
+    </a>
+  @endguest
+</div>
+
+      </div>
+     
     </div>
   </div>
   <!-- FİNİSH WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
@@ -191,13 +333,14 @@
   <!---START WEB HEADER KATEGORİLER--->
   <div class="main-menu-container">
     <nav class="main-menu">
-      <a href="#">Kedi Ürünleri</a>
-      <a href="#">Köpek Ürünleri</a>
-      <a href="#">Kuş Ürünleri</a>
-      <a href="#">Kemirgen Ürünleri</a>
-      <a href="#">Kampanyalar</a>
-      <a href="#">Pati Kulüp</a>
-      <a href="#">Yuva Arayanlar</a>
+      <a href="https://www.expressmama.com/kedi">Kedi Ürünleri</a>
+      <a href="https://www.expressmama.com/köpek">Köpek Ürünleri</a>
+      <a href="https://www.expressmama.com/kus">Kuş Ürünleri</a>
+
+      <a href="https://www.expressmama.com/kemirgen">Kemirgen Ürünleri</a>
+      <a href="https://www.expressmama.com/kampanyalar">Kampanyalar</a>
+      <a href="https://www.expressmama.com/kus">Pati Kulüp</a>
+      <a href="https://www.expressmama.com/kus">Yuva Arayanlar</a>
     </nav>
   </div>
   <!---FİNİSH WEB HEADER KATEGORİLER--->
@@ -265,35 +408,48 @@
   <!--FİNİSH ARAMA KUTUSU SADECE MOBİLE ÖZEL-->
   <!--FİNİSH MOBİL YAN MENÜ SADECE MOBİLE ÖZEL-->
 
+
+  <!--START KATEGORİLER MOBİL 01-->
+  <div class="category-grid-mobil">
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Soru Cevap
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Foto Yarışması
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Yuva Arayanlar
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Rehber
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Kedi İlanları
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Köpek İlanları
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Kedi Cinsleri
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Köpek Cinsleri
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Kedi İsimleri
+    </div>
+    <div class="category-item-mobil">
+      <span class="icon-mobil">&#10148;</span> Köpek İsimleri
+    </div>
+  </div>
+  <!--FİNİSH KATEGORİLER MOBİL 01-->
+
   <!--START BREADCRUMB-->
   <div class="question-answer-wrapper">
     <div class="breadcrumb-line">
       <div class="question-answer-container">
         <div class="row">
-          <div class="col-md-12">
-            <ol class="question-answer-breadcrump">
-              <li class="breadcrump-item">
-                <a href="https://sosyal.expressmama.com" title="expressmama sosyal" class="breadcrump-link">
-                  <i class="fa-solid fa-house"></i>
-                </a>
-              </li>
-              <li class="breadcrump-item active">
-                <i class="fa-solid fa-angle-right" id="question-answer-breadcrump-icon"></i>
-                <a href="https://sosyal.expressmama.com¨/soru-cevap" title="Soru Cevap" class="breadcrump-link">Soru
-                  Cevap</a>
-              </li>
-              <li class="breadcrump-item active">
-                <i class="fa-solid fa-angle-right" id="question-answer-breadcrump-icon"></i>
-                <a href="https://sosyal.expressmama.com¨/soru-cevap" title="Soru Cevap" class="breadcrump-link">Kategori
-                  adı</a>
-              </li>
-              <li class="breadcrump-item active">
-                <i class="fa-solid fa-angle-right" id="question-answer-breadcrump-icon"></i>
-                <a href="https://sosyal.expressmama.com¨/soru-cevap" title="Soru Cevap" class="breadcrump-link">Soru
-                  Adı</a>
-              </li>
-            </ol>
-          </div>
+          
         </div>
       </div>
     </div>
@@ -303,87 +459,53 @@
   <div class="question-answer-contents">
     <main class="question-answer-contents-main">
       <div class="question-answer-contents-main-header">
-        <h1>Soru Adı</h1>
+        <h1>{{ $topic->title }}</h1>
         <div class="header-stats">
-          <span><i class="fa-solid fa-eye"></i> 0</span>
-          <p class="stats-eye">Görüntülenme</p>
-          <span><i class="fa-solid fa-message"></i> 17</span>
-          <p class="stats-reply">Cevap</p>
-          <span><i class="fa-solid fa-thumbs-up"></i> 0</span>
-          <p class="stats-taste">Pati</p>
+         
         </div>
       </div>
       <div class="question-answer-post">
         <div class="question-answer-post-header">
           <div class="post-header-time">
-              <span class="post-header-time-date" id="post-header-time-date">16.08.2025 00:55</span>
+             <span class="post-header-time-date" id="post-header-time-date">
+                {{ \Carbon\Carbon::parse($topic->created_at)->format('d.m.Y H:i') }}
+            </span>
             </div>
           <div class="uye-img">
             <div class="uye-img-border">
-              <img src="https://randomuser.me/api/portraits/women/1.jpg" alt="">
-            </div>
+    @if($topic->user && $topic->user->image_path)
+        <img src="{{ asset('storage/' . $topic->user->image_path) }}" 
+             alt="{{ $topic->user->name }}"
+             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
+    @else
+        {{-- Varsayılan avatar --}}
+        <img src="https://via.placeholder.com/60x60.png?text=👤" 
+             alt="default avatar"
+             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
+    @endif
+</div>
+
             <div class="user-info">
-              <div class="username"><span>Uye Adı</span></div>
+              <div class="username"><span>{{ $topic->user->name }} </span></div>
               <div class="user-stats">
-                <span><i class="fa-solid fa-paw"></i> 150</span>
+                <span><i class="fa-solid fa-paw"></i> {{ $topic->user->points }}</span>
                 <p class="user-stats-puan">Pati Puan</p>
               </div>
               <div class="user-stats-rank">
                 <p class="user-stats-rank-icon-new-paw">🌱</p><span> Yeni Pati </span>
-                <p class="user-stats-rank-icon-little-friend" style="display: none;">🐾</p><span class="user-stats-rank-icon-little-friend"  style="display: none;"> Minik Dost</span>
-                <p class="user-stats-rank-icon-faithful-companion" style="display: none;">🐶</p><span class="user-stats-rank-icon-faithful-companion" style="display: none;"> Sadık Yol Arkadaşı</span>
-                <p class="user-stats-rank-icon-master-paw" style="display: none;">🐕</p><span class="user-stats-rank-icon-master-paw" style="display: none;"> Usta Pati</span>
-                <p class="user-stats-rank-icon-guide-friend" style="display: none;">🦴</p><span class="user-stats-rank-icon-guide-friend" style="display: none;"> Kılavuz Dost</span>
-                <p class="user-stats-rank-icon-furry-hero" style="display: none;">🐈</p><span class="user-stats-rank-icon-furry-hero" style="display: none;"> Tüylü Kahraman</span>
-                <p class="user-stats-rank-icon-alpha-friend" style="display: none;">👑</p><span class="user-stats-rank-icon-alpha-friend" style="display: none;"> Alfa Dost</span>
-                <p class="user-stats-rank-icon-legendary-paw" style="display: none;">✨</p><span class="user-stats-rank-icon-legendary-paw" style="display: none;"> Efsane Pati</span>
-                <p class="user-stats-rank-icon-community-watchman" style="display: none;">🌟</p><span class="user-stats-rank-icon-community-watchman" style="display: none;"> Topluluk Bekçisi</span>
+                
               </div>
             </div>
             
           </div>
         </div>
         <div class="question-answer-post-content">
-          <p>Merhabalar, 2 tane tekir kısır dişi kedim var. Nd ocean serisi mama kullanıyordum fakat çok fazla pahalı
-            gelmeye başladı.
-            Kaliteli ama bu markaya göre daha ekonomik bir mama arayışım var. Hills britcare gibi markaları tecrübe
-            etmiş, öneri ve
-            tavsiyede bulunabilirseniz çok sevinirim.
-            Merhabalar, 2 tane tekir kısır dişi kedim var. Nd ocean serisi mama kullanıyordum fakat çok fazla pahalı
-            gelmeye başladı.
-            Kaliteli ama bu markaya göre daha ekonomik bir mama arayışım var. Hills britcare gibi markaları tecrübe
-            etmiş, öneri ve
-            tavsiyede bulunabilirseniz çok sevinirim.
-            Merhabalar, 2 tane tekir kısır dişi kedim var. Nd ocean serisi mama kullanıyordum fakat çok fazla pahalı
-            gelmeye başladı.
-            Kaliteli ama bu markaya göre daha ekonomik bir mama arayışım var. Hills britcare gibi markaları tecrübe
-            etmiş, öneri ve
-            tavsiyede bulunabilirseniz çok sevinirim.
-            Merhabalar, 2 tane tekir kısır dişi kedim var. Nd ocean serisi mama kullanıyordum fakat çok fazla pahalı
-            gelmeye başladı.
-            Kaliteli ama bu markaya göre daha ekonomik bir mama arayışım var. Hills britcare gibi markaları tecrübe
-            etmiş, öneri ve
-            tavsiyede bulunabilirseniz çok sevinirim.
-            Merhabalar, 2 tane tekir kısır dişi kedim var. Nd ocean serisi mama kullanıyordum fakat çok fazla pahalı
-            gelmeye başladı.
-             Kaliteli ama bu markaya göre daha ekonomik bir mama arayışım var. Hills britcare gibi markaları tecrübe
-            etmiş, öneri ve
-            tavsiyede bulunabilirseniz çok sevinirim.
-            Merhabalar, 2 tane tekir kısır dişi kedim var. Nd ocean serisi mama kullanıyordum fakat çok fazla pahalı
-            gelmeye başladı.
-            Kaliteli ama bu markaya göre daha ekonomik bir mama arayışım var. Hills britcare gibi markaları tecrübe
-            etmiş, öneri ve
-            tavsiyede bulunabilirseniz çok sevinirim.
-            Merhabalar, 2 tane tekir kısır dişi kedim var. Nd ocean serisi mama kullanıyordum fakat çok fazla pahalı
-            gelmeye başladı.
+          <p>{{ $topic->content }}
           </p>
         </div>
         <!-- Ana Soru Vote Butonu (Mevcut kodunuzdaki question-answer-post-actions kısmını güncelle) -->
 <div class="question-answer-post-actions">
-  <button type="button" class="btn btn-dark" id="btn-edit-post">
-    <i class="fa-solid fa-pen-to-square"></i>
-    <p id="btn-edit-post-style">Düzenle</p>
-  </button>
+
 
    <!-- YENİ EKLENEN YANIT BUTONU -->
   <!-- <button type="button" class="vote-btn" onclick="addQuoteToReply(this)">
@@ -392,11 +514,63 @@
   
   <!-- Güncellenmiş Like Butonu - onclick kaldırıldı, JavaScript otomatik handle ediyor -->
   <!-- Like butonu -->
-  <button class="vote-btn" data-answer-id="2" id="" onclick="voteAnswer(this, 'like')">👍 0 Pati</button>
-  
-  <button type="button" class="vote-btn" onclick="openReportModal()">⚠️ Şikayet Et</button>
+<button class="vote-btn"
+        data-topic-id="{{ $topic->id }}"
+        onclick="voteAnswer(this, 'like')">
+    👍 {{ $topic->likes->count() }} Pati
+</button>  
+
+<button type="button" class="vote-btn" onclick="openReportModal({{ $topic->id }})">
+    ⚠️ Şikayet Et
+</button>
+
 </div>
     
+<div class="comments-section mt-5">
+    <h4>{{ $topic->comments->count() }} Cevap</h4>
+
+    @forelse($topic->comments as $comment)
+        <div class="comment-box mb-3 p-3 border rounded">
+            <div class="d-flex align-items-center mb-2">
+                {{-- Kullanıcı fotoğrafı --}}
+                <div class="me-2">
+                    @if($comment->user && $comment->user->image_path)
+                           <img src="{{ asset('storage/' . $topic->user->image_path) }}" 
+             alt="{{ $topic->user->name }}"
+             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
+                    @else
+                        {{-- Varsayılan avatar --}}
+                        <img src="https://via.placeholder.com/40x40.png?text=👤"
+                             alt="default avatar"
+                             class="rounded-circle"
+                             style="width:40px; height:40px;">
+                    @endif
+                </div>
+
+                <div>
+                    <strong>{{ $comment->user->name ?? 'Anonim' }}</strong>
+                    <span class="text-muted ms-2" style="font-size: 0.9em;">
+                        {{ \Carbon\Carbon::parse($comment->created_at)->format('d.m.Y H:i') }}
+                    </span>
+                </div>
+            </div>
+
+            <p class="mt-2">{{ $comment->content }}</p>
+
+            @if($comment->image_path)
+                <div class="comment-image mt-2">
+                    <img src="{{ asset('storage/' . $comment->image_path) }}" 
+                         alt="Cevap görseli"
+                         style="max-width:200px; border-radius:8px;">
+                </div>
+            @endif
+        </div>
+    @empty
+        <p>Henüz hiç cevap yazılmamış. İlk sen yaz! 🐾</p>
+    @endforelse
+</div>
+
+
       <!-- <div class="sort-dropdown" onclick="toggleDropdown()">Eskiden Yeniye ▼
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="sortDropdown">
           <div class="dropdown-item">En Çok Patilenen Göre</div>
@@ -407,37 +581,49 @@
     
       <div class="question-answer-post-content-section">
   <h4 id="answer-header">Cevap Yaz</h4>
-  
+  <form method="POST"
+        action="{{ route('answer.store', $topic->id) }}"
+        enctype="multipart/form-data"
+        id="answerForm">
+    @csrf
+
+
   <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="image-upload">Resim Yükle</span>
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="image-upload">Resim Yükle</span>
+      </div>
+      <div class="custom-file" id="img-upload">
+        <input type="file" class="custom-file-input" id="inputGroupFile01"
+               name="images[]" accept="image/*" multiple>
+        <label class="custom-file-label" for="inputGroupFile01" id="inputGroupFile02">Dosya Seç</label>
+      </div>
     </div>
-    <div class="custom-file" id="img-upload">
-      <input type="file" class="custom-file-input" id="inputGroupFile01">
-      <label class="custom-file-label" for="inputGroupFile01" id="inputGroupFile02">Dosya Seç</label>
-    </div>
-  </div>
   
   <!-- Alıntı önizleme alanı (isteğe bağlı) -->
   <div id="quote-preview" style="display: none; background: #f8f9fa; border-left: 4px solid #007bff; padding: 10px; margin-bottom: 10px; font-style: italic;">
     <!-- Alıntı buraya gelecek -->
   </div>
   
-  <textarea 
-    class="reply-input" 
-    placeholder="Deneyimlerinizi ve önerilerinizi paylaşın... (Ctrl+Enter ile gönder)"
-    style="min-height: 120px;">
-  </textarea>
-  
-  <!-- Yardımcı butonlar -->
-  <div class="reply-tools">
-    <span>💡 İpucu: Ctrl+Enter ile hızlı gönderim yapabilirsiniz</span>
-    <button type="button" onclick="clearReplyInput()" style="float: right; background: none; border: none; color: #dc3545; cursor: pointer;">
-      <i class="fa-solid fa-trash"></i> Temizle
-    </button>
-  </div>
-  
-  <button class="reply-btn" onclick="submitAnswer()">Cevabı Gönder</button>
+   <textarea
+      class="reply-input form-control"
+      name="content"
+      placeholder="Deneyimlerinizi ve önerilerinizi paylaşın..."
+      maxlength="2000"
+      rows="5"
+      required
+      style="min-height:120px;"></textarea>
+
+    <div class="reply-tools mt-2 d-flex align-items-center">
+      
+      <button type="button" onclick="clearReplyInput()"
+              class="btn btn-link ms-auto text-danger p-0">
+        <i class="fa-solid fa-trash"></i> Temizle
+      </button>
+    </div>
+
+    <button type="submit" class="reply-btn btn btn-primary mt-2">Cevabı Gönder</button>
+  </form>
+</div>
 </div>
     </main>
     <aside class="sidebar">
@@ -446,37 +632,29 @@
         <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
           Uzmanlardan ve diğer üyelerden faydalı cevaplar almak için:
         </p>
-        <div class="question-form">
-          <button class="new-question-btn" onclick="newQuestion()">
-            Yeni Soru Sor
-          </button>
-        </div>
+        <div class="homepage-section-new-question">
+        <a href="{{ route('topic.create') }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
+    Yeni Soru Sor
+        </a>
+      </div>
+  </div>
       </div>
       <div class="widget-similar-questions">
-        <h3 id="similar-questions">BENZER SORULAR</h3>
-        <ul class="popular-questions">
-          <li><a href="https://www.ornek.com"></a>🐾 Kedimin Kilosu</li>
-          <li><a href="https://www.ornek.com"></a>🥛 Yaş Mama Sorunu</li>
-          <li><a href="https://www.ornek.com"></a>⚠️ Alerjisi Olan Kedim İçin Mama Seçimi</li>
-          <li><a href="https://www.ornek.com"></a>🌿 Jungle Krema Odul</li>
-          <li><a href="https://www.ornek.com"></a>🧬 Fibre Mama</li>
-          <li><a href="https://www.ornek.com"></a>🍽️ Kedi Maması İçeriği</li>
-          <li><a href="https://www.ornek.com"></a>🤔 İki Farklı Mamayı Karıştırsam Olur Mu</li>
-          <li><a href="https://www.ornek.com"></a>💊 La Vital Kuzulu Kısır Kedi Maması</li>
-          <li><a href="https://www.ornek.com"></a>📊 İndirim Kodu Olan Yok Mu</li>
-          <li><a href="https://www.ornek.com"></a>⚠️ Kısır Kedi Maması Önerisi</li>
-        </ul>
-      </div>
+    <h3 id="similar-questions">BENZER SORULAR</h3>
+    <ul class="popular-questions">
+        @forelse($similarTopics as $sim)
+            <li>
+                <a href="{{ route('topic.detail', $sim->id) }}">
+                    🐾 {{ $sim->title }}
+                </a>
+            </li>
+        @empty
+            <li>Benzer soru bulunamadı.</li>
+        @endforelse
+    </ul>
+</div>
 
-      <div class="widget-status">
-        <h3 id="status">İSTATİSTİKLER</h3>
-        <div style="color: #666; font-size: 0.9rem;">
-          <p style="margin-bottom: 10px;">👥 Aktif Üyeler: 1,247</p>
-          <p style="margin-bottom: 10px;">❓ Günlük Sorular: 45</p>
-          <p style="margin-bottom: 10px;">💬 Toplam Cevaplar: 12,356</p>
-          <p>⭐ En Aktif Kategori: Beslenme</p>
-        </div>
-      </div>
+
     </aside>
   </div>
   <!--Start Şikayet Modal-->
@@ -626,6 +804,113 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
 </script>
+
+<script>
+// CSRF
+const CSRF = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+
+// Beğeni: tıkla → toggle et → buton metnini güncelle
+async function voteAnswer(btn, type) {
+    if (type !== 'like') return;
+
+    const topicId = btn.getAttribute('data-topic-id');
+    try {
+        const res = await fetch(`/topics/${topicId}/like-toggle`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': CSRF,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({}) // payload gerek yok
+        });
+
+        if (res.status === 401) {
+            alert('Beğenmek için lütfen giriş yapın.');
+            return;
+        }
+
+        const data = await res.json();
+        // buton yazısını güncelle
+        btn.textContent = `👍 ${data.likes_count} Pati`;
+
+        // (isteğe bağlı) aktiflik stili
+        if (data.liked) {
+            btn.classList.add('active-like');
+        } else {
+            btn.classList.remove('active-like');
+        }
+    } catch (e) {
+        console.error(e);
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    }
+}
+
+// --- Şikayet Modal ---
+
+let CURRENT_TOPIC_ID = null;
+
+function openReportModal(topicId) {
+    CURRENT_TOPIC_ID = topicId;
+    document.getElementById('reportModal').style.display = 'block';
+}
+
+// modal kapat
+function closeReportModal() {
+    document.getElementById('reportModal').style.display = 'none';
+    CURRENT_TOPIC_ID = null;
+}
+
+// şikayet gönder
+async function submitReport() {
+    const reason = document.getElementById('reportReason')?.value || '';
+    const description = document.getElementById('reportDescription')?.value || '';
+
+    if (!CURRENT_TOPIC_ID) return;
+
+    try {
+        const res = await fetch(`/topics/${CURRENT_TOPIC_ID}/report`, {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': CSRF,
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ reason, description })
+        });
+
+        const data = await res.json();
+        if (data.ok) {
+            alert(data.message || 'Şikayet alındı.');
+            closeReportModal();
+            // alanları temizle
+            document.getElementById('reportReason').value = '';
+            document.getElementById('reportDescription').value = '';
+        } else {
+            alert('Şikayet gönderilemedi.');
+        }
+    } catch (e) {
+        console.error(e);
+        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
+    }
+}
+</script>
+
+<script>
+  document.addEventListener('click', (e) => {
+    const toggle = document.getElementById('myaccountToggle');
+    const popup  = document.getElementById('myaccountPopup');
+    if (!toggle || !popup) return;
+
+    if (e.target.closest('#myaccountToggle')) {
+      e.preventDefault();
+      popup.classList.toggle('show'); // CSS’inde .show ile görünür yap
+    } else if (!e.target.closest('#myaccountPopup')) {
+      popup.classList.remove('show');
+    }
+  });
+</script>
+
 </body>
 
 </html>

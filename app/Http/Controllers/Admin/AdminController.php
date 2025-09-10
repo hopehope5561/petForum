@@ -157,4 +157,13 @@ class AdminController extends Controller
             ->route('admin.users')
             ->with('success', 'Kullanıcı başarıyla güncellendi.');
     }
+
+    public function report()
+    {
+        $reports = \App\Models\TopicReport::with(['topic', 'user'])
+                    ->orderBy('created_at', 'desc')
+                    ->paginate(10); 
+
+        return view('admin.report', compact('reports'));
+    }
 }

@@ -19,6 +19,7 @@ class Comment extends Model
         'user_id',
         'content',
         'deleted',
+        'image_path'
     ];
 
     /**

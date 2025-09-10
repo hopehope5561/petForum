@@ -444,298 +444,85 @@ body {
   </div>
   <!--FİNİSH KATEGORİLER MOBİL 01-->
 
-  <!--START YUVA ARAYANLAR 02-->
-  <div class="homepage-section">
-    <div class="homepage-section-header">
-      <div class="homepage-section-title">
-        <h2 class="homepage-section-title-text" id="homepage-section-title-text-information">Yuva Arayanlar</h2>
+
+        <div>
+
+        <!-- Üye Bilgileri Kartı -->
+<div class="container px-0 my-4">
+  <div class="card border-0 shadow-sm">
+    <div class="card-body p-4">
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <h5 class="mb-0" style="font-weight:600;color:#2c3e50;">Üye Bilgileri</h5>
+        
       </div>
-      <div class="homepage-section-number">
-        <h2 class="homepage-section-number-text" id="ilan-sayisi-count">{{$count}}</h2>
-        <h2 class="homepage-section-number-text" id="ilan-sayisi-label">İLAN</h2>
-        <i class="fa-solid fa-up-right-from-square" id="ilan-sayisi-icon-link"></i>
-      </div>
-      <div class="homepage-section-alert-yuvalandi">
-        <div class="homepage-section-alert-yuvalandi-number">
-          <i class="fa-solid fa-paw" id="yuvalanan-sayisi-icon"></i>
-          <h2 class="homepage-section-alert-yuvalandi-number-text" id="yuvalanan-sayisi-count">100</h2>
-          <h2 id="yuvalanan-sayisi-label">KEDİ KÖPEK ve KUŞ YUVA BULDU!</h2>
-        </div>
-      </div>
-     <div class="homepage-section-ilan">
-    <div class="homepage-section-ilan-item">
-   
-    @foreach ($sahiplendirmeTopics as $topic)
-    <div class="homepage-section-ilan-item-image" id="ilan-item-image-{{ $loop->index }}">
-        <a href="{{ route('topic.detail', $topic->id) }}" title="{{ $topic->title }}">
-            @if($topic->images->isNotEmpty())
+
+      <div class="row g-4 align-items-center">
+        <!-- Avatar -->
+        <div class="col-12 col-md-3 text-center">
                 <img
-                    src="{{ asset('storage/' . $topic->images->first()->image_path) }}"
-                    data-original="{{ $topic->thumbnail_url ?? '' }}"
-                    id="ilan-image-mobil-{{ $loop->index }}" 
-                    alt="{{ $topic->title }}"
+                    src="{{ asset('storage/' . $user->image_path) }}"
+                    alt="{{ $user->name }}"
                     class="img-thumbnail-mobil rounded p-0 lazy loaded thumbnail-kare" 
                     loading="lazy"
                     data-ll-status="loaded" 
                 />
-            @endif
-
-            <div class="homepage-section-ilan-item-text">
-                <h4 class="ilan-basligi-mobil" id="ilan-basligi-text-{{ $loop->index }}">
-                    {{ $topic->title }}
-                </h4>
-            </div>
-        </a>
-    </div>
-@endforeach
-
-</div>
-
-    
-    <div class="homepage-section-ilan-item-button">
-        <div class="homepage-section-ilan-item-button-icon">
-            <a href="{{ route('adoption.index') }}"><i class="fa-solid fa-circle-right" id="ilan-item-button-icon-1"></i></a>
+        
+          <div class="progress" style="height:8px;">
+           
+          </div>
         </div>
-        <div class="homepage-section-ilan-item-button-text">
-            <a href="{{ route('adoption.index') }}">
-                <h2 class="homepage-section-ilan-item-button-text" id="ilan-item-button-text-1">
-                    YUVA ARAYANLAR
-                </h2>
-            </a>
+
+        <!-- Temel Bilgiler -->
+        <div class="col-12 col-md-9">
+          <div class="table-responsive">
+            <table class="table align-middle mb-0">
+              <tbody>
+                <tr>
+                  <th class="text-muted fw-normal" style="width:220px;">Ad Soyad</th>
+                  <td><strong>{{$user->name}}</td>
+                </tr>
+                <tr>
+                  <th class="text-muted fw-normal">E-posta</th>
+                  <td>{{$user->email}}</td>
+                </tr>
+                <tr>
+                  <th class="text-muted fw-normal">Soyad</th>
+                  <td>{{$user->lastName}}</td>
+                </tr>
+              
+                <tr>
+                  <th class="text-muted fw-normal">Seviye / Rütbe</th>
+                  <td>
+                    <span class="badge bg-success">{{$user->rank->name}}</span>
+                 
+                  </td>
+                </tr>
+                
+                
+                <tr>
+                  <th class="text-muted fw-normal">Üyelik Tarihi</th>
+                  <td>{{$user->created_at}}</td>
+                </tr>
+                
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Aksiyonlar -->
+          
         </div>
+      </div>
+
+      <!-- Küçük bilgi satırı -->
+      
     </div>
+  </div>
 </div>
-    </div>
-  </div>
-  </div>
-  <!--FİNİSH YUVA ARAYANLAR 02-->
+<!-- /Üye Bilgileri Kartı -->
 
-  <div>
+        </div>
 
-  <div class="homepage-section-new-question" style="margin-left: 60px; margin-top: 20px;">
-        <a href="{{ route('topic.create') }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
-    Yeni Soru Sor
-        </a>
-      </div>
-  </div>
-
-<div class="soru-cevap-container">
-  <div class="soru-cevap-header">
-    <span>Soru Cevap</span>
-    <span><i class="fa-solid fa-up-right-from-square" id="question-answer-link-icon"></i></span>
-  </div>
-
-  {{-- Filtre / Arama --}}
-  <form method="GET" action="{{ url()->current() }}" class="row g-2 align-items-end mb-3">
-    <div class="col-12 col-md-4">
-      <label class="form-label mb-1">Kategori</label>
-      <select name="category" class="form-select">
-        <option value="all" {{ request('category','all')==='all' ? 'selected' : '' }}>Tümü</option>
-        @foreach($categories as $cat)
-          <option value="{{ $cat->id }}" {{ (string)request('category')===(string)$cat->id ? 'selected' : '' }}>
-            {{ $cat->name }}
-          </option>
-        @endforeach
-      </select>
-    </div>
-
-    <div class="col-12 col-md-5">
-      <label class="form-label mb-1">Başlık</label>
-      <input type="text" name="q" value="{{ request('q') }}" class="form-control" placeholder="Başlıkta ara...">
-    </div>
-
-    <div class="col-12 col-md-3 d-flex gap-2">
-      <button type="submit" class="btn btn-primary w-100">
-        <i class="fa-solid fa-magnifying-glass me-1"></i> Ara
-      </button>
-      <a href="{{ url()->current() }}" class="btn btn-outline-secondary w-100">
-        Sıfırla
-      </a>
-    </div>
-  </form>
-
-  <ul class="soru-cevap-list" id="soru-cevap-list">
-    @forelse ($topics as $topic)
-      @include('partials.topic_list_item', ['topic' => $topic])
-    @empty
-      <li class="topic-item">
-        <div class="topic-title">Kriterlere uygun sonuç bulunamadı.</div>
-        <div class="topic-meta small text-muted">Filtreleri değiştirip tekrar deneyin.</div>
-      </li>
-    @endforelse
-  </ul>
-
-  {{-- Sayfalama (mevcut custom nav'ınız kalabilir) --}}
-  @if ($topics->hasPages())
-    <nav>
-      <ul class="pagination justify-content-center">
-        {{-- Önceki --}}
-        @if ($topics->onFirstPage())
-          <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-        @else
-          <li class="page-item"><a class="page-link" href="{{ $topics->previousPageUrl() }}" rel="prev">&laquo;</a></li>
-        @endif
-
-        @php
-          $current = $topics->currentPage();
-          $last = $topics->lastPage();
-          $start = max($current - 2, 1);
-          $end = min($current + 2, $last);
-        @endphp
-
-        @if($start > 1)
-          <li class="page-item"><a class="page-link" href="{{ $topics->url(1) }}">1</a></li>
-          @if($start > 2)
-            <li class="page-item disabled"><span class="page-link">…</span></li>
-          @endif
-        @endif
-
-        @for ($i = $start; $i <= $end; $i++)
-          @if ($i == $current)
-            <li class="page-item active"><span class="page-link">{{ $i }}</span></li>
-          @else
-            <li class="page-item"><a class="page-link" href="{{ $topics->url($i) }}">{{ $i }}</a></li>
-          @endif
-        @endfor
-
-        @if($end < $last)
-          @if($end < $last - 1)
-            <li class="page-item disabled"><span class="page-link">…</span></li>
-          @endif
-          <li class="page-item"><a class="page-link" href="{{ $topics->url($last) }}">{{ $last }}</a></li>
-        @endif
-
-        {{-- Sonraki --}}
-        @if ($topics->hasMorePages())
-          <li class="page-item"><a class="page-link" href="{{ $topics->nextPageUrl() }}" rel="next">&raquo;</a></li>
-        @else
-          <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-        @endif
-      </ul>
-    </nav>
-  @endif
-</div>
-
-
- 
-  <div class="homepage-section-footer-sosyal-forum">
-    <div class="homepage-section-footer-sosyal-forum-header-text">
-      <h2 id="footer-forum-header">Expressmama Sosyal Hayvan Severler Kulübü</h2>
-    </div>
-    <div class="homepage-section-footer-sosyal-forum-main-text">
-      <h3 id="footer-forum-description">
-        ExpressMama.com’da kedi veya köpek ırklarını inceleyebilir, sahiplenmek istediğiniz cinsler hakkında bilgi
-        sahibi olabilir; ücretsiz sahiplendirme ilanlarıyla hayatınızı paylaşacağınız kedi veya köpeği
-        sahiplenebilirsiniz.<br><br>
-        Sahiplendikten sonra ExpressMama.com'daki kedi isimleri ve köpek isimleri sayfaları sayesinde evciliniz için en
-        uygun ismi kolayca bulabilirsiniz.<br><br>
-        Kedi veya köpeğinizle yaşarken karşılaştığınız soru veya sorunlarda, Soru-Cevap bölümünde soru sorarak diğer
-        hayvanseverlerin deneyimlerinden faydalanabilirsiniz.
-      </h3>
-    </div>
-  </div>
-  <!--FİNİSH FOOTER ANASAYFA 01 06-->
-
-  <!--START FOOTER 02 07-->
-  <div class="homepage-section-container-footer">
-    <div class="homepage-section-container-footer-menu-container">
-      <div class="homepage-section-container-footer-menu-item">
-        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-hakkinda">Hakkımızda</h2>
-      </div>
-      <div class="homepage-section-container-footer-menu-item">
-        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-gizlilik">Yardım</h2>
-      </div>
-      <div class="homepage-section-container-footer-menu-item">
-        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-yardim">Rozetler & Pati Puan</h2>
-      </div>
-      <div class="homepage-section-container-footer-menu-item">
-        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-kariyer">İletişim</h2>
-      </div>
-    </div>
-    <div class="homepage-section-container-footer-menu-container-two">
-      <div class="homepage-section-container-footer-menu-item">
-        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-teslimat-kosullari">Teslimat Koşulları
-        </h2>
-      </div>
-      <div class="homepage-section-container-footer-menu-item">
-        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-satis">Satış Sözleşmesi</h2>
-      </div>
-      <div class="homepage-section-container-footer-menu-item">
-        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-garanti">Garanti ve İade</h2>
-      </div>
-      <div class="homepage-section-container-footer-menu-item">
-        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-gizlilik">Gizlilik ve Çerez</h2>
-      </div>
-    </div>
-  </div>
-  <!--FİNİSH FOOTER 02 07-->
-
-  <!--START SOSYAL MEDYA 08-->
-  <div class="homepage-section-footer-social-media">
-    <div class="homepage-section-footer-social-media-item">
-      <i class="fa-brands fa-instagram" id="instagram-icon"></i>
-    </div>
-    <div class="homepage-section-footer-social-media-item">
-      <i class="fa-brands fa-facebook" id="facebook-icon"></i>
-    </div>
-    <div class="homepage-section-footer-social-media-item">
-      <i class="fa-brands fa-twitter" id="twitter-icon"></i>
-    </div>
-    <div class="homepage-section-footer-social-media-item">
-      <i class="fa-brands fa-youtube" id="youtube-icon"></i>
-    </div>
-    <div class="homepage-section-footer-social-media-item">
-      <i class="fa-brands fa-tiktok" id="tiktok-icon"></i>
-    </div>
-  </div>
-  <!--FİNİSH SOSYAL MEDYA 08-->
-
-  <!--START SİTE ÇALIŞMA BİLGİ 09-->
-  <div class="homepage-section-footer-customer-service">
-    <div class="homepage-section-footer-customer-service-item">
-      <h3 id="customer-service-title">MUTLU MÜŞTERİ HİZMETLERİ</h3>
-    </div>
-    <div class="homepage-section-footer-customer-service-item">
-      <h2 id="customer-service-number">0 533 290 5540</h2>
-    </div>
-    <div class="homepage-section-footer-customer-service-item">
-      <h4 id="customer-service-online-date">Pazartesi - Cumartesi I 08:30 - 18:00</h4>
-    </div>
-  </div>
-  <!--FİNİSH SİTE ÇALIŞMA BİLGİ 09-->
-
-  <!--START SİTE FİRMA BİLGİ 10-->
-  <div class="homepage-section-footer-company-alert">
-    <div class="homepage-section-footer-company-alert-item-qr">
-      <img src="https://static.ticimax.cloud/66297/uploads/footertasarim/9/b2a5ddef-43b1-45e0-afbd-b3beeff65c83.jpg"
-        alt="expressmama.com-etbis">
-    </div>
-    <div class="homepage-section-footer-company-alert-item-company-text">
-      <h4 id="company-alert-text">Mustafa Olgun Olgun Ticaret Expressmama.com</h4>
-    </div>
-    <div class="homepage-section-footer-company-alert-item-company-tax-office">
-      <h5 id="company-alert-tax-office">Gaziler Vergi Dairesi - 6410023066 - 29852311898 </h5>
-    </div>
-    <div class="homepage-section-footer-company-alert-item-company-address">
-      <h5 id="company-alert-address">Baruthane Mah. 787. Sok. No:2/1 55100 İlkadım/Samsun</h5>
-    </div>
-  </div>
-  <!--FİNİSH FİRMA BİLGİ 10-->
-
-  <!--START DATE BİLGİ 11-->
-  <div class="homepage-section-footer-copyright">
-    <h3 id="copyright-text">© 2023-2025 ExpressMama.com Tüm Hakları Saklıdır.</h3>
-  </div>
-  <!--FİNİSH DATE BİLGİ 11-->
-
-
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"
-    crossorigin="anonymous"></script>
-  <script src="./index.js"></script>
-
-  <script>
+<script>
   document.addEventListener('click', (e) => {
     const toggle = document.getElementById('myaccountToggle');
     const popup  = document.getElementById('myaccountPopup');
@@ -743,13 +530,9 @@ body {
 
     if (e.target.closest('#myaccountToggle')) {
       e.preventDefault();
-      popup.classList.toggle('show'); // CSS’inde .show ile görünür yap
+      popup.classList.toggle('show'); 
     } else if (!e.target.closest('#myaccountPopup')) {
       popup.classList.remove('show');
     }
   });
 </script>
-
-</body>
-
-</html>
