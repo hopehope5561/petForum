@@ -154,14 +154,19 @@ a {
 /*HEADER ALANI*/
 
 /*LOGO ALANI*/
-.logo {
+.logo{
   display: flex;
   justify-content: center;
   margin: auto;
   margin-top: 0px;
   width: 300px;
   height: 70px;
-  margin-right: 70%;
+}
+
+.header-logo{
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
 }
 
 .logo-mobil {
@@ -1265,7 +1270,7 @@ a {
 .login-actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  
 }
 
 .login-action {

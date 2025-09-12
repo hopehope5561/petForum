@@ -5,8 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expressmama.com - Sosyal I Expressmama Sosyal</title>
-  @vite('resources/css/index.css')
-  
+  @vite('resources/css/sor.css')
+
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="https://fonts.cdnfonts.com/css/outfit" rel="stylesheet">
@@ -20,7 +20,6 @@
 body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
         }
 
         .soru-cevap-container {
@@ -216,13 +215,18 @@ body {
   </div>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
 
-  <!--START LOGO-->
+ <!--START LOGO-->
   <div class="header">
     <div class="logo">
+      <a title="Expressmama.com Online Petshop" class="header-logo" href="http://127.0.0.1:8000/">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
         class="logo-web">
+      </a>
+
+      <a title="Expressmama.com Online Petshop" href="http://127.0.0.1:8000/">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
         class="logo-mobil">
+      </a>
     </div>
   </div>
   <!--FİNİSH LOGO-->
@@ -563,7 +567,7 @@ body {
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
         crossorigin="anonymous"></script>
 
-        <script src="./index.js"></script>
+        <script src="./sor.js"></script>
 
   <script>
   document.addEventListener('click', (e) => {
@@ -578,7 +582,14 @@ body {
       popup.classList.remove('show');
     }
   });
+
+  const el = document.querySelector('.header .logo a');
+const r = el.getBoundingClientRect();
+console.log(document.elementFromPoint(r.left + r.width/2, r.top + r.height/2));
+
 </script>
+
+
 </body>
 
 </html>

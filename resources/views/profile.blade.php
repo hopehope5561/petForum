@@ -491,12 +491,15 @@ body {
                 </tr>
               
                 <tr>
-                  <th class="text-muted fw-normal">Seviye / Rütbe</th>
-                  <td>
-                    <span class="badge bg-success">{{$user->rank->name}}</span>
-                 
-                  </td>
-                </tr>
+          <th class="text-muted fw-normal">Seviye / Rütbe</th>
+            <td>
+              @if($user->rank?->name)
+                <span class="badge bg-success">{{ $user->rank?->name }}</span>
+              @else
+                <span class="text-muted">—</span>
+              @endif
+            </td>
+          </tr>
                 
                 
                 <tr>

@@ -20,7 +20,6 @@
 body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
         }
 
         .soru-cevap-container {
@@ -219,10 +218,12 @@ body {
   <!--START LOGO-->
   <div class="header">
     <div class="logo">
+      <a title="Expressmama.com Online Petshop" class="header-logo" href="http://127.0.0.1:8000/">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
-        class="logo-web">
+        class="logo-web"></a>
+        <a title="Expressmama.com Online Petshop" class="header-logo" href="http://127.0.0.1:8000/">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
-        class="logo-mobil">
+        class="logo-mobil"></a>
     </div>
   </div>
   <!--FİNİSH LOGO-->

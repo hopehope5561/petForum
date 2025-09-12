@@ -161,7 +161,16 @@ a {
   margin-top: 0px;
   width: 300px;
   height: 70px;
-  margin-right: 70%;
+}
+
+.header-logo{
+  display: flex;
+  justify-content: center;
+  z-index: 1;
+}
+
+.logo-web {
+  pointer-events: none;
 }
 
 .logo-mobil {
@@ -609,21 +618,6 @@ a {
 }
 
 /* Login Container - Web Görünümü */
-.search-box-container-web-design {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 32px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  box-sizing: border-box;
-  min-height: 82px;
-  position: relative;
-  margin-top: -4%;
-  z-index: 9999;
-}
 
 /* Arama Kutusu */
 .search-box-main {
@@ -759,7 +753,7 @@ a {
   box-sizing: border-box;
   min-height: 82px;
   position: relative;
-  margin-top: -3%;
+  margin-top: -3%; 
   z-index: 9999;
 }
 
