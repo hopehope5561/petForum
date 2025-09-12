@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expressmama.com - Sosyal I Expressmama Sosyal</title>
   @vite('resources/css/index.css')
+
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -214,7 +215,7 @@ body {
     </header>
   </div>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
-
+<div class="search-box-container-web-design">
   <!--START LOGO-->
   <div class="header">
     <div class="logo">
@@ -245,7 +246,7 @@ body {
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
   <!-- Arama Kutusu -->
-  <div class="search-box-container-web-design">
+  
     
 
     <!-- Sağ Menü -->

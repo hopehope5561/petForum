@@ -214,7 +214,7 @@ body {
     </header>
   </div>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
-
+<div class="search-box-container-web-design">
  <!--START LOGO-->
   <div class="header">
     <div class="logo">
@@ -248,7 +248,7 @@ body {
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
   <!-- Arama Kutusu -->
-  <div class="search-box-container-web-design">
+  
     
 
     <!-- Sağ Menü -->
@@ -446,7 +446,7 @@ body {
       <span class="icon-mobil">&#10148;</span> Köpek İsimleri
     </div>
   </div>
-    <div class="question-answer-wrapper">
+    <!-- <div class="question-answer-wrapper">
         <div class="breadcrumb-line">
             <div class="question-answer-container">
                 <div class="row">
@@ -476,7 +476,7 @@ body {
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="ask-new-question-header-container">
         <div class="ask-new-question-header">
             <div class="ask-new-question-header-block">

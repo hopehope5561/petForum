@@ -214,7 +214,7 @@ body {
     </header>
   </div>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
-
+<div class="search-box-container-web-design">
   <!--START LOGO-->
   <div class="header">
     <div class="logo">
@@ -248,7 +248,7 @@ body {
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
   <!-- Arama Kutusu -->
-  <div class="search-box-container-web-design">
+  
     
 
     <!-- Sağ Menü -->

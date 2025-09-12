@@ -148,8 +148,8 @@ a {
   justify-content: center;
   margin: auto;
   margin-top: 0px;
-  width: 100%;
-  height: 100%;
+  /* width: 100%;
+  height: 100%; */
 }
 /*HEADER ALANI*/
 
@@ -205,26 +205,65 @@ a {
 
 /*ÜYE GİRİŞ KAYIT ALANI*/
 
+/* Menü Başlıkları */
+.main-menu {
+  background: #fff;
+  width: 100%;
+  box-shadow: 0 1px 0 #ececec;
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  padding: 12px 0;
+  overflow-x: auto;   /* yatay kaydırma */
+  white-space: nowrap; /* satır kırılmasını engeller */
+
+}
+
+.main-menu::-webkit-scrollbar {
+  display: none; /* İsteğe bağlı: scroll bar gizle */
+}
+
+.main-menu a {
+  color: #222;
+  font-weight: 500;
+  text-decoration: none;
+  font-size: 17px;
+  transition: color 0.2s;
+}
+
+.main-menu a:hover {
+  color: #e31e24;
+}
+
 /* WEB YUVA ARAYANLAR START */
 
 @media screen and (min-width: 769px) {
   
   /*MASAÜSTÜ SORU SOR GENEL TASARIM*/
   .ask-new-question-header-container{
-    
     border: 1px solid #dddddd;
-    border-radius: 10px;
-    display: flex;
-    position: relative;
-    justify-content: flex-start;
-    margin-right: 33%;
-    left: 13%;
-    padding: 11px 24px 0px;
+        border-radius: 10px;
+        display: flex;
+        justify-content: flex-start;
+        padding: 11px 18px 0px;
+        max-width: 1200px;
+        margin: 0 auto;
+        margin-top: 12px;
+        padding-bottom: 1%;
+  }
 
+  .ask-new-question-header{
+        display: flex;
+        justify-content: center;
+        margin: 0 auto;
   }
 
   #form-header-select{
-    width: 311%;
+    display: flex;
+        justify-content: center;
+        width: 100vh;
+        max-width: 1200px;
+        margin: 0 auto;
     border: var(--bs-border-width) solid #c9c8c8;
   }
 
@@ -594,30 +633,23 @@ a {
 
 }
 
-/* Menü Başlıkları */
-.main-menu {
-  background: #fff;
-  width: 100%;
-  box-shadow: 0 1px 0 #ececec;
-  display: flex;
-  justify-content: center;
-  gap: 48px;
-  padding: 12px 0;
-}
 
-.main-menu a {
-  color: #222;
-  font-weight: 500;
-  text-decoration: none;
-  font-size: 17px;
-  transition: color 0.2s;
-}
-
-.main-menu a:hover {
-  color: #e31e24;
-}
 
 /* Login Container - Web Görünümü */
+.search-box-container-web-design {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        max-width: 1200px;
+        margin: 0 auto; 
+        box-sizing: border-box;
+        min-height: 82px;
+}
+
+
+
+
+
 
 /* Arama Kutusu */
 .search-box-main {
@@ -654,7 +686,6 @@ a {
 .login-actions {
   display: flex;
   align-items: center;
-  gap: 24px;
 }
 
 .login-action {
@@ -737,6 +768,8 @@ a {
   color: #888;
   cursor: pointer;
 }
+
+
 
   /* Login Container - Web Görünümü */
 .search-box-container-web-design {

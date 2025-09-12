@@ -600,6 +600,13 @@ a {
   justify-content: center;
   gap: 48px;
   padding: 12px 0;
+  overflow-x: auto;   /* yatay kaydırma */
+  white-space: nowrap; /* satır kırılmasını engeller */
+
+}
+
+.main-menu::-webkit-scrollbar {
+  display: none; /* İsteğe bağlı: scroll bar gizle */
 }
 
 .main-menu a {
