@@ -28,7 +28,7 @@ body {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 25px;
             margin: 0 auto;
-            max-width: 1000px;
+            
         }
 
         .soru-cevap-header {
@@ -516,8 +516,8 @@ body {
 
   <div>
 
-  <div class="homepage-section-new-question" style="margin-left: 60px; margin-top: 20px;">
-        <a href="{{ route('topic.create') }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
+  <div class="homepage-section-new-question">
+        <a href="{{ route('topic.create') }}" class="btn-new" id="new-question-btn-1">
     Yeni Soru Sor
         </a>
       </div>
