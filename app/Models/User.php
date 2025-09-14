@@ -66,4 +66,20 @@ class User extends Authenticatable
             $user->save();
         }
     }
+
+    public function likedComments()
+    {
+        return $this->belongsToMany(\App\Models\Comment::class, 'comment_likes')
+                    ->withTimestamps();
+    }
+
+    public function commentReportsMade()
+    {
+        return $this->hasMany(\App\Models\CommentReport::class, 'reporter_id');
+    }
+
+    public function commentReportsHandled()
+    {
+        return $this->hasMany(\App\Models\CommentReport::class, 'handled_by');
+    }
 }

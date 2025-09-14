@@ -20,7 +20,6 @@
 body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
         }
 
         .soru-cevap-container {
@@ -215,14 +214,19 @@ body {
     </header>
   </div>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
-
-  <!--START LOGO-->
+<div class="search-box-container-web-design">
+ <!--START LOGO-->
   <div class="header">
     <div class="logo">
+      <a title="Expressmama.com Online Petshop" class="header-logo" href="{{ url('/') }}">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
         class="logo-web">
+      </a>
+
+      <a title="Expressmama.com Online Petshop" href="{{ url('/') }}">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
         class="logo-mobil">
+      </a>
     </div>
   </div>
   <!--FİNİSH LOGO-->
@@ -244,7 +248,7 @@ body {
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
   <!-- Arama Kutusu -->
-  <div class="search-box-container-web-design">
+  
     
 
     <!-- Sağ Menü -->
@@ -491,12 +495,15 @@ body {
                 </tr>
               
                 <tr>
-                  <th class="text-muted fw-normal">Seviye / Rütbe</th>
-                  <td>
-                    <span class="badge bg-success">{{$user->rank->name}}</span>
-                 
-                  </td>
-                </tr>
+          <th class="text-muted fw-normal">Seviye / Rütbe</th>
+            <td>
+              @if($user->rank?->name)
+                <span class="badge bg-success">{{ $user->rank?->name }}</span>
+              @else
+                <span class="text-muted">—</span>
+              @endif
+            </td>
+          </tr>
                 
                 
                 <tr>
@@ -521,6 +528,116 @@ body {
 <!-- /Üye Bilgileri Kartı -->
 
         </div>
+
+ <div class="homepage-section-footer-sosyal-forum">
+    <div class="homepage-section-footer-sosyal-forum-header-text">
+      <h2 id="footer-forum-header">Expressmama Sosyal Hayvan Severler Kulübü</h2>
+    </div>
+    <div class="homepage-section-footer-sosyal-forum-main-text">
+      <h3 id="footer-forum-description">
+        ExpressMama.com’da kedi veya köpek ırklarını inceleyebilir, sahiplenmek istediğiniz cinsler hakkında bilgi
+        sahibi olabilir; ücretsiz sahiplendirme ilanlarıyla hayatınızı paylaşacağınız kedi veya köpeği
+        sahiplenebilirsiniz.<br><br>
+        Sahiplendikten sonra ExpressMama.com'daki kedi isimleri ve köpek isimleri sayfaları sayesinde evciliniz için en
+        uygun ismi kolayca bulabilirsiniz.<br><br>
+        Kedi veya köpeğinizle yaşarken karşılaştığınız soru veya sorunlarda, Soru-Cevap bölümünde soru sorarak diğer
+        hayvanseverlerin deneyimlerinden faydalanabilirsiniz.
+      </h3>
+    </div>
+  </div>
+  <!--FİNİSH FOOTER ANASAYFA 01 06-->
+
+  <!--START FOOTER 02 07-->
+  <div class="homepage-section-container-footer">
+    <div class="homepage-section-container-footer-menu-container">
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-hakkinda">Hakkımızda</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-gizlilik">Yardım</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-yardim">Rozetler & Pati Puan</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-kariyer">İletişim</h2>
+      </div>
+    </div>
+    <div class="homepage-section-container-footer-menu-container-two">
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-teslimat-kosullari">Teslimat Koşulları
+        </h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-satis">Satış Sözleşmesi</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-garanti">Garanti ve İade</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-gizlilik">Gizlilik ve Çerez</h2>
+      </div>
+    </div>
+  </div>
+  <!--FİNİSH FOOTER 02 07-->
+
+  <!--START SOSYAL MEDYA 08-->
+  <div class="homepage-section-footer-social-media">
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-instagram" id="instagram-icon"></i>
+    </div>
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-facebook" id="facebook-icon"></i>
+    </div>
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-twitter" id="twitter-icon"></i>
+    </div>
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-youtube" id="youtube-icon"></i>
+    </div>
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-tiktok" id="tiktok-icon"></i>
+    </div>
+  </div>
+  <!--FİNİSH SOSYAL MEDYA 08-->
+
+  <!--START SİTE ÇALIŞMA BİLGİ 09-->
+  <div class="homepage-section-footer-customer-service">
+    <div class="homepage-section-footer-customer-service-item">
+      <h3 id="customer-service-title">MUTLU MÜŞTERİ HİZMETLERİ</h3>
+    </div>
+    <div class="homepage-section-footer-customer-service-item">
+      <h2 id="customer-service-number">0 533 290 5540</h2>
+    </div>
+    <div class="homepage-section-footer-customer-service-item">
+      <h4 id="customer-service-online-date">Pazartesi - Cumartesi I 08:30 - 18:00</h4>
+    </div>
+  </div>
+  <!--FİNİSH SİTE ÇALIŞMA BİLGİ 09-->
+
+  <!--START SİTE FİRMA BİLGİ 10-->
+  <div class="homepage-section-footer-company-alert">
+    <div class="homepage-section-footer-company-alert-item-qr">
+      <img src="https://static.ticimax.cloud/66297/uploads/footertasarim/9/b2a5ddef-43b1-45e0-afbd-b3beeff65c83.jpg"
+        alt="expressmama.com-etbis">
+    </div>
+    <div class="homepage-section-footer-company-alert-item-company-text">
+      <h4 id="company-alert-text">Mustafa Olgun Olgun Ticaret Expressmama.com</h4>
+    </div>
+    <div class="homepage-section-footer-company-alert-item-company-tax-office">
+      <h5 id="company-alert-tax-office">Gaziler Vergi Dairesi - 6410023066 - 29852311898 </h5>
+    </div>
+    <div class="homepage-section-footer-company-alert-item-company-address">
+      <h5 id="company-alert-address">Baruthane Mah. 787. Sok. No:2/1 55100 İlkadım/Samsun</h5>
+    </div>
+  </div>
+  <!--FİNİSH FİRMA BİLGİ 10-->
+
+  <!--START DATE BİLGİ 11-->
+  <div class="homepage-section-footer-copyright">
+    <h3 id="copyright-text">© 2023-2025 ExpressMama.com Tüm Hakları Saklıdır.</h3>
+  </div>
+  <!--FİNİSH DATE BİLGİ 11-->       
 
 <script>
   document.addEventListener('click', (e) => {

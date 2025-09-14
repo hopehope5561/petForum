@@ -7,16 +7,23 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
 
 
+Route::put('/users/{user}', [IndexController::class, 'updateUser'])
+    ->name('users.update');
+
+
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/soru-sor', [IndexController::class, 'showTopic'])->name('topic.create');
-Route::post('/soru-sor', [IndexController::class, 'storeTopic']);
+Route::post('/soru-sor', [IndexController::class, 'storeTopic'])->name('topic.store');
 
 Route::get('/soru/{id}', action: [IndexController::class, 'showTopicDetail'])->name('topic.detail');
 
 Route::post('/soru/{id}/cevap', [IndexController::class, 'storeComment'])
     ->name('answer.store');
+
+Route::put('/topics/{topic}/comments/{comment}', [IndexController::class, 'updateComment'])
+     ->name('comments.update');
 
 
 Route::get('/yuva-arayanlar', [IndexController::class, 'adaption'])
@@ -28,6 +35,10 @@ Route::post('/topics/{id}/like-toggle', [IndexController::class,'toggle'])
 
 Route::post('/topics/{id}/report', [IndexController::class,'storeReport'])
     ->name('topics.report.store');
+
+Route::put('/topics/{topic}', [IndexController::class, 'updateTopic'])->name('topic.update');
+Route::get('/topics/{topic}', [IndexController::class, 'editTopic'])->name('topic.edit');
+
 
 
     Route::post('/logout', function () {

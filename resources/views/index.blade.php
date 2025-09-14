@@ -20,7 +20,6 @@
 body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
         }
 
         .soru-cevap-container {
@@ -29,7 +28,7 @@ body {
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             padding: 25px;
             margin: 0 auto;
-            max-width: 1000px;
+            
         }
 
         .soru-cevap-header {
@@ -215,14 +214,19 @@ body {
     </header>
   </div>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
-
+<div class="search-box-container-web-design">
   <!--START LOGO-->
   <div class="header">
     <div class="logo">
+      <a title="Expressmama.com Online Petshop" class="header-logo" href="{{ url('/') }}">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
         class="logo-web">
+      </a>
+
+      <a title="Expressmama.com Online Petshop" href="{{ url('/') }}">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
         class="logo-mobil">
+      </a>
     </div>
   </div>
   <!--FİNİSH LOGO-->
@@ -244,7 +248,7 @@ body {
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
   <!-- Arama Kutusu -->
-  <div class="search-box-container-web-design">
+  
     
 
     <!-- Sağ Menü -->
@@ -512,10 +516,14 @@ body {
 
   <div>
 
-  <div class="homepage-section-new-question" style="margin-left: 60px; margin-top: 20px;">
-        <a href="{{ route('topic.create') }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
-    Yeni Soru Sor
-        </a>
+  
+
+  <div class="homepage-section-new-question">
+       <a class="btn-new" id="new-question-btn-1"
+   href="{{ auth()->check() ? route('topic.create') : 'https://www.expressmama.com/UyeGiris' }}">
+  Yeni Soru Sor
+</a>
+
       </div>
   </div>
 

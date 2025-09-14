@@ -20,7 +20,6 @@
 body {
             background-color: #f8f9fa;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            padding: 20px;
         }
 
         .soru-cevap-container {
@@ -215,14 +214,19 @@ body {
     </header>
   </div>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
-
+<div class="search-box-container-web-design">
   <!--START LOGO-->
   <div class="header">
     <div class="logo">
+      <a title="Expressmama.com Online Petshop" class="header-logo" href="{{ url('/') }}">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
         class="logo-web">
+      </a>
+
+      <a title="Expressmama.com Online Petshop" href="{{ url('/') }}">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
         class="logo-mobil">
+      </a>
     </div>
   </div>
   <!--FİNİSH LOGO-->
@@ -244,7 +248,7 @@ body {
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
   <!-- Arama Kutusu -->
-  <div class="search-box-container-web-design">
+  
     
 
     <!-- Sağ Menü -->
@@ -489,16 +493,21 @@ body {
 
                 {{-- Aksiyon --}}
                 <td class="text-end">
-              <div class="btn-group">
-                <form action="{{ route('account.topics.softDelete', $topic) }}" method="POST"
-                      onsubmit="return confirm('Bu konuyu silmek istediğine emin misin?');">
-                  @csrf
-                  @method('PATCH')
-                  <button type="submit" class="btn btn-sm btn-outline-danger">
-                    <i class="fa-regular fa-trash-can me-1"></i>Sil
-                  </button>
-                </form>
-              </div>
+                        <div class="btn-group" role="group">
+            <a href="{{ route('topic.edit', $topic) }}" class="btn btn-sm btn-outline-primary">
+              <i class="fa-regular fa-pen-to-square me-1"></i>Güncelle
+            </a>
+
+            <form action="{{ route('account.topics.softDelete', $topic) }}" method="POST"
+                  onsubmit="return confirm('Bu konuyu silmek istediğine emin misin?');" class="d-inline">
+              @csrf
+              @method('PATCH')
+              <button type="submit" class="btn btn-sm btn-outline-danger">
+                <i class="fa-regular fa-trash-can me-1"></i>Sil
+              </button>
+            </form>
+          </div>
+
             </td>
 
               </tr>

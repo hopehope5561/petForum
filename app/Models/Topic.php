@@ -9,7 +9,7 @@ class Topic extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['category_id', 'user_id', 'title', 'content', 'deleted'];
+    protected $fillable = ['category_id', 'user_id', 'title', 'content', 'deleted', 'phone', 'gender', 'city', 'district', 'genus', 'age', 'type', 'animal'];
 
 
     public function category()
@@ -29,7 +29,7 @@ class Topic extends Model
 
     public function images()
     {
-        return $this->hasMany(TopicImage::class, 'topic_id');
+        return $this->hasMany(TopicImage::class, 'topic_id')->where('deleted', 0);
     }
 
     public function likes(){ return $this->hasMany(TopicLike::class); }

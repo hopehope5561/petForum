@@ -20,7 +20,7 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('rank_id')->nullable();
             $table->boolean('is_admin')->default(false);
             $table->foreign('rank_id')->references('id')->on('ranks')->nullOnDelete();
-            $table->string('image_path'); 
+            $table->string('image_path')->nullable(); 
             $table->unsignedBigInteger('deleted')->default(0);
             $table->timestamps(); 
         });

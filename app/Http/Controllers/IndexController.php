@@ -6,10 +6,15 @@ use App\Models\Category;
 use Illuminate\Http\Request;
 use App\Models\Topic;
 use App\Models\Comment;
+use App\Models\User;
 use App\Models\TopicImage;
 use App\Models\TopicLike;
 use App\Models\TopicReport;
+use App\Models\CommentLike;
+use App\Models\CommentReport;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
 
 
 class IndexController extends Controller
@@ -57,41 +62,77 @@ class IndexController extends Controller
         ));
     }
 
-    public function storeTopic(Request $request)
-    {
-        
-        $request->validate([
-            'category' => 'required',
-            'title' => 'required|string|max:255',
-            'content' => 'required|string',
-            'images.*' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
-        ]);
-        
-        $topic = new Topic;
+   public function storeTopic(Request $request)
+{
+    $rules = [
+        'category'  => 'required',
+        'title'     => 'required|string|max:255',
+        'content'   => 'required|string',
+        'images'    => 'nullable|array',
+        'images.*'  => 'image|mimes:jpeg,png,jpg,gif|max:2048', 
+    ];
 
-        $topic->category_id = $request->input('category');
-        $topic->user_id = Auth::id(); 
-        $topic->title = $request->input('title');
-        $topic->content = $request->input('content');
-        $topic->deleted = 0; 
+    $messages = [
+        'required'          => ':attribute alanı zorunludur.',
+        'string'            => ':attribute metin olmalıdır.',
+        'max.string'        => ':attribute en fazla :max karakter olabilir.',
+        'image'             => ':attribute geçerli bir görsel olmalıdır.',
+        'mimes'             => ':attribute yalnızca şu türlerde olmalıdır: :values.',
+        'images.array'      => 'Görseller alanı bir liste olmalıdır.',
+        'images.*.max'      => 'Her bir görsel en fazla :max KB (yaklaşık 2MB) olmalıdır.',
+        'uploaded'          => ':attribute yüklenemedi. Dosya boyutu sunucu limitini aşıyor olabilir.',
+        'images.*.uploaded' => 'Görsellerden biri yüklenemedi. Dosya ≈2MB sınırını aşıyor olabilir.',
+    ];
 
-        $topic->save();
+    $attributes = [
+        'category'  => 'Kategori',
+        'title'     => 'Başlık',
+        'content'   => 'İçerik',
+        'images'    => 'Görseller',
+        'images.*'  => 'Görsel',
+        'phone'     => 'Telefon',
+        'city'      => 'Şehir',
+        'district'  => 'İlçe',
+        'gender'    => 'Cinsiyet',
+        'genus'     => 'Tür',
+        'age'       => 'Yaş',
+        'type'      => 'Tip',
+        'animal'    => 'Hayvan',
+    ];
 
-        if($request->hasFile('images')){
-        foreach($request->file('images') as $image){
-            $path = $image->store('topics', 'public'); // storage/app/public/topics içine kaydeder
-            
+    $validated = $request->validate($rules, $messages, $attributes);
+
+    $topic = new Topic();
+    $topic->category_id = $validated['category'];
+    $topic->user_id = Auth::id();
+    $topic->title = $validated['title'];
+    $topic->content = $validated['content'];
+    $topic->deleted = 0;
+
+    $topic->phone = $request->input('phone');
+    $topic->city = $request->input('city');
+    $topic->gender = $request->input('gender');
+    $topic->district = $request->input('district');
+    $topic->genus = $request->input('genus');
+    $topic->age = $request->input('age');
+    $topic->type = $request->input('type');
+    $topic->animal = $request->input('animal');
+    $topic->save();
+
+    if ($request->hasFile('images')) {
+        foreach ($request->file('images') as $image) {
+            $path = $image->store('topics', 'public');
             TopicImage::create([
                 'topic_id'   => $topic->id,
                 'image_path' => $path,
-                'deleted'    => 0
+                'deleted'    => 0,
             ]);
         }
     }
 
-        return redirect()->route('topic.create', $topic->id)
-                         ->with('success', 'Sorunuz başarıyla eklendi!');
-    }
+    return redirect()->route('topic.create', $topic->id)
+        ->with('success', 'Sorunuz başarıyla eklendi!');
+}
 
     public function showTopic()
     {
@@ -116,7 +157,7 @@ class IndexController extends Controller
                             ->inRandomOrder()               // random sırala
                             ->take(5)                       // 5 adet al
                             ->get();
-
+        
         return view('soru-detay', compact('topic', 'similarTopics'));
     }
 
@@ -240,7 +281,7 @@ class IndexController extends Controller
         }
 
         
-            public function adaption(Request $request)
+     public function adaption(Request $request)
     {
         $adoptionCatId = env('CATEGORY_SAHIPLENDIRME_ID', 1);
 
@@ -286,6 +327,219 @@ class IndexController extends Controller
 
         return view('adoption', compact('count','topics','q','order'));
     }
+
+    public function toggleLikeComment(Request $request, Comment $comment)
+    {
+        $userId = $request->user()->id;
+
+        $like = CommentLike::where('comment_id', $comment->id)
+                        ->where('user_id', $userId)
+                        ->first();
+
+        if ($like) {
+            $like->delete();
+            return response()->json(['liked' => false, 'likes_count' => $comment->likes()->count()]);
+        }
+
+        CommentLike::create([
+            'comment_id' => $comment->id,
+            'user_id'    => $userId,
+        ]);
+
+        return response()->json(['liked' => true, 'likes_count' => $comment->likes()->count()]);
+    }
+
+    public function reportComment(Request $request, Comment $comment)
+    {
+        $data = $request->validate([
+            'category'    => 'required|in:spam,hakaret,nefret,müstehcen,reklam,diğer',
+            'description' => 'nullable|string|max:2000',
+        ]);
+
+        CommentReport::firstOrCreate(
+            ['comment_id' => $comment->id, 'reporter_id' => $request->user()->id],
+            ['category' => $data['category'], 'description' => $data['description'] ?? null]
+        );
+
+        return back()->with('success', 'Şikayetiniz alındı. Teşekkürler.');
+    }
+
+     public function updateUser(Request $request, $id)
+    {
+        
+        $user = User::findOrFail($id);
+
+        $validated = $request->validate([
+            'name'      => 'required|string|max:255',
+            'lastName'  => 'nullable|string|max:255',
+            'email'     => 'required|email|unique:users,email,' . $user->id,
+            'is_admin'  => 'required|boolean',
+            'rank_id'   => 'nullable|exists:ranks,id',
+            'points'    => 'nullable|integer|min:0',
+        ]);
+
+       
+        $user->update($validated);
+
+         return back()->with('success', 'Güncelleme Başarılı.');
+    }
+
+
+    public function updateTopic(Request $request, Topic $topic)
+    {
+       
+        if (Auth::id() !== $topic->user_id && !optional(Auth::user())->is_admin) {
+            abort(403, 'Bu konuyu güncelleme yetkiniz yok.');
+        }
+        
+        $rules = [
+            'category'        => ['required','integer','exists:categories,id'],
+            'title'           => ['required','string','max:255'],
+            'content'         => ['required','string'],
+            'images'          => ['nullable','array'],
+            'images.*'        => ['image','mimes:jpeg,png,jpg,gif','max:2048'], 
+            'remove_images'   => ['nullable','array'],
+            'remove_images.*' => ['integer','exists:topic_images,id'],
+        ];
+
+        $messages = [
+            'required'            => ':attribute alanı zorunludur.',
+            'string'              => ':attribute metin olmalıdır.',
+            'max.string'          => ':attribute en fazla :max karakter olabilir.',
+            'image'               => ':attribute geçerli bir görsel olmalıdır.',
+            'mimes'               => ':attribute yalnızca şu türlerde olmalıdır: :values.',
+            'images.array'        => 'Görseller alanı bir liste olmalıdır.',
+            'images.*.max'        => 'Her bir görsel en fazla :max KB (yaklaşık 2MB) olmalıdır.',
+            'exists'              => 'Seçilen :attribute geçerli değil.',
+            'remove_images.*.exists' => 'Kaldırılacak görsellerden biri bulunamadı.',
+            // PHP limitine takıldığında:
+            'uploaded'            => ':attribute yüklenemedi. Dosya boyutu sunucu limitini aşıyor olabilir.',
+            'images.*.uploaded'   => 'Görsellerden biri yüklenemedi. Sunucu limitini aşıyor olabilir.',
+        ];
+
+        $attributes = [
+            'category'      => 'Kategori',
+            'title'         => 'Başlık',
+            'content'       => 'İçerik',
+            'images'        => 'Görseller',
+            'images.*'      => 'Görsel',
+            'remove_images' => 'Kaldırılacak görseller',
+            'remove_images.*' => 'Kaldırılacak görsel',
+        ];
+
+        $data = $request->validate($rules, $messages, $attributes);
+
+        // Atomic işlem
+        DB::transaction(function () use ($request, $topic, $data) {
+
+            // Konu güncelle
+            $topic->category_id = $data['category'];
+            $topic->title       = $data['title'];
+            $topic->content     = $data['content'];
+            $topic->phone       = $request->input('phone');
+            $topic->city        = $request->input('city');
+            $topic->gender      = $request->input('gender');
+            $topic->district    = $request->input('district');
+            $topic->genus       = $request->input('genus');
+            $topic->age         = $request->input('age');
+            $topic->type        = $request->input('type');
+            $topic->animal      = $request->input('animal');
+            $topic->save();
+
+            // Seçilen mevcut görselleri kaldır (checkbox name="remove_images[]")
+            if (!empty($data['remove_images'])) {
+                // Bu topic'e ait olanları sil
+                $images = TopicImage::where('topic_id', $topic->id)
+                            ->whereIn('id', $data['remove_images'])
+                            ->get();
+
+                foreach ($images as $img) {
+                    if ($img->image_path && Storage::disk('public')->exists($img->image_path)) {
+                        Storage::disk('public')->delete($img->image_path); 
+                    }
+                $img->deleted = 1; $img->save();
+                }
+            }
+
+            // Yeni görselleri ekle
+            if ($request->hasFile('images')) {
+                foreach ($request->file('images') as $image) {
+                    if (!$image->isValid()) { continue; } 
+                    $path = $image->store('topics', 'public');
+                    TopicImage::create([
+                        'topic_id'   => $topic->id,
+                        'image_path' => $path,
+                        'deleted'    => 0,
+                    ]);
+                }
+            }
+        });
+
+        return redirect()
+            ->route('topic.edit', $topic)
+            ->with('success', 'Konu başarıyla güncellendi!');
+    }
+
+    public function updateComment(Request $request, $topicId, $commentId)
+    {
+        $topic = Topic::where('deleted', 0)->findOrFail($topicId);
+        $comment = Comment::where('deleted', 0)
+                        ->where('topic_id', $topic->id)
+                        ->findOrFail($commentId);
+
+    
+        if (Auth::id() !== $comment->user_id && !optional(Auth::user())->is_admin) {
+            abort(403, 'Bu yorumu güncelleme yetkiniz yok.');
+        }
+
+        // store ile benzer doğrulama
+        $validated = $request->validate([
+            'content'       => 'required|string|max:2000',
+            'images.*'      => 'nullable|image|max:4096',
+            'remove_image'  => 'nullable|boolean', // checkbox ile mevcut görseli kaldırmak için
+        ]);
+
+        // İçerik
+        $comment->content = $validated['content'];
+
+        // Mevcut görseli silme isteği geldiyse
+        if ($request->boolean('remove_image') && $comment->image_path) {
+            if (Storage::disk('public')->exists($comment->image_path)) {
+                Storage::disk('public')->delete($comment->image_path);
+            }
+            $comment->image_path = null;
+        }
+
+        // Yeni görsel geldiyse (ilk dosyayı kullan)
+        if ($request->hasFile('images')) {
+            $first = $request->file('images')[0];
+
+            // Eskiyi temizle
+            if ($comment->image_path && Storage::disk('public')->exists($comment->image_path)) {
+                Storage::disk('public')->delete($comment->image_path);
+            }
+
+            $path = $first->store('answers', 'public');
+            $comment->image_path = $path;
+        }
+
+        $comment->save();
+
+        return back()->with('success', 'Cevabın başarıyla güncellendi!');
+    }
+
+    public function editTopic(Topic $topic)
+{
+    $topic->load([
+        'images' => fn ($q) => $q->where('deleted', 0)->orderBy('id'),
+         'category', 
+    ]);
+
+    
+    $categorys = Category::orderBy('name')->get(['id','name']);
+
+    return view('editTopic', compact('topic','categorys'));
+}
 
 
 

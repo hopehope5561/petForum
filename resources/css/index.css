@@ -148,20 +148,24 @@ a {
   justify-content: center;
   margin: auto;
   margin-top: 0px;
-  width: 100%;
-  height: 100%;
+  
 }
 /*HEADER ALANI*/
 
 /*LOGO ALANI*/
-.logo {
+.logo{
   display: flex;
   justify-content: center;
   margin: auto;
   margin-top: 0px;
   width: 300px;
   height: 70px;
-  margin-right: 70%;
+}
+
+.header-logo{
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
 }
 
 .logo-mobil {
@@ -513,17 +517,18 @@ a {
     border-radius: 8px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
     border: 1.5px solid #e0e0e0;
-    width: 837px;
-    min-width: 320px;
+    width: 1200px;
     padding: 18px 0 0 0;
-    margin-left: 254px;
-    margin-top: 2%;
+    /* margin-left: 254px;
+    margin-top: 2%; */
+    width: 100% !important;
+    max-width: 1200px !important;
   }
 
   .soru-cevap-header {
     font-weight: bold;
     font-size: 20px;
-    color: #444;
+    color: #ff0000;
     padding: 0 18px 12px 18px;
     display: flex;
     align-items: center;
@@ -952,36 +957,69 @@ a {
   }
 
   /* Ana başlık ve üst bilgi */
+
+  .homepage-section-new-question{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+  }
+
+
+
+  .btn-new{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 30%;
+        background-color: #e31e24;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+  }
+
   .homepage-section {
-    max-width: 1600px;
-    margin: 32px auto 0 auto;
-    padding: 0 32px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 2%;
+    align-items: center;
+    /* border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); */
+  }
+
+  .homepage-section-title{
+    min-width: 1200px;
+    justify-content: center !important;
+        flex-direction: column !important;
+        gap: 0.5rem !important;
   }
 
   .homepage-section-header {
-    display: flex;
-    align-items: center;
-    gap: 18px;
     margin-bottom: 12px;
   }
 
   .homepage-section-title-text {
-    font-size: 26px;
-    display: flex;
-    justify-content: center;
-    position: relative;
-    margin-right: -77%;
-    margin-top: -53%;
-    font-weight: 700;
-    color: #222;
+        display: flex;
+        justify-content: center;
+        /* position: sticky; */
+        color: #222;
+        /* margin-top: -54%; */
+        /* transform: translateX(22%);*/
   }
 
   .homepage-section-number {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    margin-left: 76px;
-    margin-top: -10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
   }
 
   .homepage-section-number-text {
@@ -998,19 +1036,25 @@ a {
   }
 
   .homepage-section-alert-yuvalandi {
-    margin-left: -339px;
+    /* margin-left: -339px; */
+    margin-top: 1%;
+    display: flex;
+        justify-content: center;
   }
 
   .homepage-section-alert-yuvalandi-number {
     display: flex;
+    justify-content: center;
     align-items: center;
+    width: 50%;
     background: #fff;
     border: 1.5px solid #ececec;
     border-radius: 8px;
-    padding: 49px 32px;
+    /* padding: 49px 32px; */
     gap: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-    margin-bottom: -39px;
+    /* margin-bottom: -39px; */
+    
   }
 
   #yuvalanan-sayisi-icon {
@@ -1036,13 +1080,16 @@ a {
   /* İlanlar */
   .homepage-section-ilan {
     display: flex;
-    align-items: flex-end;
+    justify-content: center;
+    align-items: center;
     gap: 18px;
-    margin-top: 18px;
+    margin-top: 2%;
+    
   }
 
   .homepage-section-ilan-item {
     display: flex;
+    justify-content: center;
     gap: 48px;
   }
 
@@ -1093,7 +1140,7 @@ a {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-left: 24px;
+    /* margin-left: 24px; */
     gap: 8px;
   }
 
@@ -1128,7 +1175,7 @@ a {
     letter-spacing: 0.2px;
   }
 
-  @media (max-width: 1100px) {
+  /* @media (max-width: 1100px) {
     .homepage-section {
       padding: 0 8px;
     }
@@ -1158,7 +1205,7 @@ a {
       margin-left: 0;
       gap: 8px;
     }
-  }
+  } */
 
   @media (max-width: 700px) {
     .homepage-section {
@@ -1201,6 +1248,13 @@ a {
   justify-content: center;
   gap: 48px;
   padding: 12px 0;
+  overflow-x: auto;   /* yatay kaydırma */
+  white-space: nowrap; /* satır kırılmasını engeller */
+
+}
+
+.main-menu::-webkit-scrollbar {
+  display: none; /* İsteğe bağlı: scroll bar gizle */
 }
 
 .main-menu a {
@@ -1214,22 +1268,17 @@ a {
 .main-menu a:hover {
   color: #e31e24;
 }
-
 /* Login Container - Web Görünümü */
 .search-box-container-web-design {
   display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  gap: 32px;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 24px;
-  box-sizing: border-box;
-  min-height: 82px;
-  position: relative;
-  margin-top: -4%;
+        align-items: center;
+        justify-content: flex-end;
+        max-width: 1200px;
+        margin: 0 auto; 
+        box-sizing: border-box;
+        min-height: 82px;
 }
+
 
 /* Arama Kutusu */
 .search-box-main {
@@ -1265,7 +1314,7 @@ a {
 .login-actions {
   display: flex;
   align-items: center;
-  gap: 24px;
+  
 }
 
 .login-action {
@@ -1334,7 +1383,7 @@ a {
 
   html,
   body {
-    max-width: 100vw;
+    /* max-width: 100vw; */
     overflow-x: hidden !important;
   }
 
@@ -1733,17 +1782,20 @@ a {
   }
 
   .soru-cevap-container {
-    width: 342px;
+    display: flex;
+    justify-content: center;
+    width: 100% !important;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     padding: 16px 0 0 0;
-    font-family: "Segoe UI", Arial, sans-serif;
-    position: relative;
-    left: 7%;
-    margin-top: 4%;
     border: 1.5px solid #e0e0e0;
+    width: 100% !important;
+    max-width: 1200px !important;
   }
+
+
+  
 
   .soru-cevap-header {
     font-weight: bold;
@@ -2100,6 +2152,7 @@ a {
     padding-left: 15px;
     font-size: 1.143rem !important;
     font-weight: 600 !important;
+
   }
 
   .homepage-section-title-text {
@@ -2194,13 +2247,13 @@ a {
   }
 
   .logo-mobil {
-    display: flex;
-    justify-content: center;
-    margin: 100%;
-    margin-top: 9px;
-    width: 300px;
-    height: 51px;
-    margin-right: 111%;
+    /* display: flex;
+    justify-content: center; */
+    /* margin: 100%; */
+    /* margin-top: 9px; */
+    /* width: 300px; */
+    /* height: 51px; */
+    /* margin-right: 111%; */
   }
 
   .login-container {

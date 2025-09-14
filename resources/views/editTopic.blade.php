@@ -5,9 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expressmama.com - Sosyal I Expressmama Sosyal</title>
+  @vite('resources/css/sor.css')
   @vite('resources/css/index.css')
-
-  <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="https://fonts.cdnfonts.com/css/outfit" rel="stylesheet">
@@ -216,21 +215,24 @@ body {
   </div>
   <!--EN ÜST BİLGİ ALANI (MOBİLDE KAPALI)-->
 <div class="search-box-container-web-design">
-  <!--START LOGO-->
+ <!--START LOGO-->
   <div class="header">
     <div class="logo">
-      <a title="Expressmama.com Online Petshop" class="header-logo"href="{{ url('/') }}">
+      <a title="Expressmama.com Online Petshop" class="header-logo" href="{{ url('/') }}">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
-        class="logo-web"></a>
-        <a title="Expressmama.com Online Petshop" class="header-logo" href="{{ url('/') }}">
+        class="logo-web">
+      </a>
+
+      <a title="Expressmama.com Online Petshop" href="{{ url('/') }}">
       <img src="https://static.ticimax.cloud/66297//uploads/editoruploads/jhkjhkhjkj.png?t=20240715143822" alt=""
-        class="logo-mobil"></a>
+        class="logo-mobil">
+      </a>
     </div>
   </div>
   <!--FİNİSH LOGO-->
 
   <!--START ÜYE GİRİŞ KAYIT ALANI-->
-  <div class="login-container">
+  <!-- <div class="login-container">
     <div class="login">
       <a href="./login.html" style="text-decoration: none; color:#424040;">
         <i class="fa-solid fa-user"></i>
@@ -241,7 +243,7 @@ body {
       </a>
     </div> 
     </div>
-  </div>
+  </div> -->
   <!--FİNİSH ÜYE GİRİŞ KAYIT ALANI-->
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
@@ -251,7 +253,7 @@ body {
 
     <!-- Sağ Menü -->
     <div class="login-actions">
-      <div class="help-container">
+      <!-- <div class="help-container">
        
         <div class="help-popup">
           <div class="popup-header">
@@ -277,7 +279,7 @@ body {
             </a>
 
           </div>
-        </div>
+        </div> -->
       </div>
         @auth
       <div class="myaccount-container">
@@ -444,473 +446,300 @@ body {
       <span class="icon-mobil">&#10148;</span> Köpek İsimleri
     </div>
   </div>
-  <!--FİNİSH KATEGORİLER MOBİL 01-->
-
-  <!--START BREADCRUMB-->
-  <div class="question-answer-wrapper">
-    <div class="breadcrumb-line">
-      <div class="question-answer-container">
-        <div class="row">
-          
+    <!-- <div class="question-answer-wrapper">
+        <div class="breadcrumb-line">
+            <div class="question-answer-container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <ol class="question-answer-breadcrump">
+                            <li class="breadcrump-item">
+                                <a href="https://sosyal.expressmama.com" title="expressmama sosyal"
+                                    class="breadcrump-link">
+                                    <i class="fa-solid fa-house"></i>
+                                </a>
+                            </li>
+                            <li class="breadcrump-item active">
+                                <i class="fa-solid fa-angle-right" id="question-answer-breadcrump-icon"></i>
+                                <a href="https://sosyal.expressmama.com¨/soru-cevap" title="Soru Cevap"
+                                    class="breadcrump-link">Soru
+                                    Cevap</a>
+                            </li>
+                            <li class="breadcrump-item active">
+                                <i class="fa-solid fa-angle-right"
+                                    id="question-answer-breadcrump-icon-new-question-icon"></i>
+                                <a href="https://sosyal.expressmama.com¨/soru-cevap" title="Soru Cevap"
+                                    class="breadcrump-link">Yeni
+                                    Soru Sor</a>
+                            </li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
         </div>
-      </div>
+    </div> -->
+    <div class="ask-new-question-header-container">
+        <div class="ask-new-question-header">
+            <div class="ask-new-question-header-block">
+                <div class="ask-new-question-header-block-title">
+                    @if(session('success'))
+    <div class="alert alert-success">
+        {{ session('success') }}
     </div>
-  </div>
-  <!--FİNİSH BREADCRUMB-->
-
-  <div class="question-answer-contents">
-    <main class="question-answer-contents-main">
-      <div class="question-answer-contents-main-header">
-        <h1>{{ $topic->title }}</h1>
-        <div class="header-stats">
-         
-        </div>
-      </div>
-      <div class="question-answer-post">
-        <div class="question-answer-post-header">
-          <div class="post-header-time">
-             <span class="post-header-time-date" id="post-header-time-date">
-                {{ \Carbon\Carbon::parse($topic->created_at)->format('d.m.Y H:i') }}
-            </span>
-            </div>
-          <div class="uye-img">
-            <div class="uye-img-border">
-    @if($topic->user && $topic->user->image_path)
-        <img src="{{ asset('storage/' . $topic->user->image_path) }}" 
-             alt="{{ $topic->user->name }}"
-             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
-    @else
-        {{-- Varsayılan avatar --}}
-        <img src="https://via.placeholder.com/60x60.png?text=👤" 
-             alt="default avatar"
-             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
-    @endif
-</div>
-
-            <div class="user-info">
-              <div class="username"><span>{{ $topic->user->name }} </span></div>
-              <div class="user-stats">
-                <span><i class="fa-solid fa-paw"></i> {{ $topic->user->points }}</span>
-                <p class="user-stats-puan">Pati Puan</p>
-              </div>
-              <div class="user-stats-rank">
-                <p class="user-stats-rank-icon-new-paw">🌱</p><span> Yeni Pati </span>
-                
-              </div>
-            </div>
-            
-          </div>
-        </div>
-        <div class="question-answer-post-content">
-  <p>{{ $topic->content }}</p>
-</div>
-
-@if($topic->images->isNotEmpty())
-  <div class="topic-images grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
-    @foreach($topic->images as $img)
-      @php $url = Storage::url($img->image_path); @endphp
-      <a href="{{ $url }}" target="_blank" rel="noopener">
-        <img src="{{ $url }}" alt="{{ $topic->title }} görseli"
-             loading="lazy" class="rounded w-full h-auto">
-      </a>
-    @endforeach
-  </div>
 @endif
 
-        <!-- Ana Soru Vote Butonu (Mevcut kodunuzdaki question-answer-post-actions kısmını güncelle) -->
-<div class="question-answer-post-actions">
+@if($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+               <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+                    <h2 class="container-title">Soruyu Güncelle</h2>
+                    <form action="{{ route('topic.update', $topic) }}" method="POST" role="form" enctype="multipart/form-data"
+                        class="form-horizontal">
+                        @csrf
+                         @method('PUT')
+                        <fieldset>
+                            @php
+    // Eski gönderim varsa onu, yoksa topic'in mevcut kategorisini al
+    $selected = old('category', $topic->category_id ?? null);
+@endphp
 
-
-   <!-- YENİ EKLENEN YANIT BUTONU -->
-  <!-- <button type="button" class="vote-btn" onclick="addQuoteToReply(this)">
-    <i class="fa-solid fa-reply"></i> Yanıtla
-  </button> -->
-  
-  <!-- Güncellenmiş Like Butonu - onclick kaldırıldı, JavaScript otomatik handle ediyor -->
-  <!-- Like butonu -->
-<button class="vote-btn"
-        data-topic-id="{{ $topic->id }}"
-        onclick="voteAnswer(this, 'like')">
-    👍 {{ $topic->likes->count() }} Pati
-</button>  
-
-<button type="button" class="vote-btn" onclick="openReportModal({{ $topic->id }})">
-    ⚠️ Şikayet Et
-</button>
-
+<div class="form-group">
+  <label for="form-header-select" class="col-md-1 control-label">Konu</label>
+  <div class="col-md-8">
+    <select name="category" class="form-control" id="form-header-select">
+      @foreach ($categorys as $category)
+        <option value="{{ $category->id }}" @selected((int)$selected === (int)$category->id)>
+          {{ $category->name }}
+        </option>
+      @endforeach
+    </select>
+  </div>
 </div>
-    
-<div class="comments-section mt-5">
-    <h4>{{ $topic->comments->count() }} Cevap</h4>
+                            <div class="form-group">
+                                <label for="inputTitle" class="col-md-1 control-label">Başlık</label>
+                                <div class="col-md-8">
+                                    <textarea id="form-header-select" name="title" class="form-control"
+                                        placeholder="Sorunuzun özetini anlaşılır bir şekilde buraya yazmalısınız. Soru Cümlesi olmalıdır."
+                                        id="inputTitle" rows="3" maxlength="255">{{ $topic->title }}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="inputDescription" class="col-md-1 control-label">Soru</label>
+                                <div class="col-md-8">
+                                    <div class="md-editör" id="1753537654648">
+                                        <textarea name="content" id="form-header-select" class="form-control md-input"
+                                            placeholder="Sorunuzu detaylı anlatırsanız, diğer üyeler ve uzmanlardan daha doğru cevaplar alabilirsiniz."
+                                            data-iconlibrary="fa" data-provide="markdown"
+                                            data-hidden-buttons='["cmdCode","cmdPreview"]' maxlength="2000" rows="5"
+                                            style="resize: none;">{{ $topic->content }}</textarea>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                           
+                              <div class="row bottom-margin-15">
+  <div class="form-group mt-4">
+    {{-- Mevcut Fotoğraflar --}}
+    <label class="form-label d-block">Mevcut Fotoğraflar</label>
 
-    @forelse($topic->comments as $comment)
-        <div class="comment-box mb-3 p-3 border rounded">
-            <div class="d-flex align-items-center mb-2">
-                {{-- Kullanıcı fotoğrafı --}}
-                <div class="me-2">
-                    @if($comment->user && $comment->user->image_path)
-                           <img src="{{ asset('storage/' . $topic->user->image_path) }}" 
-             alt="{{ $topic->user->name }}"
-             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
-                    @else
-                        {{-- Varsayılan avatar --}}
-                        <img src="https://via.placeholder.com/40x40.png?text=👤"
-                             alt="default avatar"
-                             class="rounded-circle"
-                             style="width:40px; height:40px;">
-                    @endif
-                </div>
+    <div class="row g-3">
+      @forelse($topic->images as $img)
+        @php $url = Storage::url($img->image_path); @endphp
+        <div class="col-6 col-md-3">
+          <div class="border rounded p-2 text-center">
+            <a href="{{ $url }}" target="_blank" rel="noopener">
+              <img src="{{ $url }}" alt="Görsel" class="img-fluid rounded mb-2">
+            </a>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox"
+                     name="remove_images[]" value="{{ $img->id }}" id="rm{{ $img->id }}">
+              <label class="form-check-label" for="rm{{ $img->id }}">Kaldır</label>
+            </div>
+          </div>
+        </div>
+      @empty
+        <div class="col-12"><small class="text-muted">Bu konuya ait görsel bulunmuyor.</small></div>
+      @endforelse
+    </div>
+  </div>
 
-                <div>
-                    <strong>{{ $comment->user->name ?? 'Anonim' }}</strong>
-                    <span class="text-muted ms-2" style="font-size: 0.9em;">
-                        {{ \Carbon\Carbon::parse($comment->created_at)->format('d.m.Y H:i') }}
-                    </span>
+  <div class="form-group mt-4">
+    {{-- Yeni Fotoğraf(lar) Ekle --}}
+    <label class="form-label">Yeni Fotoğraf(lar) Ekle (opsiyonel)</label>
+    <input type="file" name="images[]" id="imagesInput" class="form-control"
+           accept="image/*" multiple>
+    <small class="text-muted">JPG/PNG/GIF, görsel başı en fazla 2MB.</small>
+
+    {{-- Seçilen dosyalar için küçük önizleme --}}
+    <div id="preview" class="row g-2 mt-2"></div>
+  </div>
+</div>
+
+@push('scripts')
+<script>
+document.getElementById('imagesInput')?.addEventListener('change', function (e) {
+  const preview = document.getElementById('preview');
+  preview.innerHTML = '';
+  Array.from(e.target.files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      const col = document.createElement('div');
+      col.className = 'col-4 col-md-2';
+      const img = document.createElement('img');
+      img.src = ev.target.result;
+      img.className = 'img-fluid rounded';
+      col.appendChild(img);
+      preview.appendChild(col);
+    };
+    reader.readAsDataURL(file);
+  });
+});
+</script>
+@endpush
+
+                            
+                            <div class="form-group row mt-4">
+                                <div class="col-md-2 col-md-offset-1">
+                                    <button type="submit" class="btn btn-primary">Sor</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
                 </div>
             </div>
-
-            <p class="mt-2">{{ $comment->content }}</p>
-
-            @if($comment->image_path)
-                <div class="comment-image mt-2">
-                    <img src="{{ asset('storage/' . $comment->image_path) }}" 
-                         alt="Cevap görseli"
-                         style="max-width:200px; border-radius:8px;">
-                </div>
-            @endif
         </div>
-    @empty
-        <p>Henüz hiç cevap yazılmamış. İlk sen yaz! 🐾</p>
-    @endforelse
-</div>
+    </div>
 
+<div class="homepage-section-footer-sosyal-forum">
+    <div class="homepage-section-footer-sosyal-forum-header-text">
+      <h2 id="footer-forum-header">Expressmama Sosyal Hayvan Severler Kulübü</h2>
+    </div>
+    <div class="homepage-section-footer-sosyal-forum-main-text">
+      <h3 id="footer-forum-description">
+        ExpressMama.com’da kedi veya köpek ırklarını inceleyebilir, sahiplenmek istediğiniz cinsler hakkında bilgi
+        sahibi olabilir; ücretsiz sahiplendirme ilanlarıyla hayatınızı paylaşacağınız kedi veya köpeği
+        sahiplenebilirsiniz.<br><br>
+        Sahiplendikten sonra ExpressMama.com'daki kedi isimleri ve köpek isimleri sayfaları sayesinde evciliniz için en
+        uygun ismi kolayca bulabilirsiniz.<br><br>
+        Kedi veya köpeğinizle yaşarken karşılaştığınız soru veya sorunlarda, Soru-Cevap bölümünde soru sorarak diğer
+        hayvanseverlerin deneyimlerinden faydalanabilirsiniz.
+      </h3>
+    </div>
+  </div>
+  <!--FİNİSH FOOTER ANASAYFA 01 06-->
 
-      <!-- <div class="sort-dropdown" onclick="toggleDropdown()">Eskiden Yeniye ▼
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="sortDropdown">
-          <div class="dropdown-item">En Çok Patilenen Göre</div>
-          <div class="dropdown-item">Eskiden Yeniye</div>
-          <div class="dropdown-item">Yeniden Eskiye</div>
-        </div>
-      </div> -->
+  <!--START FOOTER 02 07-->
+  <div class="homepage-section-container-footer">
+    <div class="homepage-section-container-footer-menu-container">
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-hakkinda">Hakkımızda</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-gizlilik">Yardım</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-yardim">Rozetler & Pati Puan</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-kariyer">İletişim</h2>
+      </div>
+    </div>
+    <div class="homepage-section-container-footer-menu-container-two">
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-teslimat-kosullari">Teslimat Koşulları
+        </h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-satis">Satış Sözleşmesi</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-garanti">Garanti ve İade</h2>
+      </div>
+      <div class="homepage-section-container-footer-menu-item">
+        <h2 class="homepage-section-container-footer-menu-item-text" id="footer-gizlilik">Gizlilik ve Çerez</h2>
+      </div>
+    </div>
+  </div>
+  <!--FİNİSH FOOTER 02 07-->
+
+  <!--START SOSYAL MEDYA 08-->
+  <div class="homepage-section-footer-social-media">
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-instagram" id="instagram-icon"></i>
+    </div>
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-facebook" id="facebook-icon"></i>
+    </div>
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-twitter" id="twitter-icon"></i>
+    </div>
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-youtube" id="youtube-icon"></i>
+    </div>
+    <div class="homepage-section-footer-social-media-item">
+      <i class="fa-brands fa-tiktok" id="tiktok-icon"></i>
+    </div>
+  </div>
+  <!--FİNİSH SOSYAL MEDYA 08-->
+
+  <!--START SİTE ÇALIŞMA BİLGİ 09-->
+  <div class="homepage-section-footer-customer-service">
+    <div class="homepage-section-footer-customer-service-item">
+      <h3 id="customer-service-title">MUTLU MÜŞTERİ HİZMETLERİ</h3>
+    </div>
+    <div class="homepage-section-footer-customer-service-item">
+      <h2 id="customer-service-number">0 533 290 5540</h2>
+    </div>
+    <div class="homepage-section-footer-customer-service-item">
+      <h4 id="customer-service-online-date">Pazartesi - Cumartesi I 08:30 - 18:00</h4>
+    </div>
+  </div>
+  <!--FİNİSH SİTE ÇALIŞMA BİLGİ 09-->
+
+  <!--START SİTE FİRMA BİLGİ 10-->
+  <div class="homepage-section-footer-company-alert">
+    <div class="homepage-section-footer-company-alert-item-qr">
+      <img src="https://static.ticimax.cloud/66297/uploads/footertasarim/9/b2a5ddef-43b1-45e0-afbd-b3beeff65c83.jpg"
+        alt="expressmama.com-etbis">
+    </div>
+    <div class="homepage-section-footer-company-alert-item-company-text">
+      <h4 id="company-alert-text">Mustafa Olgun Olgun Ticaret Expressmama.com</h4>
+    </div>
+    <div class="homepage-section-footer-company-alert-item-company-tax-office">
+      <h5 id="company-alert-tax-office">Gaziler Vergi Dairesi - 6410023066 - 29852311898 </h5>
+    </div>
+    <div class="homepage-section-footer-company-alert-item-company-address">
+      <h5 id="company-alert-address">Baruthane Mah. 787. Sok. No:2/1 55100 İlkadım/Samsun</h5>
+    </div>
+  </div>
+  <!--FİNİSH FİRMA BİLGİ 10-->
+
+  <!--START DATE BİLGİ 11-->
+  <div class="homepage-section-footer-copyright">
+    <h3 id="copyright-text">© 2023-2025 ExpressMama.com Tüm Hakları Saklıdır.</h3>
+  </div>
+  <!--FİNİSH DATE BİLGİ 11-->
     
-      <div class="question-answer-post-content-section">
-  <h4 id="answer-header">Cevap Yaz</h4>
-  <form method="POST"
-        action="{{ route('answer.store', $topic->id) }}"
-        enctype="multipart/form-data"
-        id="answerForm">
-    @csrf
+     <script src="https://cdn.ckeditor.com/ckeditor5/41.0.1/classic/ckeditor.js"></script>
+    
+     @vite(['resources/css/sor.css', 'resources/js/sor.js'])
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
 
-
-  <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="image-upload">Resim Yükle</span>
-      </div>
-      <div class="custom-file" id="img-upload">
-        <input type="file" class="custom-file-input" id="inputGroupFile01"
-               name="images[]" accept="image/*" multiple>
-        <label class="custom-file-label" for="inputGroupFile01" id="inputGroupFile02">Dosya Seç</label>
-      </div>
-    </div>
-  
-  <!-- Alıntı önizleme alanı (isteğe bağlı) -->
-  <div id="quote-preview" style="display: none; background: #f8f9fa; border-left: 4px solid #007bff; padding: 10px; margin-bottom: 10px; font-style: italic;">
-    <!-- Alıntı buraya gelecek -->
-  </div>
-  
-   <textarea
-      class="reply-input form-control"
-      name="content"
-      placeholder="Deneyimlerinizi ve önerilerinizi paylaşın..."
-      maxlength="2000"
-      rows="5"
-      required
-      style="min-height:120px;"></textarea>
-
-    <div class="reply-tools mt-2 d-flex align-items-center">
-      
-      <button type="button" onclick="clearReplyInput()"
-              class="btn btn-link ms-auto text-danger p-0">
-        <i class="fa-solid fa-trash"></i> Temizle
-      </button>
-    </div>
-
-    <button type="submit" class="reply-btn btn btn-primary mt-2">Cevabı Gönder</button>
-  </form>
-</div>
-</div>
-    </main>
-    <aside class="sidebar">
-      <div class="widget-answer-question">
-        <h3>SORUNUZ MU VAR?</h3>
-        <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
-          Uzmanlardan ve diğer üyelerden faydalı cevaplar almak için:
-        </p>
-        <div class="homepage-section-new-question">
-        <a href="{{ route('topic.create') }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
-    Yeni Soru Sor
-        </a>
-      </div>
-  </div>
-      </div>
-      <div class="widget-similar-questions">
-    <h3 id="similar-questions">BENZER SORULAR</h3>
-    <ul class="popular-questions">
-        @forelse($similarTopics as $sim)
-            <li>
-                <a href="{{ route('topic.detail', $sim->id) }}">
-                    🐾 {{ $sim->title }}
-                </a>
-            </li>
-        @empty
-            <li>Benzer soru bulunamadı.</li>
-        @endforelse
-    </ul>
-</div>
-
-
-    </aside>
-  </div>
-  <!--Start Şikayet Modal-->
-  <div class="modal" id="reportModal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h3 class="modal-title">Şikayet Et</h3>
-        <button class="close-btn" onclick="closeReportModal()">×</button>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Sebep</label>
-        <select class="form-select" id="reportReason">
-          <option value="">Seçiniz</option>
-          <option value="spam">Spam veya Reklam</option>
-          <option value="inappropriate">Uygunsuz İçerik</option>
-          <option value="harassment">Taciz veya Zorbalık</option>
-          <option value="fake">Yanlış Bilgi</option>
-          <option value="copyright">Telif Hakkı İhlali</option>
-          <option value="other">Diğer</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Açıklama (İsteğe Bağlı)</label>
-        <textarea class="form-textarea" id="reportDescription"
-          placeholder="Şikayetinizin sebebini yazabilirsiniz..."></textarea>
-      </div>
-
-      <div class="modal-actions">
-        <button class="btn-cancel" onclick="closeReportModal()">İptal</button>
-        <button class="btn-submit" onclick="submitReport()">Şikayet Et</button>
-      </div>
-    </div>
-  </div>
-  <!--Finish Şikayet Modal-->
-
-
-
-
-  <script src="./soru-detay.js"></script>
+        <script src="./sor.js"></script>
 
   <script>
-// Temizle butonu fonksiyonu
-function clearReplyInput() {
-    const replyTextarea = document.querySelector('.reply-input');
-    if (replyTextarea && confirm('Yazılan metni temizlemek istediğinizden emin misiniz?')) {
-        replyTextarea.value = '';
-        replyTextarea.focus();
-    }
-}
-
-// Dinamik alıntı önizleme (isteğe bağlı)
-function showQuotePreview(quoteText) {
-    const previewDiv = document.getElementById('quote-preview');
-    if (previewDiv) {
-        previewDiv.innerHTML = quoteText.replace(/\n/g, '<br>');
-        previewDiv.style.display = 'block';
-    }
-}
-
-function hideQuotePreview() {
-    const previewDiv = document.getElementById('quote-preview');
-    if (previewDiv) {
-        previewDiv.style.display = 'none';
-    }
-}
-
-// Test fonksiyonları - Geliştirme sırasında konsol'da kullanabilirsiniz
-window.testVotes = function() {
-    console.log('Vote test başlatılıyor...');
-    
-    // Vote butonlarını otomatik test et
-    setTimeout(() => {
-        const likeButtons = document.querySelectorAll('.vote-btn');
-        likeButtons.forEach((btn, index) => {
-            if (btn.textContent.includes('👍')) {
-                console.log(`Testing like button ${index}`);
-                btn.click();
-            }
-        });
-    }, 1000);
-};
-
-// Vote istatistiklerini göster
-window.showVoteStats = function() {
-    if (typeof voteData !== 'undefined') {
-        console.table(voteData);
-    } else {
-        console.log('Vote data henüz yüklenmedi');
-    }
-};
-
-document.addEventListener("DOMContentLoaded", function() {
-    const viewElement = document.querySelector('.header-stats span:first-child'); // İlk span (görüntülenme)
-    
-    // localStorage'da mevcut değer var mı kontrol et
-    let views = localStorage.getItem('pageViews');
-    if (!views) {
-        views = 0; // Başlangıç değeri
-    } else {
-        views = parseInt(views);
-    }
-    
-    // Sayfa her yenilendiğinde 1 arttır
-    views++;
-    
-    // Yeni değeri localStorage'a kaydet
-    localStorage.setItem('pageViews', views);
-    
-    // HTML içeriğini güncelle
-    viewElement.innerHTML = `<i class="fa fa-eye"></i> ${views}`; 
-});
-
-document.addEventListener("DOMContentLoaded", function() {
-    const thumbSpan = document.querySelector('.thumb-count');
-    const voteButton = document.querySelector('.vote-btn');
-
-    // LocalStorage'daki değerleri yükle
-    let spanCount = localStorage.getItem('thumbSpan') ? parseInt(localStorage.getItem('thumbSpan')) : 0;
-    let buttonCount = localStorage.getItem('thumbButton') ? parseInt(localStorage.getItem('thumbButton')) : 9;
-
-    // Sayfa yüklendiğinde değerleri göster
-    thumbSpan.innerHTML = `<i class="fa-solid fa-thumbs-up"></i> ${spanCount}`;
-    voteButton.innerHTML = `👍 ${buttonCount} Pati`;
-
-    // Butona tıklama olayı
-    window.voteAnswer = function(element, type) {
-        if (type === 'like') {
-            // Değerleri artır
-            spanCount++;
-            buttonCount++;
-
-            // HTML'i güncelle
-            thumbSpan.innerHTML = `<i class="fa-solid fa-thumbs-up"></i> ${spanCount}`;
-            element.innerHTML = `👍 ${buttonCount} Pati`;
-
-            // LocalStorage'a kaydet
-            localStorage.setItem('thumbSpan', spanCount);
-            localStorage.setItem('thumbButton', buttonCount);
-        }
-    };
-});
-
-
-
-
-
-</script>
-
-<script>
-// CSRF
-const CSRF = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
-
-// Beğeni: tıkla → toggle et → buton metnini güncelle
-async function voteAnswer(btn, type) {
-    if (type !== 'like') return;
-
-    const topicId = btn.getAttribute('data-topic-id');
-    try {
-        const res = await fetch(`/topics/${topicId}/like-toggle`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': CSRF,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({}) // payload gerek yok
-        });
-
-        if (res.status === 401) {
-            alert('Beğenmek için lütfen giriş yapın.');
-            return;
-        }
-
-        const data = await res.json();
-        // buton yazısını güncelle
-        btn.textContent = `👍 ${data.likes_count} Pati`;
-
-        // (isteğe bağlı) aktiflik stili
-        if (data.liked) {
-            btn.classList.add('active-like');
-        } else {
-            btn.classList.remove('active-like');
-        }
-    } catch (e) {
-        console.error(e);
-        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
-    }
-}
-
-// --- Şikayet Modal ---
-
-let CURRENT_TOPIC_ID = null;
-
-function openReportModal(topicId) {
-    CURRENT_TOPIC_ID = topicId;
-    document.getElementById('reportModal').style.display = 'block';
-}
-
-// modal kapat
-function closeReportModal() {
-    document.getElementById('reportModal').style.display = 'none';
-    CURRENT_TOPIC_ID = null;
-}
-
-// şikayet gönder
-async function submitReport() {
-    const reason = document.getElementById('reportReason')?.value || '';
-    const description = document.getElementById('reportDescription')?.value || '';
-
-    if (!CURRENT_TOPIC_ID) return;
-
-    try {
-        const res = await fetch(`/topics/${CURRENT_TOPIC_ID}/report`, {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN': CSRF,
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ reason, description })
-        });
-
-        const data = await res.json();
-        if (data.ok) {
-            alert(data.message || 'Şikayet alındı.');
-            closeReportModal();
-            // alanları temizle
-            document.getElementById('reportReason').value = '';
-            document.getElementById('reportDescription').value = '';
-        } else {
-            alert('Şikayet gönderilemedi.');
-        }
-    } catch (e) {
-        console.error(e);
-        alert('Bir hata oluştu. Lütfen tekrar deneyin.');
-    }
-}
-</script>
-
-<script>
   document.addEventListener('click', (e) => {
     const toggle = document.getElementById('myaccountToggle');
     const popup  = document.getElementById('myaccountPopup');
@@ -923,7 +752,13 @@ async function submitReport() {
       popup.classList.remove('show');
     }
   });
+
+  const el = document.querySelector('.header .logo a');
+const r = el.getBoundingClientRect();
+
+
 </script>
+
 
 </body>
 

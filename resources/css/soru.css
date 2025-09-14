@@ -161,8 +161,14 @@ a {
   margin-top: 0px;
   width: 300px;
   height: 70px;
-  margin-right: 70%;
 }
+
+.header-logo{
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+}
+
 
 .logo-mobil {
   display: none;
@@ -594,6 +600,13 @@ a {
   justify-content: center;
   gap: 48px;
   padding: 12px 0;
+  overflow-x: auto;   /* yatay kaydırma */
+  white-space: nowrap; /* satır kırılmasını engeller */
+
+}
+
+.main-menu::-webkit-scrollbar {
+  display: none; /* İsteğe bağlı: scroll bar gizle */
 }
 
 .main-menu a {

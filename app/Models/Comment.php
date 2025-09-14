@@ -55,6 +55,23 @@ class Comment extends Model
 
             $user->save();
         });
-}
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(\App\Models\CommentLike::class);
+    }
+
+    public function reports()
+    {
+        return $this->hasMany(\App\Models\CommentReport::class);
+    }
+
+    // Kullanışlı yardımcılar:
+    public function isLikedBy(?\App\Models\User $user): bool
+    {
+        if (!$user) return false;
+        return $this->likes()->where('user_id', $user->id)->exists();
+    }
 
 }
