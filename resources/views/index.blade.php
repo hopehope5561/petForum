@@ -232,7 +232,7 @@ body {
   <!--FİNİSH LOGO-->
 
   <!--START ÜYE GİRİŞ KAYIT ALANI-->
-  <div class="login-container">
+  <!-- <div class="login-container">
     <div class="login">
       <a href="./login.html" style="text-decoration: none; color:#424040;">
         <i class="fa-solid fa-user"></i>
@@ -243,7 +243,7 @@ body {
       </a>
     </div> 
     </div>
-  </div>
+  </div> -->
   <!--FİNİSH ÜYE GİRİŞ KAYIT ALANI-->
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->

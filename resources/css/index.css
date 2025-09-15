@@ -148,7 +148,7 @@ a {
   justify-content: center;
   margin: auto;
   margin-top: 0px;
-  
+
 }
 /*HEADER ALANI*/
 
@@ -204,7 +204,7 @@ a {
 
 @media screen and (min-width: 769px) {
   /*Arama Butonu için iyileştirme*/
- 
+
   /*START Yardım kısmı popup tasarımı*/
   /*Start Canlı yardım İndirimli Ürünler ve Para Puan Kazanımı iconlarına özellik kazandırır.*/
   .menu-icon {
@@ -416,7 +416,7 @@ a {
     font-weight: bold;
     margin-bottom: 5px;
   }
-  
+
   /*Start Sepet Sepete git butonuna özellik verir*/
   .popup-basket {
     display: flex;
@@ -821,7 +821,7 @@ a {
     justify-content: center;
     align-items: center;
     gap: 18px;
-    margin: 18px 0 0 0;
+    /* margin: 18px 0 0 0; */
   }
 
   .homepage-section-footer-social-media-item i {
@@ -1054,7 +1054,7 @@ a {
     gap: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
     /* margin-bottom: -39px; */
-    
+
   }
 
   #yuvalanan-sayisi-icon {
@@ -1084,7 +1084,7 @@ a {
     align-items: center;
     gap: 18px;
     margin-top: 2%;
-    
+
   }
 
   .homepage-section-ilan-item {
@@ -1274,7 +1274,7 @@ a {
         align-items: center;
         justify-content: flex-end;
         max-width: 1200px;
-        margin: 0 auto; 
+        margin: 0 auto;
         box-sizing: border-box;
         min-height: 82px;
 }
@@ -1314,7 +1314,7 @@ a {
 .login-actions {
   display: flex;
   align-items: center;
-  
+
 }
 
 .login-action {
@@ -1356,6 +1356,105 @@ a {
 /*MOBİL TASARIM*/
 
 @media screen and (max-width: 768px) {
+  
+
+
+
+   @media screen and (min-width: 320px) and  (max-width: 768px){
+    .homepage-section-title-text{
+      display: flex;
+      justify-content: center;
+      margin-top: 5px;
+      width: 80%;
+      background: none !important;
+    }
+
+    .homepage-section-number{
+     
+      margin: 0 auto;
+      
+      
+    }
+    }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-copyright{
+    max-width: 95% !important;
+    margin: 5px auto;
+    background: none !important;
+  }
+  }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .category-grid-mobil{
+    max-width: 95% !important;
+    margin-top: 30%;
+  }
+  }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-company-alert{
+    max-width: 95% !important;
+    background: none !important;
+  }
+  }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-customer-service{
+    max-width: 95% !important;
+  }
+  }
+
+
+   @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-social-media{
+    max-width: 95% !important;
+  }
+  }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-container-footer{
+    max-width: 95% !important;
+    background: none !important;
+  }
+  }
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-sosyal-forum{
+    max-width: 95% !important;
+    background: none !important; 
+  }
+  }
+  
+  .category-grid-mobil {
+        display: grid !important;
+        grid-template-columns: 1fr 1fr!important;
+        gap: 12px !important;
+        margin-left: 2%;
+    }
+
+.category-item-mobil {
+        display: flex;
+        align-items: center;
+        background: #fff;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
+        padding: 10px 18px;
+        font-size: 10px;
+        font-weight: 500;
+        color: #444;
+        transition: box-shadow 0.2s;
+        cursor: pointer;
+        margin-left: 6px!important;
+        width: 90%!important;
+    }
+
+  
   .main-menu {
     display: none;
   }
@@ -1377,9 +1476,6 @@ a {
     display: none;
   }
 
-  .logo {
-    margin-right: 10%;
-  }
 
   html,
   body {
@@ -1457,7 +1553,9 @@ a {
     justify-content: center;
     align-items: center;
     gap: 18px;
-    margin: 18px 0 0 0;
+    margin: 5px auto;
+    background: none;
+    /* margin: 18px 0 0 0; */
   }
 
   .homepage-section-footer-social-media-item i {
@@ -1542,8 +1640,8 @@ a {
   /* Telif Hakkı */
   .homepage-section-footer-copyright {
     text-align: center;
-    margin: 18px 0 0 0;
-    padding-bottom: 10px;
+    /* margin: 18px 0 0 0; */
+    /* padding-bottom: 10px; */
   }
 
   #copyright-text {
@@ -1795,7 +1893,7 @@ a {
   }
 
 
-  
+
 
   .soru-cevap-header {
     font-weight: bold;
@@ -2144,16 +2242,7 @@ a {
     color: #777777;
   }
 
-  .homepage-section-number {
-    position: relative;
-    width: 100%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-    font-size: 1.143rem !important;
-    font-weight: 600 !important;
-
-  }
+  
 
   .homepage-section-title-text {
     position: relative;
@@ -2236,25 +2325,32 @@ a {
   }
 
   .header {
-    border: 1px solid #f5f5f5;
-    width: 100%;
-    max-width: 405px;
-    margin: 0 auto;
-  }
+        display: flex;
+        justify-content: center;
+        width: 100%;
+    }
 
   .logo-web {
     display: none;
   }
 
+  .logo {
+        display: flex;
+        justify-content: center;
+        margin: auto;
+        margin-top: 0px;
+        width: 300px;
+        height: 70px;
+    }
+
   .logo-mobil {
-    /* display: flex;
-    justify-content: center; */
-    /* margin: 100%; */
-    /* margin-top: 9px; */
-    /* width: 300px; */
-    /* height: 51px; */
-    /* margin-right: 111%; */
-  }
+    display: flex;
+        justify-content: center;
+        width: 100%;
+        margin-left: 0px;
+        margin-top: 6px;
+
+  }      
 
   .login-container {
     position: absolute;
@@ -2452,28 +2548,7 @@ a {
 
   /*ANASAYFA TASARIM 01*/
 
-  .category-grid-mobil {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    max-width: 370px;
-    margin: 18px auto;
-    margin-top: 85px;
-  }
-
-  .category-item-mobil {
-    display: flex;
-    align-items: center;
-    background: #fff;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.07);
-    padding: 10px 18px;
-    font-size: 16px;
-    font-weight: 500;
-    color: #444;
-    transition: box-shadow 0.2s;
-    cursor: pointer;
-  }
+  
 
   .category-item-mobil:hover {
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);

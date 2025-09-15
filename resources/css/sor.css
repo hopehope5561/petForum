@@ -212,12 +212,92 @@ a {
 
 /* Mobil Görünüm */
 @media screen and (max-width: 768px) {
- 
+  
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .btn-primary{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 100%;
+  }
+  }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-copyright{
+    max-width: 95% !important;
+    margin: 5px auto;
+    background: none !important;
+  }
+  }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .category-grid-mobil{
+    max-width: 95% !important;
+    margin-top: 0% !important;
+  }
+  }
+
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-company-alert{
+    max-width: 95% !important;
+    background: none !important;
+  }
+  }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-customer-service{
+    max-width: 95% !important;
+  }
+  }
+
+
+   @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-social-media{
+    max-width: 95% !important;
+  }
+  }
+
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-container-footer{
+    max-width: 95% !important;
+    background: none !important;
+  }
+  }
+
+  @media screen and (min-width: 320px) and  (max-width: 768px){
+  .homepage-section-footer-sosyal-forum{
+    max-width: 95% !important;
+    background: none !important; 
+  }
+  }
+
+@media screen and (min-width: 320px) and  (max-width: 768px){
+  .ask-new-question-header-container{
+    display: block;
+    justify-content: center;
+    padding: 11px 18px 0px;
+    max-width: 95% !important;
+    margin: 0 auto;
+    margin-top: 12px;
+    padding-bottom: 1%;
+    /* box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); */
+    background: none !important; 
+  }  
+}
+
+
   .category-grid-mobil {
         display: grid !important;
         grid-template-columns: 1fr 1fr!important;
         gap: 12px !important;
-        max-width: 370px !important;
+        margin-left: 2%;
+        /* max-width: 370px !important; */
         /* margin: 18px auto; */
         /* margin-top: 85px; */
     }
