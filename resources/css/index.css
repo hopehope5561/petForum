@@ -1362,21 +1362,144 @@ a {
 
    @media screen and (min-width: 320px) and  (max-width: 768px){
     .homepage-section-title-text{
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    background: none !important;
+    padding-top: 10px;  /* iç boşluk */
+    }
+
+    .homepage-section-number-text{
       display: flex;
       justify-content: center;
-      margin-top: 5px;
-      width: 80%;
-      background: none !important;
+      max-width: 100%;
     }
 
     .homepage-section-number{
-     
-      margin: 0 auto;
-      
-      
-    }
+      display: flex;
+      justify-content: center;
+      max-width: 100%;
+      gap: 5px;
     }
 
+    #ilan-sayisi-count{
+      display: flex;
+      justify-content: center;
+      
+    }
+
+    #ilan-sayisi-label{
+      display: flex;
+      justify-content: center;
+    }
+
+    #ilan-sayisi-icon-link{
+      display: flex;
+      justify-content: center;
+      margin-top: 7px;
+      height: 0%;
+    }
+    
+    .homepage-section-alert-yuvalandi {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    text-align: center;
+  }
+
+    .homepage-section-alert-yuvalandi-number {
+    width: 95%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+
+  .homepage-section-alert-yuvalandi-number-text {
+    color: #e31e24;
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+  
+  }
+
+#yuvalanan-sayisi-icon {
+    color: #e31e24;
+    display: flex;
+    justify-content: center;
+  }
+
+  #yuvalanan-sayisi-label{
+    font-size: 14px;
+  }
+
+  .homepage-section-ilan-item {
+    display: flex;
+    flex-direction: row;
+    border-radius: 8px;
+    gap: 11px;
+    max-width: 97%;
+    justify-content: center;
+  }
+
+.homepage-section-ilan-item-button-icon {
+    max-width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+
+  #ilan-item-button-icon-1 {
+    color: black !important;
+    font-size: 60px;
+  }
+
+  .homepage-section-ilan-item-button-text {
+    display: flex;
+    justify-content: center;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 2%;
+  }
+
+
+    }
+
+/*TABLET GÖRÜNÜMÜ*/
+@media screen and (min-width: 768px){
+
+ .homepage-section-alert-yuvalandi {
+    display: flex;
+    justify-content: center;
+    max-width: 100%;
+    text-align: center;
+    
+    
+  }
+
+    .homepage-section-alert-yuvalandi-number {
+    width: 95%;
+  }
+
+  .homepage-section-alert-yuvalandi-number-text {
+    color: #e31e24;
+    display: flex;
+    justify-content: center;
+  
+  }
+
+#yuvalanan-sayisi-icon {
+    color: #e31e24;
+    display: flex;
+    justify-content: center;
+  }
+
+
+ 
+
+
+    }
+
+    
 
   @media screen and (min-width: 320px) and  (max-width: 768px){
   .homepage-section-footer-copyright{
@@ -1391,6 +1514,12 @@ a {
   .category-grid-mobil{
     max-width: 95% !important;
     margin-top: 30%;
+  }
+  }
+
+   @media screen and (max-width: 768px){
+  .category-grid-mobil{
+    /* margin-top: 30%; */
   }
   }
 
@@ -2069,10 +2198,7 @@ a {
     color: #5f5f5f;
   }
 
-  #ilan-item-button-icon-1 {
-    color: black;
-  }
-
+  
   .homepage-section-ilan-item-button-icon a {
     text-decoration: none;
   }
@@ -2081,34 +2207,10 @@ a {
     text-decoration: none;
   }
 
-  .homepage-section-ilan-item-button-text {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    margin-top: 0%;
-    margin-left: -4%;
-    font-size: 14px;
-    text-align: center;
-  }
+  
+ 
 
-  .homepage-section-ilan-item-button-icon {
-    display: flex;
-    justify-content: center;
-    position: relative;
-    margin-top: -6%;
-    margin-left: -6%;
-    font-size: 57px;
-    color: black;
-  }
-
-  .homepage-section-ilan-item {
-    display: flex;
-    flex-direction: row;
-    margin: 10px;
-    padding: 0px;
-    border-radius: 8px;
-    gap: 44px;
-  }
+  
 
   .ilan-basligi-mobil {
     color: #e31e24;
@@ -2156,103 +2258,33 @@ a {
   }
 
   #yuvalanan-sayisi-label {
-    font-size: 16px;
     color: #5f5f5f;
-    margin-top: -8%;
-    margin-left: 30%;
   }
 
-  .homepage-section-alert-yuvalandi-number-text {
-    color: #e31e24;
-    display: flex;
-    position: relative;
-    justify-content: center;
-    margin-top: -6%;
-    margin-right: 62%;
-    font-size: 19px;
-  }
+  
 
-  .homepage-section-alert-yuvalandi-number {
-    padding: 0px;
-    margin: 15px;
-    border: 1px solid #f4f4f4;
-    margin-top: 2%;
-    height: 48px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
-  }
+  
 
-  .homepage-section-alert-yuvalandi {
-    border: 0px;
-    border-radius: 0px;
-    font-size: 12px !important;
-  }
+  
 
-  #yuvalanan-sayisi-icon {
-    color: #e31e24;
-    font-size: 16px;
-    font-weight: 700;
-    display: flex;
-    position: relative;
-    justify-content: center;
-    margin-top: 3%;
-    margin-right: 88%;
-    font-size: 21px;
-  }
+  
 
   #ilan-sayisi-icon-link {
     color: #aee4ff;
-    display: block;
-    position: relative;
-    width: 100%;
-    margin-left: 56%;
-    margin-top: -7%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-    font-size: 16px;
-    font-weight: 600 !important;
+   
   }
 
   #homepage-section-title-text-information {
     color: #464646;
   }
 
-  #ilan-sayisi-label {
-    position: relative;
-    width: 100%;
-    margin-left: 45%;
-    margin-top: -7%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-    font-size: 15px;
-    font-weight: 600 !important;
-  }
+ 
 
   .homepage-section-number-text {
-    position: relative;
-    width: 100%;
-    margin-left: 32%;
-    margin-top: -7%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-    font-size: 15px;
-    font-weight: 600 !important;
     color: #777777;
   }
 
-  
 
-  .homepage-section-title-text {
-    position: relative;
-    width: 100%;
-    min-height: 1px;
-    padding-right: 15px;
-    padding-left: 15px;
-    font-size: 1.143rem !important;
-    font-weight: 600 !important;
-  }
 
   .mobil-header-category {
     display: flex;
