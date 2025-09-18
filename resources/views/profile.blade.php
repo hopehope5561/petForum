@@ -460,6 +460,47 @@ body {
         
       </div>
 
+      {{-- Avatar kutusu (mevcut resim) --}}
+<div class="col-12 col-md-3 text-center">
+    <img
+        id="avatarPreview"
+        src="{{ $user->image_path ? asset('storage/' . $user->image_path) : asset('images/default-avatar.png') }}"
+        alt="{{ $user->name }}"
+        class="img-thumbnail-mobil rounded p-0 lazy loaded thumbnail-kare"
+        loading="lazy"
+        style="width: 180px; height: 180px; object-fit: cover; border-radius: 12px;"
+    />
+
+    {{-- Yükleme formu --}}
+    <form class="mt-3" method="POST" action="{{ route('account.avatar.update') }}" enctype="multipart/form-data">
+        @csrf
+        <div class="input-group">
+            <input
+                type="file"
+                name="avatar"
+                id="avatarInput"
+                class="form-control"
+                accept="image/png, image/jpeg, image/webp, image/gif"
+                required
+            >
+            <button type="submit" class="btn btn-primary">Kaydet</button>
+        </div>
+        <small class="text-muted d-block mt-2">
+            Desteklenen: JPG/PNG/WEBP/GIF
+        </small>
+
+        @error('avatar')
+            <div class="text-danger mt-2">{{ $message }}</div>
+        @enderror
+    </form>
+
+    {{-- Başarılı mesajı --}}
+    @if(session('success'))
+        <div class="alert alert-success mt-3 py-2 px-3">{{ session('success') }}</div>
+    @endif
+</div>
+
+
       <div class="row g-4 align-items-center">
         <!-- Avatar -->
         <div class="col-12 col-md-3 text-center">
@@ -483,7 +524,7 @@ body {
               <tbody>
                 <tr>
                   <th class="text-muted fw-normal" style="width:220px;">Ad Soyad</th>
-                  <td><strong>{{$user->name}}</td>
+                  <td><strong>{{ $user->name }}</strong></td>
                 </tr>
                 <tr>
                   <th class="text-muted fw-normal">E-posta</th>
@@ -652,4 +693,19 @@ body {
       popup.classList.remove('show');
     }
   });
+</script>
+
+<script>
+
+  const avatarInput = document.getElementById('avatarInput');
+  const avatarPreview = document.getElementById('avatarPreview');
+
+  if (avatarInput && avatarPreview) {
+    avatarInput.addEventListener('change', (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const url = URL.createObjectURL(file);
+      avatarPreview.src = url;
+    });
+  }
 </script>

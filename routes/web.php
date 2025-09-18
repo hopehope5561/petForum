@@ -39,6 +39,8 @@ Route::post('/topics/{id}/report', [IndexController::class,'storeReport'])
 Route::put('/topics/{topic}', [IndexController::class, 'updateTopic'])->name('topic.update');
 Route::get('/topics/{topic}', [IndexController::class, 'editTopic'])->name('topic.edit');
 
+ Route::post('/account/avatar', [IndexController::class, 'updateAvatar'])
+        ->name('account.avatar.update');
 
 
     Route::post('/logout', function () {

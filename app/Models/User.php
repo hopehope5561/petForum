@@ -55,15 +55,15 @@ class User extends Authenticatable
         return $this->belongsTo(Rank::class);
     }
 
-    public function updateUserRank(User $user): void
+    public function updateUserRank(): void
     {
-        $newRank = Rank::where('min_points', '<=', $user->points)
-                    ->orderByDesc('min_points')
-                    ->first();
+        $newRank = Rank::where('min_points', '<=', $this->points ?? 0)
+            ->orderByDesc('min_points')
+            ->first();
 
-        if ($newRank && $user->rank_id !== $newRank->id) {
-            $user->rank_id = $newRank->id;
-            $user->save();
+        if ($newRank && $this->rank_id !== $newRank->id) {
+            $this->rank_id = $newRank->id;
+            $this->save();
         }
     }
 

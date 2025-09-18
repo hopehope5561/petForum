@@ -494,7 +494,7 @@ body {
                 <p class="user-stats-puan">Pati Puan</p>
               </div>
               <div class="user-stats-rank">
-                <p class="user-stats-rank-icon-new-paw">🌱</p><span> Yeni Pati </span>
+                <p class="user-stats-rank-icon-new-paw">🌱</p><span> {{ $topic->user->rank->name }} </span>
                 
               </div>
             </div>
@@ -528,15 +528,28 @@ body {
   
   <!-- Güncellenmiş Like Butonu - onclick kaldırıldı, JavaScript otomatik handle ediyor -->
   <!-- Like butonu -->
-<button class="vote-btn"
-        data-topic-id="{{ $topic->id }}"
-        onclick="voteAnswer(this, 'like')">
-    👍 {{ $topic->likes->count() }} Pati
-</button>  
+@auth
+    <button class="vote-btn"
+            data-topic-id="{{ $topic->id }}"
+            onclick="voteAnswer(this, 'like')">
+        👍 {{ $topic->likes->count() }} Pati
+    </button>
 
-<button type="button" class="vote-btn" onclick="openReportModal({{ $topic->id }})">
-    ⚠️ Şikayet Et
-</button>
+    <button type="button" class="vote-btn" onclick="openReportModal({{ $topic->id }})">
+        ⚠️ Şikayet Et
+    </button>
+@endauth
+
+@guest
+    <a class="vote-btn" href="{{ route('login') }}">
+        👍 Beğenmek için giriş yap
+    </a>
+
+    <a class="vote-btn" href="{{ route('login') }}">
+        ⚠️ Şikayet için giriş yap
+    </a>
+@endguest
+
 
 </div>
     
@@ -635,7 +648,19 @@ body {
       </button>
     </div>
 
-    <button type="submit" class="reply-btn btn btn-primary mt-2">Cevabı Gönder</button>
+    @auth
+    <button type="submit" class="reply-btn btn btn-primary mt-2">
+        Cevabı Gönder
+    </button>
+@endauth
+
+@guest
+    <a href="https://www.expressmama.com/UyeGiris"
+       class="reply-btn btn btn-outline-primary mt-2">
+        Soru Sormak için Giriş Yap
+    </a>
+@endguest
+
   </form>
 </div>
 </div>
@@ -647,7 +672,7 @@ body {
           Uzmanlardan ve diğer üyelerden faydalı cevaplar almak için:
         </p>
         <div class="homepage-section-new-question">
-        <a href="{{ route('topic.create') }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
+        <a href="{{ auth()->check() ? route('topic.create') : 'https://www.expressmama.com/UyeGiris' }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
     Yeni Soru Sor
         </a>
       </div>

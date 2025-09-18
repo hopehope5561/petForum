@@ -164,14 +164,20 @@ class IndexController extends Controller
 
 
     public function storeComment(Request $request, $id)
-    {
-        $topic = Topic::where('deleted', 0)->findOrFail($id);
+{
+    $topic = Topic::where('deleted', 0)->findOrFail($id);
 
-        $validated = $request->validate([
-            'content' => 'required|string|max:2000',
-            'images.*' => 'nullable|image|max:4096',
-        ]);
+    $validated = $request->validate([
+        'content'   => 'required|string|max:2000',
+        'images.*'  => 'nullable|image|max:4096',
+    ]);
 
+    // Güvenlik: misafir ise engelle (route zaten auth ise gerekmez)
+    if (!Auth::check()) {
+        return redirect()->route('login')->with('warning', 'Yorum yapmak için giriş yapın.');
+    }
+
+    DB::transaction(function () use ($request, $topic, $validated) {
         $comment = Comment::create([
             'topic_id' => $topic->id,
             'user_id'  => Auth::id(),
@@ -180,15 +186,28 @@ class IndexController extends Controller
         ]);
 
         if ($request->hasFile('images')) {
-            // İlk dosyayı al ve sakla
             $first = $request->file('images')[0];
-            $path = $first->store('answers', 'public');
+            $path  = $first->store('answers', 'public');
             $comment->image_path = $path;
             $comment->save();
         }
 
-        return back()->with('success', 'Cevabın başarıyla eklendi!');
-    }
+        // --- PUAN & RÜTBE ---
+        /** Kaç puan? İstersen config/points.php dosyasına al:
+         *   return ['comment' => 5];
+         * ve $increment = config('points.comment', 5);
+         */
+        $increment = 5;
+
+        $user = Auth::user();
+        // Atomik arttırma:
+        $user->increment('points', $increment);
+        $user->refresh();                // güncel points’i al
+        $user->updateUserRank();         // min_points’e göre rank_id güncelle
+    });
+
+    return back()->with('success', 'Cevabın başarıyla eklendi!');
+}
 
     public function toggle($id)
     {
@@ -246,14 +265,48 @@ class IndexController extends Controller
         return view('profile', compact('user'));
     }
 
+      public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => [
+                'required',
+                'image',
+                'mimes:jpeg,jpg,png,webp,gif',
+                'max:4096',                 // 4 MB
+                'dimensions:min_width=100,min_height=100',
+            ],
+        ], [
+            'avatar.required' => 'Lütfen bir resim seçin.',
+            'avatar.image' => 'Dosya bir görsel olmalıdır.',
+            'avatar.mimes' => 'Sadece JPG, PNG, WEBP veya GIF yükleyebilirsiniz.',
+            'avatar.max' => 'Görsel boyutu en fazla 4MB olmalıdır.',
+            'avatar.dimensions' => 'Görsel minimum 100x100 piksel olmalıdır.',
+        ]);
+
+        $user = Auth::user();
+
+        // Eski resmi sil (varsa ve public diskte duruyorsa)
+        if ($user->image_path && Storage::disk('public')->exists($user->image_path)) {
+            Storage::disk('public')->delete($user->image_path);
+        }
+
+        // Yeni resmi kaydet
+        $path = $request->file('avatar')->store('avatars', 'public');
+
+        // Kullanıcıya yaz
+        $user->image_path = $path;
+        $user->save();
+
+        return back()->with('success', 'Profil fotoğrafın güncellendi.');
+    }
+
     public function myTopic()
     {
         $query = Topic::query()
             ->where('user_id', Auth::id())
              ->where('deleted', 0)
-            ->with(['category']) // kategoriyi de lazımsa
+            ->with(['category']) 
             ->withCount([
-                // 'comments' ilişkinde zaten where('deleted',0) var ama garanti için tekrar yazdım
                 'comments as replies_count' => fn($q) => $q->where('deleted', 0),
                 'likes as pati_count',
             ])
