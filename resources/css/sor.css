@@ -212,6 +212,16 @@ a {
 
 /* Mobil Görünüm */
 @media screen and (max-width: 768px) {
+
+  @media screen and (min-width: 320px) and  (max-width: 768px) {
+    .adoption-header{
+      font-weight: bold;
+    }
+
+    .adoption-list{
+      margin: 20px auto;
+    }
+  }
   
   @media screen and (min-width: 320px) and  (max-width: 768px){
   .btn-primary{
@@ -439,6 +449,32 @@ a {
 
 @media screen and (min-width: 769px) {
   
+  .adoption-list{
+    margin: 30px auto;
+    width: 100%;
+    max-width: 1200px;
+    
+  }
+
+  .form-control{
+    width: 80%;
+    max-width: 1200px;
+  }
+
+
+  .control-label{
+    font-weight: 500;
+  }
+
+  .adoption-header{
+      font-weight: 500;
+    }
+
+  label {
+    font-weight: 500;
+  }  
+
+
   /*MASAÜSTÜ SORU SOR GENEL TASARIM*/
   .ask-new-question-header-container{
     border: 1px solid #dddddd;
@@ -467,7 +503,7 @@ a {
   #form-header-select{
     display: flex;
         justify-content: center;
-        width: 100vh;
+        width: 100%;
         max-width: 1200px;
         margin: 0 auto;
     border: var(--bs-border-width) solid #c9c8c8;

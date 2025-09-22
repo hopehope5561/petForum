@@ -171,7 +171,7 @@ body {
 
         /* Responsive tasarım */
         @media (max-width: 768px) {
-            .custom-pagination .page-item .page-link {
+            /* .custom-pagination .page-item .page-link {
                 padding: 8px 12px;
                 min-width: 38px;
                 font-size: 14px;
@@ -180,7 +180,7 @@ body {
             .soru-cevap-container {
                 margin: 0 10px;
                 padding: 20px 15px;
-            }
+            } */
         }
 
         /* Ekstra güvenlik: Tüm "showing" metinlerini gizle */
