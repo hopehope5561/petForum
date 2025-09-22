@@ -5,7 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\AuthController;
-
+use App\Http\Middleware\PreventRapidRequests;
 
 Route::put('/users/{user}', [IndexController::class, 'updateUser'])
     ->name('users.update');
@@ -15,18 +15,23 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/soru-sor', [IndexController::class, 'showTopic'])->name('topic.create');
-Route::post('/soru-sor', [IndexController::class, 'storeTopic'])->name('topic.store');
+Route::post('/soru-sor', [IndexController::class, 'storeTopic'])
+    ->middleware(PreventRapidRequests::class)
+    ->name('topic.store');
 
 Route::get('/soru/{id}', action: [IndexController::class, 'showTopicDetail'])->name('topic.detail');
 
 Route::post('/soru/{id}/cevap', [IndexController::class, 'storeComment'])
+    ->middleware(PreventRapidRequests::class)
     ->name('answer.store');
 
 Route::put('/topics/{topic}/comments/{comment}', [IndexController::class, 'updateComment'])
-     ->name('comments.update');
+    ->middleware(PreventRapidRequests::class)
+    ->name('comments.update');
 
-     Route::post('/comments/{comment}/delete', [IndexController::class, 'softDeleteComment'])
-        ->name('comment.delete');
+    Route::post('/comments/{comment}/delete', [IndexController::class, 'softDeleteComment'])
+    ->middleware(PreventRapidRequests::class)
+    ->name('comment.delete');
 
 
 Route::get('/yuva-arayanlar', [IndexController::class, 'adaption'])
@@ -40,13 +45,18 @@ Route::post('/comments/{comment}/like-toggle', [IndexController::class,'toggleLi
     ->name('comment.like.toggle');
 
 Route::post('/topics/{id}/report', [IndexController::class,'storeReport'])
+    ->middleware(PreventRapidRequests::class)
     ->name('topics.report.store');
 
 Route::post('/comments/{comment}/report', [IndexController::class,'reportComment'])
+    ->middleware(PreventRapidRequests::class)
     ->name('comment.report.store');
 
-Route::put('/topics/{topic}', [IndexController::class, 'updateTopic'])->name('topic.update');
-Route::get('/topics/{topic}', [IndexController::class, 'editTopic'])->name('topic.edit');
+Route::put('/topics/{topic}', [IndexController::class, 'updateTopic'])
+    ->middleware(PreventRapidRequests::class)
+    ->name('topic.update');
+    
+    Route::get('/topics/{topic}', [IndexController::class, 'editTopic'])->name('topic.edit');
 
  Route::post('/account/avatar', [IndexController::class, 'updateAvatar'])
         ->name('account.avatar.update');
@@ -85,6 +95,7 @@ Route::get('/topics/{topic}', [IndexController::class, 'editTopic'])->name('topi
             ->name('account.profile');
 
     Route::patch('/profile/topics/{topic}/sil', [IndexController::class, 'softDelete'])
+    ->middleware(PreventRapidRequests::class)
     ->name('account.topics.softDelete');
     
     Route::get('/account/topics', [IndexController::class, 'myTopic'])

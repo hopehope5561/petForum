@@ -1361,6 +1361,45 @@ a {
 
 
    @media screen and (min-width: 320px) and  (max-width: 768px){
+
+    .soru-cevap-container {
+          max-width: 94% !important;
+           background: white !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1) !important;
+            padding: 4px !important;
+            margin: 0 auto !important;
+  }
+
+  .soru-cevap-container img {
+    position: relative;
+    right: 10px;
+  }
+
+
+    .homepage-section-new-question{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+  }
+
+  .btn-new{
+    display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90%;
+        background-color: #e31e24;
+        color: #fff;
+        border: none;
+        border-radius: 20px;
+        padding: 6px 12px;
+        font-size: 25px;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+  }
     .homepage-section-title-text{
     display: flex;
     justify-content: center;
@@ -2008,19 +2047,6 @@ a {
     font-size: 17px;
   }
 
-  .soru-cevap-container {
-    display: flex;
-    justify-content: center;
-    width: 100% !important;
-    background: #fff;
-    border-radius: 10px;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    padding: 16px 0 0 0;
-    border: 1.5px solid #e0e0e0;
-    width: 100% !important;
-    max-width: 1200px !important;
-  }
-
 
 
 
@@ -2072,7 +2098,8 @@ a {
 
   .soru-cevap-content {
     flex: 1;
-    margin-top: -5%;
+     margin-top: 1%;
+    margin-left: 1px;
   }
 
   .user {
@@ -2620,4 +2647,15 @@ a {
     background-color: #0d6efd;
     border-color: #0d6efd;
     color: #fff;
+}
+
+@media screen and (max-width: 1024px) {
+  .soru-cevap-container {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 25px;
+    margin: 0 auto;
+    width: 95% !important;
+}
 }
