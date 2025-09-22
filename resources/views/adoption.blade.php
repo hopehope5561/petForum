@@ -14,6 +14,78 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
+
+    <style>
+/* Form alanı */
+.search-filter-card{
+  background:#ffffff;
+  border-radius:16px;
+  padding:20px;
+  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  margin-bottom:1.5rem;
+}
+
+/* Konu listesi */
+.soru-cevap-list{
+  list-style:none;
+  padding:0;
+  margin:0;
+}
+.topic-item{
+  background:#fff;
+  border:1px solid #e5e7eb;
+  border-radius:14px;
+  padding:18px 22px;
+  margin-bottom:14px;
+  transition:all .25s ease;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+}
+.topic-item:hover{
+  border-color:#60a5fa;
+  box-shadow:0 6px 16px rgba(37,99,235,.12);
+  transform:translateY(-2px);
+}
+.topic-title{
+  font-size:1.1rem;
+  font-weight:600;
+  color:#1f2937;
+  margin-bottom:6px;
+}
+.topic-meta{
+  font-size:.9rem;
+  color:#6b7280;
+}
+
+/* Sayfalama */
+.custom-pagination .page-link{
+  border-radius:10px !important;
+  border:1px solid #e5e7eb;
+  color:#374151;
+  font-weight:500;
+  padding:.55rem .9rem;
+  transition:all .2s ease;
+}
+.custom-pagination .page-link:hover{
+  background:#2563eb;
+  color:#fff;
+  border-color:#2563eb;
+  box-shadow:0 4px 10px rgba(37,99,235,.25);
+}
+.custom-pagination .page-item.active .page-link{
+  background:#2563eb;
+  border-color:#2563eb;
+  color:#fff;
+  box-shadow:0 4px 10px rgba(37,99,235,.25);
+}
+
+/* Küçük ekranlar */
+@media (max-width:576px){
+  .search-filter-card{
+    padding:16px;
+  }
+}
+</style>
+
   <style>
 
 
@@ -446,48 +518,54 @@ body {
 
   <!--START YUVA ARAYANLAR 02-->
 {{-- ARAMA + SIRALAMA --}}
-<form method="GET" action="{{ url()->current() }}" class="row g-2 align-items-end mb-3">
-  <div class="col-12 col-md-7">
-    <label class="form-label mb-1">Başlık</label>
-    <input type="text" name="q" value="{{ request('q') }}" class="form-control" placeholder="Başlıkta ara...">
-  </div>
+{{-- ARAMA & FİLTRE --}}
+<div class="search-filter-card">
+  <form method="GET" action="{{ url()->current() }}" class="row g-3 align-items-end">
+    <div class="col-12 col-md-7">
+      <label class="form-label fw-semibold text-secondary mb-1">Başlık</label>
+      <input type="text" name="q" value="{{ request('q') }}"
+             class="form-control shadow-sm"
+             placeholder="Başlıkta ara...">
+    </div>
 
-  <div class="col-12 col-md-3">
-    <label class="form-label mb-1">Sırala</label>
-    <select name="order" class="form-select">
-      <option value="new"     {{ request('order','new')==='new' ? 'selected' : '' }}>Yeni–eski</option>
-      <option value="old"     {{ request('order')==='old' ? 'selected' : '' }}>Eski–yeni</option>
-      <option value="replies" {{ request('order')==='replies' ? 'selected' : '' }}>En çok cevap</option>
-      <option value="likes"   {{ request('order')==='likes' ? 'selected' : '' }}>En çok beğeni</option>
-    </select>
-  </div>
+    <div class="col-12 col-md-3">
+      <label class="form-label fw-semibold text-secondary mb-1">Sırala</label>
+      <select name="order" class="form-select shadow-sm">
+        <option value="new"     {{ request('order','new')==='new' ? 'selected' : '' }}>Yeni – Eski</option>
+        <option value="old"     {{ request('order')==='old' ? 'selected' : '' }}>Eski – Yeni</option>
+        <option value="replies" {{ request('order')==='replies' ? 'selected' : '' }}>En Çok Cevap</option>
+        <option value="likes"   {{ request('order')==='likes' ? 'selected' : '' }}>En Çok Beğeni</option>
+      </select>
+    </div>
 
-  <div class="col-12 col-md-2 d-flex gap-2">
-    <button type="submit" class="btn btn-primary w-100">
-      <i class="fa-solid fa-magnifying-glass me-1"></i> Ara
-    </button>
-    <a href="{{ url()->current() }}" class="btn btn-outline-secondary w-100">Sıfırla</a>
-  </div>
-</form>
+    <div class="col-12 col-md-2 d-flex gap-2">
+      <button type="submit" class="btn btn-primary w-100 shadow-sm">
+        <i class="fa-solid fa-magnifying-glass me-1"></i> Ara
+      </button>
+      <a href="{{ url()->current() }}" class="btn btn-outline-secondary w-100 shadow-sm">Sıfırla</a>
+    </div>
+  </form>
+</div>
 
-{{-- LİSTE --}}
+{{-- KONU LİSTESİ --}}
 <ul class="soru-cevap-list" id="soru-cevap-list">
   @forelse ($topics as $topic)
-    @include('partials.topic_list_item', ['topic' => $topic])
+      @include('partials.topic_list_item', ['topic' => $topic])
   @empty
-    <li class="topic-item">
-      <div class="topic-title">Kriterlere uygun sonuç bulunamadı.</div>
-      <div class="topic-meta small text-muted">Arama metnini değiştirip tekrar deneyin.</div>
-    </li>
+      <li class="topic-item text-center">
+        <div class="topic-title">Kriterlere uygun sonuç bulunamadı.</div>
+        <div class="topic-meta small">Arama metnini değiştirip tekrar deneyin.</div>
+      </li>
   @endforelse
 </ul>
 
 {{-- SAYFALAMA --}}
 @if ($topics->hasPages())
-  <nav class="custom-pagination mt-3" aria-label="Sayfalama">
+  <nav class="custom-pagination mt-4" aria-label="Sayfalama">
     {{ $topics->onEachSide(1)->links('pagination::bootstrap-5') }}
   </nav>
 @endif
+
 
 
   <div class="homepage-section-footer-sosyal-forum">

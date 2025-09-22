@@ -384,7 +384,7 @@ class IndexController extends Controller
     public function toggleLikeComment(Request $request, Comment $comment)
     {
         $userId = $request->user()->id;
-
+        
         $like = CommentLike::where('comment_id', $comment->id)
                         ->where('user_id', $userId)
                         ->first();
@@ -399,20 +399,19 @@ class IndexController extends Controller
             'user_id'    => $userId,
         ]);
 
-        return response()->json(['liked' => true, 'likes_count' => $comment->likes()->count()]);
+            return redirect()->back();
+
     }
 
     public function reportComment(Request $request, Comment $comment)
     {
-        $data = $request->validate([
-            'category'    => 'required|in:spam,hakaret,nefret,müstehcen,reklam,diğer',
-            'description' => 'nullable|string|max:2000',
-        ]);
+            CommentReport::updateOrCreate(
+        [
+            'comment_id' => $comment->id,
+            'user_id'    => $request->user()->id,
+        ]
+    );
 
-        CommentReport::firstOrCreate(
-            ['comment_id' => $comment->id, 'reporter_id' => $request->user()->id],
-            ['category' => $data['category'], 'description' => $data['description'] ?? null]
-        );
 
         return back()->with('success', 'Şikayetiniz alındı. Teşekkürler.');
     }
@@ -593,6 +592,27 @@ class IndexController extends Controller
 
     return view('editTopic', compact('topic','categorys'));
 }
+
+public function softDeleteComment(Request $request, Comment $comment)
+    {
+        // Yetki kontrolü: Yorumu sahibi veya admin silebilsin
+        $user = $request->user();
+        $isOwner = $comment->user_id === $user->id;
+        $isAdmin = (bool) $user->is_admin;
+
+        if (! $isOwner && ! $isAdmin) {
+            return back()->with('error', 'Bu yorumu silme yetkiniz yok.');
+        }
+
+    
+        if ((int) $comment->deleted === 1) {
+            return back()->with('info', 'Yorum zaten silinmiş.');
+        }
+
+        $comment->update(['deleted' => 1]);
+
+        return back()->with('success', 'Yorum silindi.');
+    }
 
 
 

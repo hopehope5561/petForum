@@ -10,17 +10,7 @@ class CommentReport extends Model
 
     protected $fillable = [
         'comment_id',
-        'reporter_id',
-        'category',
-        'description',
-        'status',
-        'handled_by',
-        'handled_at',
-        'resolution_notes',
-    ];
-
-    protected $casts = [
-        'handled_at' => 'datetime',
+        'user_id',
     ];
 
     public function comment()

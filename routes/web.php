@@ -25,6 +25,9 @@ Route::post('/soru/{id}/cevap', [IndexController::class, 'storeComment'])
 Route::put('/topics/{topic}/comments/{comment}', [IndexController::class, 'updateComment'])
      ->name('comments.update');
 
+     Route::post('/comments/{comment}/delete', [IndexController::class, 'softDeleteComment'])
+        ->name('comment.delete');
+
 
 Route::get('/yuva-arayanlar', [IndexController::class, 'adaption'])
     ->name('adoption.index');
@@ -33,8 +36,14 @@ Route::get('/yuva-arayanlar', [IndexController::class, 'adaption'])
 Route::post('/topics/{id}/like-toggle', [IndexController::class,'toggle'])
     ->name('topics.like.toggle');
 
+Route::post('/comments/{comment}/like-toggle', [IndexController::class,'toggleLikeComment'])
+    ->name('comment.like.toggle');
+
 Route::post('/topics/{id}/report', [IndexController::class,'storeReport'])
     ->name('topics.report.store');
+
+Route::post('/comments/{comment}/report', [IndexController::class,'reportComment'])
+    ->name('comment.report.store');
 
 Route::put('/topics/{topic}', [IndexController::class, 'updateTopic'])->name('topic.update');
 Route::get('/topics/{topic}', [IndexController::class, 'editTopic'])->name('topic.edit');

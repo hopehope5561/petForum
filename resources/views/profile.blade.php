@@ -16,6 +16,24 @@
 
   <style>
 
+.profile-card {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.profile-card .card-header {
+    border-bottom: none;
+    background: linear-gradient(135deg, #0d6efd 0%, #4a9ef8 100%);
+}
+
+.avatar-wrapper img {
+    transition: transform .3s ease;
+}
+
+.avatar-wrapper img:hover {
+    transform: scale(1.05);
+}
+
 
 body {
             background-color: #f8f9fa;
@@ -452,120 +470,89 @@ body {
         <div>
 
         <!-- Üye Bilgileri Kartı -->
-<div class="container px-0 my-4">
-  <div class="card border-0 shadow-sm">
-    <div class="card-body p-4">
-      <div class="d-flex align-items-center justify-content-between mb-3">
-        <h5 class="mb-0" style="font-weight:600;color:#2c3e50;">Üye Bilgileri</h5>
-        
-      </div>
-
-      {{-- Avatar kutusu (mevcut resim) --}}
-<div class="col-12 col-md-3 text-center">
-    <img
-        id="avatarPreview"
-        src="{{ $user->image_path ? asset('storage/' . $user->image_path) : asset('images/default-avatar.png') }}"
-        alt="{{ $user->name }}"
-        class="img-thumbnail-mobil rounded p-0 lazy loaded thumbnail-kare"
-        loading="lazy"
-        style="width: 180px; height: 180px; object-fit: cover; border-radius: 12px;"
-    />
-
-    {{-- Yükleme formu --}}
-    <form class="mt-3" method="POST" action="{{ route('account.avatar.update') }}" enctype="multipart/form-data">
-        @csrf
-        <div class="input-group">
-            <input
-                type="file"
-                name="avatar"
-                id="avatarInput"
-                class="form-control"
-                accept="image/png, image/jpeg, image/webp, image/gif"
-                required
-            >
-            <button type="submit" class="btn btn-primary">Kaydet</button>
-        </div>
-        <small class="text-muted d-block mt-2">
-            Desteklenen: JPG/PNG/WEBP/GIF
-        </small>
-
-        @error('avatar')
-            <div class="text-danger mt-2">{{ $message }}</div>
-        @enderror
-    </form>
-
-    {{-- Başarılı mesajı --}}
-    @if(session('success'))
-        <div class="alert alert-success mt-3 py-2 px-3">{{ session('success') }}</div>
-    @endif
-</div>
-
-
-      <div class="row g-4 align-items-center">
-        <!-- Avatar -->
-        <div class="col-12 col-md-3 text-center">
-                <img
-                    src="{{ asset('storage/' . $user->image_path) }}"
-                    alt="{{ $user->name }}"
-                    class="img-thumbnail-mobil rounded p-0 lazy loaded thumbnail-kare" 
-                    loading="lazy"
-                    data-ll-status="loaded" 
-                />
-        
-          <div class="progress" style="height:8px;">
-           
-          </div>
+<div class="container my-5">
+    <div class="profile-card card border-0 shadow-lg">
+        <div class="card-header bg-primary text-white text-center py-4">
+            <h4 class="mb-0 fw-semibold">Üye Bilgileri</h4>
         </div>
 
-        <!-- Temel Bilgiler -->
-        <div class="col-12 col-md-9">
-          <div class="table-responsive">
-            <table class="table align-middle mb-0">
-              <tbody>
-                <tr>
-                  <th class="text-muted fw-normal" style="width:220px;">Ad Soyad</th>
-                  <td><strong>{{ $user->name }}</strong></td>
-                </tr>
-                <tr>
-                  <th class="text-muted fw-normal">E-posta</th>
-                  <td>{{$user->email}}</td>
-                </tr>
-                <tr>
-                  <th class="text-muted fw-normal">Soyad</th>
-                  <td>{{$user->lastName}}</td>
-                </tr>
-              
-                <tr>
-          <th class="text-muted fw-normal">Seviye / Rütbe</th>
-            <td>
-              @if($user->rank?->name)
-                <span class="badge bg-success">{{ $user->rank?->name }}</span>
-              @else
-                <span class="text-muted">—</span>
-              @endif
-            </td>
-          </tr>
-                
-                
-                <tr>
-                  <th class="text-muted fw-normal">Üyelik Tarihi</th>
-                  <td>{{$user->created_at}}</td>
-                </tr>
-                
-              </tbody>
-            </table>
-          </div>
+        <div class="card-body p-4">
+            <div class="row g-4 align-items-start">
 
-          <!-- Aksiyonlar -->
-          
+                {{-- SOL: Avatar + Upload --}}
+                <div class="col-12 col-md-4 text-center">
+                    <div class="avatar-wrapper mb-3">
+                        <img id="avatarPreview"
+                             src="{{ $user->image_path ? asset('storage/'.$user->image_path) : asset('images/default-avatar.png') }}"
+                             alt="{{ $user->name }}"
+                             class="rounded-circle img-fluid shadow-sm"
+                             style="width:180px;height:180px;object-fit:cover;">
+                    </div>
+
+                    {{-- Yükleme formu --}}
+                    <form method="POST" action="{{ route('account.avatar.update') }}"
+                          enctype="multipart/form-data" class="d-grid gap-2">
+                        @csrf
+                        <input type="file" name="avatar" id="avatarInput"
+                               class="form-control form-control-sm"
+                               accept="image/png,image/jpeg,image/webp,image/gif" required>
+                        <button type="submit" class="btn btn-primary btn-sm mt-2">
+                            Fotoğrafı Güncelle
+                        </button>
+                        <small class="text-muted">JPG / PNG / WEBP / GIF • Max 4 MB</small>
+                        @error('avatar')
+                            <div class="text-danger mt-1 small">{{ $message }}</div>
+                        @enderror
+                    </form>
+
+                    @if(session('success'))
+                        <div class="alert alert-success mt-3 py-2 px-3 small">{{ session('success') }}</div>
+                    @endif
+                </div>
+
+                {{-- SAĞ: Bilgiler --}}
+                <div class="col-12 col-md-8">
+                    <div class="table-responsive">
+                        <table class="table table-borderless align-middle mb-0">
+                            <tbody>
+                                <tr>
+                                    <th class="text-muted fw-normal w-40">Ad Soyad</th>
+                                    <td class="fw-semibold">{{ $user->name }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-normal">E-posta</th>
+                                    <td>{{ $user->email }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-normal">Soyad</th>
+                                    <td>{{ $user->lastName }}</td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-normal">Seviye / Rütbe</th>
+                                    <td>
+                                        @if($user->rank?->name)
+                                            <span class="badge bg-success px-3 py-2">
+                                                {{ $user->rank->name }}
+                                            </span>
+                                        @else
+                                            <span class="text-muted">—</span>
+                                        @endif
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-muted fw-normal">Üyelik Tarihi</th>
+                                    <td>{{ $user->created_at->timezone('Europe/Istanbul')->format('d.m.Y H:i') }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
         </div>
-      </div>
-
-      <!-- Küçük bilgi satırı -->
-      
     </div>
-  </div>
 </div>
+
 <!-- /Üye Bilgileri Kartı -->
 
         </div>

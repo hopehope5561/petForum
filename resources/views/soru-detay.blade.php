@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expressmama.com - Sosyal I Expressmama Sosyal</title>
-  @vite('resources/css/index.css')
+  @vite(entrypoints: 'resources/css/index.css')
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <link rel="stylesheet" type="text/css"
@@ -15,182 +15,312 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
+    <style>
+/* === Modal Genel (overlay) === */
+.modal{
+  position: fixed;
+  inset: 0;
+  display: none;                /* Aç/kapa mantığınız nasıl ise koruyun */
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(15,23,42,.45);         /* koyu yarı saydam */
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 1050;
+}
+.modal.show,
+.modal[open],
+.modal[style*="display: block"]{
+  display: flex;
+}
+
+/* === Kart === */
+.modal-content{
+  width: min(560px, 94vw);
+  border-radius: 16px;
+  background: #fff;
+  border: 1px solid #eef2f7;
+  box-shadow: 0 22px 60px rgba(0,0,0,.18);
+  overflow: hidden;                        /* header köşeleri düzgün dursun */
+  transform: translateY(8px) scale(.985);
+  opacity: 0;
+  animation: modalIn .26s ease forwards;
+}
+@keyframes modalIn{
+  to{ transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* === Başlık === */
+.modal-header{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px;
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: #fff;
+}
+.modal-title{
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 750;
+  letter-spacing: .2px;
+}
+
+/* === Kapat butonu === */
+.close-btn{
+  appearance: none;
+  background: rgba(255,255,255,.15);
+  border: 1px solid rgba(255,255,255,.35);
+  color: #fff;
+  width: 36px; height: 36px;
+  border-radius: 10px;
+  line-height: 1;
+  font-size: 20px;
+  cursor: pointer;
+  transition: transform .08s ease, background .2s ease;
+}
+.close-btn:hover{ background: rgba(255,255,255,.25); }
+.close-btn:active{ transform: scale(.96); }
+
+/* === Form gövdesi === */
+.modal-content .form-group{
+  padding: 14px 20px 0;
+}
+.modal-content .form-group:last-of-type{
+  padding-bottom: 6px;
+}
+.form-label{
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 650;
+  color: #334155;      /* slate-700 */
+}
+
+/* === Alanlar === */
+.form-select,
+.form-textarea{
+  width: 100%;
+  border: 1px solid #e5e7eb;              /* gray-200 */
+  border-radius: 12px;
+  background: #fff;
+  padding: 10px 12px;
+  font-size: .96rem;
+  color: #111827;                          /* gray-900 */
+  transition: border-color .15s ease, box-shadow .15s ease;
+}
+.form-textarea{
+  min-height: 120px;
+  resize: vertical;
+}
+.form-select:focus,
+.form-textarea:focus{
+  outline: none;
+  border-color: #93c5fd;                   /* blue-300 */
+  box-shadow: 0 0 0 4px rgba(59,130,246,.12); /* blue-500/12 */
+}
+
+/* === Alt aksiyonlar === */
+.modal-actions{
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 16px 20px 20px;
+  border-top: 1px solid #f1f5f9;
+}
+.btn-cancel,
+.btn-submit{
+  appearance: none;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 650;
+  cursor: pointer;
+  transition: transform .08s ease, filter .2s ease, box-shadow .18s ease;
+}
+
+/* İptal (outline) */
+.btn-cancel{
+  background: #fff;
+  color: #334155;
+  border: 1px solid #e5e7eb;
+}
+.btn-cancel:hover{
+  background: #f8fafc;
+}
+.btn-cancel:active{ transform: scale(.98); }
+
+/* Gönder (primary) */
+.btn-submit{
+  background: linear-gradient(135deg, #2563eb 0%, #3b82f6 100%);
+  color: #fff;
+  border: 1px solid #2563eb;
+  box-shadow: 0 10px 26px rgba(37,99,235,.22);
+}
+.btn-submit:hover{ filter: brightness(1.03); }
+.btn-submit:active{ transform: scale(.98); }
+
+/* === Küçük ekranlar === */
+@media (max-width: 420px){
+  .modal{ padding: 16px; }
+  .modal-content{ border-radius: 14px; }
+  .modal-header{ padding: 16px; }
+  .modal-content .form-group{ padding: 12px 16px 0; }
+  .modal-actions{ padding: 14px 16px 16px; }
+}
+
+/* === (İsteğe bağlı) Dark mode desteği === */
+@media (prefers-color-scheme: dark){
+  .modal-content{
+    background: #0b1220;
+    border-color: #1f2937;
+    box-shadow: 0 22px 60px rgba(0,0,0,.55);
+  }
+  .form-label{ color: #e5e7eb; }
+  .form-select, .form-textarea{
+    background: #0f172a;
+    color: #e5e7eb;
+    border-color: #1f2937;
+  }
+  .form-select:focus, .form-textarea:focus{
+    border-color: #60a5fa;
+    box-shadow: 0 0 0 4px rgba(59,130,246,.18);
+  }
+  .modal-actions{ border-top-color: #1f2937; }
+  .btn-cancel{ background:#0f172a; color:#e5e7eb; border-color:#1f2937; }
+  .btn-cancel:hover{ background:#111827; }
+}
+</style>
+
   <style>
 
+    body {
+  background:#f5f6fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
 
-body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
+/* Ana konteyner */
+.qna-wrapper{
+  max-width:1200px;
+  margin:auto;
+  padding:1.5rem;
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:2rem;
+}
+@media (min-width:992px){
+  .qna-wrapper{
+    grid-template-columns: 2fr 1fr;
+  }
+}
 
-        .soru-cevap-container {
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 25px;
-            margin: 0 auto;
-            max-width: 1000px;
-        }
+/* Başlık */
+.qna-title{
+  font-size:1.8rem;
+  font-weight:600;
+  color:#2c3e50;
+  margin-bottom:.5rem;
+}
+.qna-meta{
+  color:#6c757d;
+  font-size:.9rem;
+}
 
-        .soru-cevap-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #e9ecef;
-            margin-bottom: 25px;
-        }
+/* Ana soru kartı */
+.qna-post{
+  background:#fff;
+  border-radius:12px;
+  box-shadow:0 4px 12px rgba(0,0,0,.08);
+  padding:1.5rem;
+}
+.qna-author{
+  display:flex;
+  align-items:center;
+  margin-top:1rem;
+}
+.qna-author img{
+  width:60px;height:60px;
+  object-fit:cover;
+  border-radius:50%;
+  margin-right:.75rem;
+  border:2px solid #e9ecef;
+}
+.qna-rank-badge{
+  background:#e9f7ef;
+  color:#198754;
+  padding:.2rem .6rem;
+  border-radius:6px;
+  font-size:.8rem;
+  font-weight:500;
+  margin-left:.5rem;
+}
 
-        .soru-cevap-header span:first-child {
-            font-size: 24px;
-            font-weight: 600;
-            color: #2c3e50;
-        }
+/* Buton grubu */
+.qna-actions{
+  margin-top:1rem;
+  display:flex;
+  gap:.5rem;
+}
+.qna-actions .btn{
+  border-radius:8px;
+  padding:.45rem .9rem;
+  font-weight:500;
+}
 
-        .myaccount-popup{ display:none; }
-.myaccount-popup.show{ display:block; }
+/* Yorum alanı */
+.comment-card{
+  background:#fff;
+  border-radius:10px;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+  padding:1rem 1.25rem;
+  margin-bottom:1rem;
+}
+.comment-card img{
+ 
+  object-fit:cover;
+  border-radius:50%;
+  margin-right:.75rem;
+}
+.comment-meta{
+  font-size:.85rem;
+  color:#6c757d;
+}
+
+/* Cevap formu */
+.answer-form textarea{
+  min-height:120px;
+  border-radius:8px;
+}
+.answer-form .btn-primary{
+  margin-top:.75rem;
+}
+
+/* Sidebar */
+.sidebar-widget{
+  background:#fff;
+  border-radius:12px;
+  padding:1.25rem;
+  margin-bottom:1.5rem;
+  box-shadow:0 2px 6px rgba(0,0,0,.05);
+}
+.sidebar-widget h3{
+  font-size:1.2rem;
+  font-weight:600;
+  margin-bottom:.75rem;
+}
+.popular-questions li{
+  margin-bottom:.4rem;
+}
+.popular-questions a{
+  text-decoration:none;
+  color:#0d6efd;
+}
+.popular-questions a:hover{
+  text-decoration:underline;
+}
 
 
-        .soru-cevap-header i {
-            color: #6c757d;
-            font-size: 18px;
-            cursor: pointer;
-            transition: color 0.3s ease;
-        }
 
-        .soru-cevap-header i:hover {
-            color: #007bff;
-        }
-
-        .soru-cevap-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
-
-        .topic-item {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 15px 20px;
-            margin-bottom: 12px;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        .topic-item:hover {
-            background: #e3f2fd;
-            border-color: #2196f3;
-            transform: translateY(-1px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .topic-title {
-            font-weight: 500;
-            color: #2c3e50;
-            margin-bottom: 5px;
-        }
-
-        .topic-meta {
-            font-size: 14px;
-            color: #6c757d;
-        }
-
-        /* Özelleştirilmiş Pagination Stilleri */
-        .custom-pagination {
-            margin: 30px 0 0 0;
-            padding: 0;
-        }
-
-        .custom-pagination .pagination {
-            justify-content: center;
-            gap: 8px;
-        }
-
-        .custom-pagination .page-item .page-link {
-            border: 2px solid #e9ecef;
-            border-radius: 8px;
-            padding: 10px 15px;
-            color: #495057;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            background-color: white;
-            min-width: 45px;
-            text-align: center;
-        }
-
-        .custom-pagination .page-item .page-link:hover {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-        }
-
-        .custom-pagination .page-item.active .page-link {
-            background-color: #007bff;
-            border-color: #007bff;
-            color: white;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.3);
-        }
-
-        .custom-pagination .page-item.disabled .page-link {
-            background-color: #f8f9fa;
-            border-color: #dee2e6;
-            color: #6c757d;
-            cursor: not-allowed;
-        }
-
-        .custom-pagination .page-item.disabled .page-link:hover {
-            transform: none;
-            box-shadow: none;
-            background-color: #f8f9fa;
-            border-color: #dee2e6;
-            color: #6c757d;
-        }
-
-        /* Önceki/Sonraki butonları için özel stiller */
-        .custom-pagination .page-item:first-child .page-link,
-        .custom-pagination .page-item:last-child .page-link {
-            font-weight: 600;
-            padding: 10px 18px;
-        }
-
-        /* Sayfa bilgisi metnini gizle */
-        .pagination-info,
-        .showing-results,
-        p:contains("Showing") {
-            display: none !important;
-        }
-
-        /* Laravel'in otomatik eklediği sayfa bilgisi metinlerini gizle */
-        .d-flex.justify-content-between.flex-wrap.flex-sm-nowrap.align-items-center.py-4 p,
-        .pagination-wrapper p {
-            display: none !important;
-        }
-
-        /* Responsive tasarım */
-        @media (max-width: 768px) {
-            .custom-pagination .page-item .page-link {
-                padding: 8px 12px;
-                min-width: 38px;
-                font-size: 14px;
-            }
-            
-            .soru-cevap-container {
-                margin: 0 10px;
-                padding: 20px 15px;
-            }
-        }
-
-        /* Ekstra güvenlik: Tüm "showing" metinlerini gizle */
-        *:contains("showing"),
-        *:contains("Showing"),
-        *:contains("results"),
-        *:contains("Results") {
-            display: none !important;
-        }
   </style>
 
   </head>
@@ -447,251 +577,189 @@ body {
   <!--FİNİSH KATEGORİLER MOBİL 01-->
 
   <!--START BREADCRUMB-->
-  <div class="question-answer-wrapper">
-    <div class="breadcrumb-line">
-      <div class="question-answer-container">
-        <div class="row">
-          
-        </div>
+  <div class="qna-wrapper">
+  <!-- SOL: ANA İÇERİK -->
+  <main>
+    <div class="qna-post">
+      <h1 class="qna-title">{{ $topic->title }}</h1>
+      <div class="qna-meta">
+        {{ $topic->created_at->timezone('Europe/Istanbul')->format('d.m.Y H:i') }}
       </div>
-    </div>
-  </div>
-  <!--FİNİSH BREADCRUMB-->
 
-  <div class="question-answer-contents">
-    <main class="question-answer-contents-main">
-      <div class="question-answer-contents-main-header">
-        <h1>{{ $topic->title }}</h1>
-        <div class="header-stats">
-         
-        </div>
-      </div>
-      <div class="question-answer-post">
-        <div class="question-answer-post-header">
-          <div class="post-header-time">
-             <span class="post-header-time-date" id="post-header-time-date">
-                {{ \Carbon\Carbon::parse($topic->created_at)->format('d.m.Y H:i') }}
-            </span>
-            </div>
-          <div class="uye-img">
-            <div class="uye-img-border">
-    @if($topic->user && $topic->user->image_path)
-        <img src="{{ asset('storage/' . $topic->user->image_path) }}" 
-             alt="{{ $topic->user->name }}"
-             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
-    @else
-        {{-- Varsayılan avatar --}}
-        <img src="https://via.placeholder.com/60x60.png?text=👤" 
-             alt="default avatar"
-             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
-    @endif
-</div>
-
-            <div class="user-info">
-              <div class="username"><span>{{ $topic->user->name }} </span></div>
-              <div class="user-stats">
-                <span><i class="fa-solid fa-paw"></i> {{ $topic->user->points }}</span>
-                <p class="user-stats-puan">Pati Puan</p>
-              </div>
-              <div class="user-stats-rank">
-                <p class="user-stats-rank-icon-new-paw">🌱</p><span> {{ $topic->user->rank->name }} </span>
-                
-              </div>
-            </div>
-            
+      <div class="qna-author">
+        <img src="{{ $topic->user?->image_path ? asset('storage/'.$topic->user->image_path) : 'https://via.placeholder.com/60x60?text=👤' }}">
+        <div>
+          <strong>{{ $topic->user->name }}</strong>
+          <div class="small text-muted">
+            <i class="fa-solid fa-paw"></i> {{ $topic->user->points }} Pati
+            @if($topic->user?->rank)
+              <span class="qna-rank-badge">{{ $topic->user->rank->name }}</span>
+            @endif
           </div>
         </div>
-        <div class="question-answer-post-content">
-  <p>{{ $topic->content }}</p>
-</div>
+      </div>
 
-@if($topic->images->isNotEmpty())
-  <div class="topic-images grid grid-cols-2 md:grid-cols-3 gap-3 mt-4">
-    @foreach($topic->images as $img)
-      @php $url = Storage::url($img->image_path); @endphp
-      <a href="{{ $url }}" target="_blank" rel="noopener">
-        <img src="{{ $url }}" alt="{{ $topic->title }} görseli"
-             loading="lazy" class="rounded w-full h-auto">
-      </a>
-    @endforeach
-  </div>
-@endif
+      <p class="mt-4">{{ $topic->content }}</p>
 
-        <!-- Ana Soru Vote Butonu (Mevcut kodunuzdaki question-answer-post-actions kısmını güncelle) -->
-<div class="question-answer-post-actions">
+      @if($topic->images->isNotEmpty())
+        <div class="row g-3 mt-3">
+          @foreach($topic->images as $img)
+            <div class="col-6 col-md-4">
+              <a href="{{ Storage::url($img->image_path) }}" target="_blank">
+                <img src="{{ Storage::url($img->image_path) }}" class="img-fluid rounded">
+              </a>
+            </div>
+          @endforeach
+        </div>
+      @endif
 
+      <div class="qna-actions">
+        @auth
+          <button class="btn btn-outline-primary"
+        data-topic-id="{{ $topic->id }}"
+        onclick="voteAnswer(this,'like')">
+  👍 {{ $topic->likes->count() }} Pati
+</button>
 
-   <!-- YENİ EKLENEN YANIT BUTONU -->
-  <!-- <button type="button" class="vote-btn" onclick="addQuoteToReply(this)">
-    <i class="fa-solid fa-reply"></i> Yanıtla
-  </button> -->
-  
-  <!-- Güncellenmiş Like Butonu - onclick kaldırıldı, JavaScript otomatik handle ediyor -->
-  <!-- Like butonu -->
-@auth
-    <button class="vote-btn"
-            data-topic-id="{{ $topic->id }}"
-            onclick="voteAnswer(this, 'like')">
-        👍 {{ $topic->likes->count() }} Pati
-    </button>
+          <button class="btn btn-outline-danger" onclick="openReportModal({{ $topic->id }})">
+            ⚠️ Şikayet Et
+          </button>
+        @else
+          <a href="{{ route('login') }}" class="btn btn-outline-primary">👍 Beğenmek için Giriş Yap</a>
+        @endauth
+      </div>
+    </div>
 
-    <button type="button" class="vote-btn" onclick="openReportModal({{ $topic->id }})">
-        ⚠️ Şikayet Et
-    </button>
-@endauth
+    <!-- Yorumlar -->
+    <div class="mt-4">
+      <h4 class="fw-semibold mb-3">{{ $topic->comments->count() }} Cevap</h4>
 
-@guest
-    <a class="vote-btn" href="{{ route('login') }}">
-        👍 Beğenmek için giriş yap
-    </a>
+     @forelse($topic->comments as $comment)
+    <div class="comment-card d-flex flex-column flex-md-row mb-4 p-3 shadow-sm rounded">
+        {{-- Kullanıcı avatarı --}}
+        <div class="me-md-3 mb-2 mb-md-0 text-center">
+            <img src="{{ $comment->user?->image_path
+                            ? asset('storage/'.$comment->user->image_path)
+                            : 'https://via.placeholder.com/60x60?text=👤' }}"
+                 alt="{{ $comment->user->name ?? 'Anonim' }}"
+                 class="rounded-circle"
+                 style="width:60px;height:60px;object-fit:cover;">
+                 
+        </div>
 
-    <a class="vote-btn" href="{{ route('login') }}">
-        ⚠️ Şikayet için giriş yap
-    </a>
-@endguest
-
-
-</div>
-    
-<div class="comments-section mt-5">
-    <h4>{{ $topic->comments->count() }} Cevap</h4>
-
-    @forelse($topic->comments as $comment)
-        <div class="comment-box mb-3 p-3 border rounded">
-            <div class="d-flex align-items-center mb-2">
-                {{-- Kullanıcı fotoğrafı --}}
-                <div class="me-2">
-                    @if($comment->user && $comment->user->image_path)
-                           <img src="{{ asset('storage/' . $topic->user->image_path) }}" 
-             alt="{{ $topic->user->name }}"
-             style="width:60px; height:60px; object-fit:cover; border-radius:50%;">
-                    @else
-                        {{-- Varsayılan avatar --}}
-                        <img src="https://via.placeholder.com/40x40.png?text=👤"
-                             alt="default avatar"
-                             class="rounded-circle"
-                             style="width:40px; height:40px;">
-                    @endif
-                </div>
-
+        {{-- Yorum içeriği --}}
+        <div class="flex-fill">
+            <div class="d-flex align-items-center justify-content-between flex-wrap">
                 <div>
                     <strong>{{ $comment->user->name ?? 'Anonim' }}</strong>
-                    <span class="text-muted ms-2" style="font-size: 0.9em;">
-                        {{ \Carbon\Carbon::parse($comment->created_at)->format('d.m.Y H:i') }}
+                    <span class="comment-meta ms-2 text-muted small">
+                        {{ $comment->created_at->timezone('Europe/Istanbul')->format('d.m.Y H:i') }}
                     </span>
+                    <div class="small text-muted">
+            <i class="fa-solid fa-paw"></i> {{ $topic->user->points }} Pati
+            @if($topic->user?->rank)
+              <span class="qna-rank-badge">{{ $topic->user->rank->name }}</span>
+            @endif
+          </div>
                 </div>
+                
             </div>
 
-            <p class="mt-2">{{ $comment->content }}</p>
+            <p class="mt-2 mb-2">{{ $comment->content }}</p>
 
+            {{-- Yorum resmi – geniş görünsün --}}
             @if($comment->image_path)
-                <div class="comment-image mt-2">
-                    <img src="{{ asset('storage/' . $comment->image_path) }}" 
-                         alt="Cevap görseli"
-                         style="max-width:200px; border-radius:8px;">
+                <div class="mb-3">
+                    <img src="{{ asset('storage/'.$comment->image_path) }}"
+                         alt="Yorum görseli"
+                         class="img-fluid rounded"
+                         style="max-width:100%; border:1px solid #e5e7eb;">
                 </div>
             @endif
-        </div>
-    @empty
-        <p>Henüz hiç cevap yazılmamış. İlk sen yaz! 🐾</p>
-    @endforelse
-</div>
 
+            {{-- Pati & Şikayet butonları --}}
+            <div class="d-flex gap-3">
+                @auth
+                    {{-- Pati (Like) --}}
+                    <form method="POST" action="{{ route('comment.like.toggle', $comment->id) }}" class="d-inline">
+                        @csrf
+                        <button type="submit" class="btn btn-outline-primary btn-sm">
+                            🐾 {{ $comment->likes_count ?? $comment->likes()->count() }} Pati
+                        </button>
+                    </form>
 
-      <!-- <div class="sort-dropdown" onclick="toggleDropdown()">Eskiden Yeniye ▼
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton" id="sortDropdown">
-          <div class="dropdown-item">En Çok Patilenen Göre</div>
-          <div class="dropdown-item">Eskiden Yeniye</div>
-          <div class="dropdown-item">Yeniden Eskiye</div>
-        </div>
-      </div> -->
-    
-      <div class="question-answer-post-content-section">
-  <h4 id="answer-header">Cevap Yaz</h4>
-  <form method="POST"
-        action="{{ route('answer.store', $topic->id) }}"
-        enctype="multipart/form-data"
-        id="answerForm">
+                    {{-- Şikayet Et --}}
+                    <form method="POST" action="{{ route('comment.report.store',$comment->id) }}" class="d-inline">
+                        @csrf
+                        <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                        <button type="submit" class="btn btn-outline-danger btn-sm">
+                            ⚠️ Şikayet Et
+                        </button>
+                    </form>
+
+                   <form method="POST" action="{{ route('comment.delete', $comment->id) }}" class="d-inline">
     @csrf
-
-
-  <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="image-upload">Resim Yükle</span>
-      </div>
-      <div class="custom-file" id="img-upload">
-        <input type="file" class="custom-file-input" id="inputGroupFile01"
-               name="images[]" accept="image/*" multiple>
-        <label class="custom-file-label" for="inputGroupFile01" id="inputGroupFile02">Dosya Seç</label>
-      </div>
-    </div>
-  
-  <!-- Alıntı önizleme alanı (isteğe bağlı) -->
-  <div id="quote-preview" style="display: none; background: #f8f9fa; border-left: 4px solid #007bff; padding: 10px; margin-bottom: 10px; font-style: italic;">
-    <!-- Alıntı buraya gelecek -->
-  </div>
-  
-   <textarea
-      class="reply-input form-control"
-      name="content"
-      placeholder="Deneyimlerinizi ve önerilerinizi paylaşın..."
-      maxlength="2000"
-      rows="5"
-      required
-      style="min-height:120px;"></textarea>
-
-    <div class="reply-tools mt-2 d-flex align-items-center">
-      
-      <button type="button" onclick="clearReplyInput()"
-              class="btn btn-link ms-auto text-danger p-0">
-        <i class="fa-solid fa-trash"></i> Temizle
-      </button>
-    </div>
-
-    @auth
-    <button type="submit" class="reply-btn btn btn-primary mt-2">
-        Cevabı Gönder
+    <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+    <button type="submit" class="btn btn-outline-danger btn-sm">
+        Sil
     </button>
-@endauth
+</form>
 
-@guest
-    <a href="https://www.expressmama.com/UyeGiris"
-       class="reply-btn btn btn-outline-primary mt-2">
-        Soru Sormak için Giriş Yap
-    </a>
-@endguest
+                @else
+                    <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm">
+                        🐾 Giriş Yap
+                    </a>
+                    <a href="{{ route('login') }}" class="btn btn-outline-danger btn-sm">
+                        ⚠️ Giriş Yap
+                    </a>
+                @endauth
+            </div>
+        </div>
+    </div>
+@empty
+    <p class="text-muted">Henüz cevap yok. İlk sen yaz! 🐾</p>
+@endforelse
 
-  </form>
-</div>
-</div>
-    </main>
-    <aside class="sidebar">
-      <div class="widget-answer-question">
-        <h3>SORUNUZ MU VAR?</h3>
-        <p style="color: #666; font-size: 0.9rem; margin-bottom: 15px;">
-          Uzmanlardan ve diğer üyelerden faydalı cevaplar almak için:
-        </p>
-        <div class="homepage-section-new-question">
-        <a href="{{ auth()->check() ? route('topic.create') : 'https://www.expressmama.com/UyeGiris' }}" class="btn btn-danger new-question-btn" id="new-question-btn-1">
-    Yeni Soru Sor
-        </a>
-      </div>
-  </div>
-      </div>
-      <div class="widget-similar-questions">
-    <h3 id="similar-questions">BENZER SORULAR</h3>
-    <ul class="popular-questions">
+    </div>
+
+    <!-- Cevap Formu -->
+    <div class="answer-form mt-4">
+      <h5 class="fw-semibold">Cevap Yaz</h5>
+      <form method="POST" action="{{ route('answer.store',$topic->id) }}" enctype="multipart/form-data">
+        @csrf
+        <textarea class="form-control" name="content" placeholder="Deneyimlerinizi paylaşın..." required></textarea>
+        <input type="file" name="images[]" class="form-control mt-2" multiple accept="image/*">
+        @auth
+          <button type="submit" class="btn btn-primary mt-3">Cevabı Gönder</button>
+        @else
+          <a href="{{ route('login') }}" class="btn btn-outline-primary mt-3">Giriş Yap</a>
+        @endauth
+      </form>
+    </div>
+  </main>
+
+  <!-- SAĞ: SIDEBAR -->
+  <aside>
+    <div class="sidebar-widget">
+      <h3>SORUNUZ MU VAR?</h3>
+      <p class="text-muted small mb-3">Uzmanlardan ve diğer üyelerden faydalı cevaplar almak için:</p>
+      <a href="{{ auth()->check()? route('topic.create') : route('login') }}"
+         class="btn btn-danger w-100">Yeni Soru Sor</a>
+    </div>
+
+    <div class="sidebar-widget">
+      <h3>Benzer Sorular</h3>
+      <ul class="popular-questions list-unstyled">
         @forelse($similarTopics as $sim)
-            <li>
-                <a href="{{ route('topic.detail', $sim->id) }}">
-                    🐾 {{ $sim->title }}
-                </a>
-            </li>
+          <li><a href="{{ route('topic.detail',$sim->id) }}">🐾 {{ $sim->title }}</a></li>
         @empty
-            <li>Benzer soru bulunamadı.</li>
+          <li class="text-muted">Benzer soru bulunamadı.</li>
         @endforelse
-    </ul>
+      </ul>
+    </div>
+  </aside>
 </div>
+
 
 
     </aside>
