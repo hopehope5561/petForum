@@ -1020,7 +1020,7 @@ body {
   
                             
                             <div class="form-group row mt-4">
-                                <div class="col-md-2 col-md-offset-1">
+                                <div class="col-md-offset-1">
                                     <button type="submit" class="btn btn-primary">Gönder Yayınla!</button>
                                 </div>
                             </div>

@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expressmama.com - Sosyal I Expressmama Sosyal</title>
   @vite('resources/css/index.css')
+  @vite('resources/css/sor.css')
   
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
@@ -233,7 +234,7 @@ body {
   <!--FİNİSH LOGO-->
 
   <!--START ÜYE GİRİŞ KAYIT ALANI-->
-  <div class="login-container">
+  <!-- <div class="login-container">
     <div class="login">
       <a href="./login.html" style="text-decoration: none; color:#424040;">
         <i class="fa-solid fa-user"></i>
@@ -244,7 +245,7 @@ body {
       </a>
     </div> 
     </div>
-  </div>
+  </div> -->
   <!--FİNİSH ÜYE GİRİŞ KAYIT ALANI-->
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
