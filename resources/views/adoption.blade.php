@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Expressmama.com - Sosyal I Expressmama Sosyal</title>
   @vite('resources/css/index.css')
-  
+  @vite('resources/css/sor.css')
   <link rel="stylesheet" type="text/css"
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
   <link href="https://fonts.cdnfonts.com/css/outfit" rel="stylesheet">
@@ -17,20 +17,50 @@
 
     <style>
 /* Form alanı */
+
+.form-style{
+  width: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-control{
+  width: 98% !important;
+}
+
+.form-select{
+  width: 95% !important;
+}
+
+.col-md-2{
+  margin-top: 26px !important;
+  width: 28.666667% !important;
+}
+
+
 .search-filter-card{
-  background:#ffffff;
+ 
+  width: 100%;
+  /* background:#ffffff; */
   border-radius:16px;
   padding:20px;
-  box-shadow:0 6px 18px rgba(0,0,0,.08);
+  /* box-shadow:0 6px 18px rgba(0,0,0,.08); */
   margin-bottom:1.5rem;
 }
 
 /* Konu listesi */
 .soru-cevap-list{
+  gap: 40px;
+  justify-content: center;
+  display: flex;
   list-style:none;
   padding:0;
   margin:0;
 }
+
+
+
 .topic-item{
   background:#fff;
   border:1px solid #e5e7eb;
@@ -134,9 +164,15 @@ body {
         }
 
         .soru-cevap-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+    justify-content: center;
+    max-width: 1200px;
+    gap: 20px;
+    grid-template-columns: repeat(4, 1fr);
+    display: grid;
+    height: 50vh;
+    list-style: none;
+    padding: 0;
+    margin: 0;
         }
 
         .topic-item {
@@ -519,17 +555,18 @@ body {
   <!--START YUVA ARAYANLAR 02-->
 {{-- ARAMA + SIRALAMA --}}
 {{-- ARAMA & FİLTRE --}}
-<div class="search-filter-card">
-  <form method="GET" action="{{ url()->current() }}" class="row g-3 align-items-end">
+
+<div class="search-filter-card form-style">
+  <form method="GET" action="{{ url()->current() }}" class="form-style">
     <div class="col-12 col-md-7">
-      <label class="form-label fw-semibold text-secondary mb-1">Başlık</label>
+      <label class="form-label fw-semibold text-secondary mb-1">İlan Araması Yapabilirsin!</label>
       <input type="text" name="q" value="{{ request('q') }}"
              class="form-control shadow-sm"
              placeholder="Başlıkta ara...">
     </div>
 
     <div class="col-12 col-md-3">
-      <label class="form-label fw-semibold text-secondary mb-1">Sırala</label>
+      <label class="form-label fw-semibold text-secondary mb-1">Filtreleyebilirsin!</label>
       <select name="order" class="form-select shadow-sm">
         <option value="new"     {{ request('order','new')==='new' ? 'selected' : '' }}>Yeni – Eski</option>
         <option value="old"     {{ request('order')==='old' ? 'selected' : '' }}>Eski – Yeni</option>
@@ -542,7 +579,7 @@ body {
       <button type="submit" class="btn btn-primary w-100 shadow-sm">
         <i class="fa-solid fa-magnifying-glass me-1"></i> Ara
       </button>
-      <a href="{{ url()->current() }}" class="btn btn-outline-secondary w-100 shadow-sm">Sıfırla</a>
+      <a href="{{ url()->current() }}" class="btn btn-outline-secondary w-100 shadow-sm">Temizle!</a>
     </div>
   </form>
 </div>
