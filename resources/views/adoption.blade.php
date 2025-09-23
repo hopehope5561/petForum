@@ -187,11 +187,19 @@ body {
     gap: 20px !important;
     grid-template-columns: repeat(4, 0fr) !important;
     display: grid !important;
-    height: 50vh !important;
+    height: 125vh !important;
     list-style: none !important;
     padding: 0 !important;
     margin: 0 !important;
         }
+
+    .soru-cevap-list li {
+    background-image: url(https://images.petlebi.com/v7/_ptlb/up/adopt/md_1062793_1758635675_9695.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    height: 35vh;
+}    
 
         .soru-cevap-list li {
     border: 1px solid #e9ecef !important; 
