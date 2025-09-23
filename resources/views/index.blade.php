@@ -529,6 +529,7 @@ body {
       </div>
   </div>
 
+  
 <div class="soru-cevap-container">
   <div class="soru-cevap-header">
     <span>Soru Cevap</span>
@@ -564,6 +565,7 @@ body {
     </div>
   </form>
 
+  
   <ul class="soru-cevap-list" id="soru-cevap-list">
     @forelse ($topics as $topic)
       @include('partials.topic_list_item', ['topic' => $topic])
@@ -625,6 +627,7 @@ body {
     </nav>
   @endif
 </div>
+
 
 
  

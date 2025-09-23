@@ -18,6 +18,22 @@
     <style>
 /* Form alanı */
 
+
+@media screen (min-width: 320px) and (max-width: 768px) {
+            .search-filter-card {
+                display: flex;
+                justify-content: center;
+            }
+
+            .form-style {
+              display: flex !important;
+                justify-content: center !important;
+            }
+          
+}
+
+
+
 .form-style{
   width: 100vh;
   display: flex;
@@ -50,14 +66,15 @@
 }
 
 /* Konu listesi */
-.soru-cevap-list{
+/* .soru-cevap-list{
   gap: 40px;
   justify-content: center;
   display: flex;
   list-style:none;
   padding:0;
   margin:0;
-}
+} */
+
 
 
 
@@ -124,6 +141,7 @@ body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
+
         .soru-cevap-container {
             background: white;
             border-radius: 12px;
@@ -164,16 +182,41 @@ body {
         }
 
         .soru-cevap-list {
-    justify-content: center;
-    max-width: 1200px;
-    gap: 20px;
-    grid-template-columns: repeat(4, 1fr);
-    display: grid;
-    height: 50vh;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 20px !important;
+    grid-template-columns: repeat(4, 0fr) !important;
+    display: grid !important;
+    height: 50vh !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
         }
+
+        .soru-cevap-list li {
+    border: 1px solid #e9ecef !important; 
+}
+
+
+ .soru-cevap-list {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 8px 0;
+  }
+
+  .soru-cevap-list li {
+    width: 30vh !important;
+    display: flex;
+    align-items: flex-start;;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.2s;
+  }
+
+    
+
+   .soru-cevap-list li .question {
+    margin-bottom: 0;
+  }
 
         .topic-item {
             background: #f8f9fa;
@@ -337,7 +380,7 @@ body {
   <!--FİNİSH LOGO-->
 
   <!--START ÜYE GİRİŞ KAYIT ALANI-->
-  <div class="login-container">
+  <!-- <div class="login-container">
     <div class="login">
       <a href="./login.html" style="text-decoration: none; color:#424040;">
         <i class="fa-solid fa-user"></i>
@@ -348,7 +391,7 @@ body {
       </a>
     </div> 
     </div>
-  </div>
+  </div> -->
   <!--FİNİSH ÜYE GİRİŞ KAYIT ALANI-->
 
   <!-- START WEB ARAMA KUTUSU - SAĞ MENÜ YARDIM HESABIM ve SEPETİM -->
