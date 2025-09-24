@@ -15,38 +15,161 @@
     integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
 
 
-    <style>
-/* Form alanı */
+<style>
+
+@media (max-width: 768px) {
+  .form-control,
+  .form-select {
+    width: 100% !important;
+  }
+}
 
 
-@media screen (min-width: 320px) and (max-width: 768px) {
-            .search-filter-card {
-                display: flex;
-                justify-content: center;
-            }
+@media screen and (min-width: 320px) and  (max-width: 767px){
 
-            .form-style {
-              display: flex !important;
-                justify-content: center !important;
-            }
-          
+
+.soru-cevap-list li {
+    background-image: url(https://images.petlebi.com/v7/_ptlb/up/adopt/md_1063083_1758699111_2389.jpg);
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 35vh;
+    background-size: cover;
+}
+
+.soru-cevap-list {
+    justify-content: center !important;
+    width: 100% !important;
+    gap: 20px !important;
+    grid-template-columns: repeat(1, 0fr) !important;
+    display: grid !important;
+    height: 125vh !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.soru-cevap-content {
+        padding: 2px !important;
+    margin: -21px auto !important;
+    margin-left: -69px !important;
+    margin-right: -13px !important;
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    border-radius: 8px !important;
+}
+
+.question {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 245px;
+    display: block;
+    width: 244px;
+}
+
+  .form-select {
+        width: 100% !important;
+    }
+    .form-control {
+    width: 100% !important;
+}  
+
+
+  .form-style{
+   width: 100vh;
+  display: block;
+  }
+
+  .form-control{
+    
+  }
+
+  .search-filter-card{
+    width: 100% !important;
+    display: flex;
+    justify-content: center;
+
+  }
+
+  /* .col-md-7{
+    width: 27% !important;
+  } */
+
+  /* .col-12{
+    width: 35% !important;
+  } */
+
+  .form-label{
+    /* display: none !important; */
+    margin: 5px auto;
+  }
+
+
+  .btn-outline-secondary{
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    
+    font-size: 12px;
+    width: 100% !important;
+  }
+
+  .btn{
+    
+    font-size: 12px;
+    width: 100% !important;
+    height: 36px;
+  }
+
+  .col-md-2{
+    margin-top: 0px !important;
+  }
+
+  .fa-magnifying-glass{
+    display: none;
+  }
+
+  .soru-cevap-list li img {
+    z-index: 9999;
+    margin-top: 87% !important;
+    border-radius: 50% !important;
+}
+
+.custom-pagination {
+    margin: 30px 0 0 0;
+    padding: 0;
 }
 
 
 
-.form-style{
+
+
+    }
+
+
+
+
+body{
+  text-decoration: none; /* Alt çizgiyi kaldır */
+  background-color: #f8f9fa;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@media screen and (min-width: 769px) and  (max-width: 2560px){
+    .form-style{
   width: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
+  }
+
 
 .form-control{
-  width: 98% !important;
+  width: 98%;
 }
 
 .form-select{
-  width: 95% !important;
+  width: 95%;
 }
 
 .col-md-2{
@@ -56,12 +179,9 @@
 
 
 .search-filter-card{
- 
   width: 100%;
-  /* background:#ffffff; */
   border-radius:16px;
   padding:20px;
-  /* box-shadow:0 6px 18px rgba(0,0,0,.08); */
   margin-bottom:1.5rem;
 }
 
@@ -74,8 +194,6 @@
   padding:0;
   margin:0;
 } */
-
-
 
 
 .topic-item{
@@ -125,24 +243,8 @@
   box-shadow:0 4px 10px rgba(37,99,235,.25);
 }
 
-/* Küçük ekranlar */
-@media (max-width:576px){
-  .search-filter-card{
-    padding:16px;
-  }
-}
-</style>
 
-  <style>
-
-
-body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-
-        .soru-cevap-container {
+.soru-cevap-container {
             background: white;
             border-radius: 12px;
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -182,27 +284,69 @@ body {
         }
 
         .soru-cevap-list {
-    justify-content: center !important;
-    width: 100% !important;
-    gap: 20px !important;
-    grid-template-columns: repeat(4, 0fr) !important;
-    display: grid !important;
-    height: 125vh !important;
-    list-style: none !important;
-    padding: 0 !important;
-    margin: 0 !important;
+    justify-content: center;
+    width: 100%;
+    gap: 20px;
+    grid-template-columns: repeat(4, 0fr);
+    display: grid;
+    height: 125vh;
+    list-style: none;
+    padding: 0;
+    margin: 0;
         }
 
     .soru-cevap-list li {
-    background-image: url(https://images.petlebi.com/v7/_ptlb/up/adopt/md_1062793_1758635675_9695.jpg);
+    background-image: url(https://images.petlebi.com/v7/_ptlb/up/adopt/md_1063083_1758699111_2389.jpg);
     background-repeat: no-repeat;
     background-position: center;
-    background-size: contain;
     height: 35vh;
+    background-size: cover;
 }    
 
+.soru-cevap-content .user, .time, a {
+  color: black;
+  text-decoration: none;
+}
+.soru-cevap-content {
+  padding: 2px;
+    margin: -8px auto;
+    margin-left: -77px;
+    margin-right: -15px;
+  background-color: rgba(255, 255, 255, 0.8);
+  border-radius: 8px;
+  
+}
+
+.question {
+  white-space: nowrap;       /* Tek satır olacak */
+  overflow: hidden;          /* Taşanı gizle */
+  text-overflow: ellipsis;   /* Fazlasını ... yapar */
+  max-width: 262px;          /* Genişliği sınırla (önemli) */
+  display: block;     /* inline elemanlarda da çalışsın */
+  
+}
+
+.soru-cevap-list li img {
+ z-index: 9999;
+margin-top: 95%;
+border-radius: 50% !important; 
+
+}
+
+.soru-cevap-content a {
+  font-weight: bold;
+}
+
+.soru-cevap-content .badge {
+  background-color: #007bff;
+  color: white;
+  padding: 2px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+}
+
         .soru-cevap-list li {
-    border: 1px solid #e9ecef !important; 
+    border: 2px solid #e9ecef !important; 
 }
 
 
@@ -213,7 +357,7 @@ body {
   }
 
   .soru-cevap-list li {
-    width: 30vh !important;
+    width: 32vh !important;
     display: flex;
     align-items: flex-start;;
     border-bottom: 1px solid #f5f5f5;
@@ -349,7 +493,7 @@ body {
         *:contains("Results") {
             display: none !important;
         }
-  </style>
+</style>
 
   </head>
 
@@ -570,7 +714,7 @@ body {
 
 
   <!--START KATEGORİLER MOBİL 01-->
-  <div class="category-grid-mobil">
+  <!-- <div class="category-grid-mobil">
     <div class="category-item-mobil">
       <span class="icon-mobil">&#10148;</span> Soru Cevap
     </div>
@@ -601,7 +745,7 @@ body {
     <div class="category-item-mobil">
       <span class="icon-mobil">&#10148;</span> Köpek İsimleri
     </div>
-  </div>
+  </div> -->
 
   <!--START YUVA ARAYANLAR 02-->
 {{-- ARAMA + SIRALAMA --}}
